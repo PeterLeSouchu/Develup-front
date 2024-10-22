@@ -15,7 +15,7 @@ function Home() {
       <div className="flex justify-center">
         <a
           href="/signup"
-          className=" p-3  rounded-lg bg-darkgold text-white hover:bg-gold hover:scale-105 hover:text-black transition"
+          className=" p-3  rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 hover:text-white transition"
         >
           Rejoindre la communauté
         </a>
