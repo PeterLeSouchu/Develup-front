@@ -7,6 +7,10 @@ export default {
         montserrat: ['Montserrat', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
       },
+      colors: {
+        darkgold: '#B79178',
+        gold: '#D7C392',
+      },
     },
   },
   plugins: [],
