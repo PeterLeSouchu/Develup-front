@@ -1,6 +1,10 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function LegalNotices() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="min-h-84 p-20 backdrop-blur-mini">
       <h2>Définitions</h2>

@@ -75,7 +75,7 @@ function Home() {
             soutien d&apos;autres passionnés du développement web !
           </p>
         </div>
-        <p className="text-7xl backdrop-blur-mini m-20 text-darkgold">
+        <p className="text-6xl backdrop-blur-mini m-20 text-darkgold">
           En bref
         </p>
         <div
