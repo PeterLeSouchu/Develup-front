@@ -5,6 +5,7 @@ import { FaReact } from 'react-icons/fa';
 import { SiPhp } from 'react-icons/si';
 import { LuMessagesSquare } from 'react-icons/lu';
 import image from '../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,12 +44,12 @@ function Home() {
           <p>Progressez ensemble</p>
         </section>
         <div className="flex justify-center">
-          <a
-            href="/signup"
+          <Link
+            to="/signup"
             className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 hover:text-white transition shadow-xl"
           >
             Rejoindre la communauté
-          </a>
+          </Link>
         </div>
       </section>
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-20">

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
@@ -7,12 +9,12 @@ function NotFound() {
           Oops, il ne semble pas y avoir de projets ici ...
         </p>
 
-        <a
-          href="/"
+        <Link
+          to="/"
           className="bg-green mt-10 inline-block px-6 py-3 hover:bg-newgreen  text-darkgold font-semibold rounded-full shadow-md  transition duration-300 hover:scale-110"
         >
           Retour à l&apos;accueil
-        </a>
+        </Link>
       </div>
     </div>
   );
