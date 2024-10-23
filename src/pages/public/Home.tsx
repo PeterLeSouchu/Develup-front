@@ -1,37 +1,32 @@
+import { useEffect, useRef, useState } from 'react';
 import { FaArrowTrendUp, FaJava, FaPython } from 'react-icons/fa6';
 import { MdLaptopMac } from 'react-icons/md';
 import { FaReact } from 'react-icons/fa';
 import { SiPhp } from 'react-icons/si';
 import { LuMessagesSquare } from 'react-icons/lu';
-
-import { useEffect, useRef, useState } from 'react';
 import image from '../../assets/images/logo.png';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
-  const divRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // On arrête d'observer une fois que l'élément est visible
+          observer.disconnect(); // Deconnect once section is visible
         }
       },
-      {
-        threshold: 0.1, // Lorsque 10% de l'élément est visible
-      }
+      { threshold: 0.7 } // Start observation when 70% of section is visible
     );
 
-    if (divRef.current) {
-      observer.observe(divRef.current);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
 
     return () => {
-      if (divRef.current) {
-        observer.unobserve(divRef.current);
-      }
+      observer.disconnect();
     };
   }, []);
 
@@ -50,7 +45,7 @@ function Home() {
         <div className="flex justify-center">
           <a
             href="/signup"
-            className=" p-3  rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 hover:text-white transition shadow-xl"
+            className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 hover:text-white transition shadow-xl"
           >
             Rejoindre la communauté
           </a>
@@ -58,14 +53,14 @@ function Home() {
       </section>
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-20">
         <div className="flex flex-col items-center justify-center gap-10">
-          <p className=" md:text-xl w-3/4 mx-auto  backdrop-blur-mini">
+          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
             Develup est une plateforme innovante qui a pour objectif de faire
             collaborer des développeurs sur des projets web. Que vous cherchiez
             à rejoindre un groupe dynamique ou que vous souhaitiez trouver des
             développeurs passionnés pour concrétiser votre propre projet,
             Develup est là pour vous !
           </p>
-          <p className=" md:text-xl w-3/4 mx-auto  backdrop-blur-mini">
+          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
             Grâce à notre interface conviviale, vous pouvez explorer une
             multitude de projets en cours, vous connecter avec des développeurs
             aux compétences variées et échanger des idées en temps réel. Develup
@@ -74,34 +69,33 @@ function Home() {
             assuré de trouver des partenaires qui partagent vos ambitions et
             votre passion pour le développement.
           </p>
-          <p className=" md:text-xl w-3/4 mx-auto  backdrop-blur-mini">
+          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
             Rejoignez Develup et transformez vos visions en réalité avec le
             soutien d&apos;autres passionnés du développement web !
           </p>
         </div>
-        <p className=" text-7xl backdrop-blur-mini m-20 text-darkgold">
+        <p className="text-7xl backdrop-blur-mini m-20 text-darkgold">
           En bref
         </p>
         <div
-          ref={divRef}
+          ref={sectionRef} // Ajout de la référence ici
           className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap"
         >
           <div
             className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100 animate-fade-in delay-100' : 'opacity-0'
+              isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <p className="text-2xl font-semibold">
               Collaborez sur un projet web qui vous donne envie
             </p>
-
             <span className="text-8xl">
               <LuMessagesSquare />
             </span>
           </div>
           <div
             className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100 animate-fade-in delay-200' : 'opacity-0'
+              isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <p className="text-2xl font-semibold">
@@ -122,8 +116,8 @@ function Home() {
             </div>
           </div>
           <div
-            className={`bg-diagonal-gradient  w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-100 ease-in-out ${
-              isVisible ? 'opacity-100 animate-fade-in delay-1000' : 'opacity-0'
+            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
+              isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <p className="text-2xl font-semibold">
@@ -138,4 +132,5 @@ function Home() {
     </>
   );
 }
+
 export default Home;
