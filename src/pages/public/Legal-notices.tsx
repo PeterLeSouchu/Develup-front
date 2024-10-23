@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function LegalNotices() {
   return (
-    <div className="min-h-84 p-20">
+    <div className="min-h-84 p-20 backdrop-blur-mini">
       <h2>Définitions</h2>
       <p>
         <b>Client :</b> tout professionnel ou personne physique capable au sens
