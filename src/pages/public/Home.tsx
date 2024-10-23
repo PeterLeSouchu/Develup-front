@@ -19,7 +19,7 @@ function Home() {
           observer.disconnect(); // Deconnect once section is visible
         }
       },
-      { threshold: 0.7 } // Start observation when 70% of section is visible
+      { threshold: 0.1 } // Start observation when 70% of section is visible
     );
 
     if (sectionRef.current) {
@@ -33,13 +33,13 @@ function Home() {
 
   return (
     <>
-      <section className="h-92 ">
+      <section className="h-92 flex flex-col items-center justify-evenly ">
         <img
           src={image}
           alt="Logo-entier-Develup"
-          className="m-auto w-1/2 min-w-96 pt-10"
+          className=" w-1/2 min-w-96 max-w-4xl "
         />
-        <section className="flex flex-col justify-center items-center text-2xl lg:text-5xl md:text-3xl mt-6 mb-16 ">
+        <section className="flex flex-col justify-center items-center text-2xl lg:text-5xl md:text-3xl  ">
           <p className="mb-3">Développez ensemble,</p>
           <p>Progressez ensemble</p>
         </section>
@@ -54,14 +54,14 @@ function Home() {
       </section>
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-28">
         <div className="flex flex-col items-center justify-center gap-10">
-          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
+          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
             Develup est une plateforme innovante qui a pour objectif de faire
             collaborer des développeurs sur des projets web. Que vous cherchiez
             à rejoindre un groupe dynamique ou que vous souhaitiez trouver des
             développeurs passionnés pour concrétiser votre propre projet,
             Develup est là pour vous !
           </p>
-          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
+          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
             Grâce à notre interface conviviale, vous pouvez explorer une
             multitude de projets en cours, vous connecter avec des développeurs
             aux compétences variées et échanger des idées en temps réel. Develup
@@ -70,7 +70,7 @@ function Home() {
             assuré de trouver des partenaires qui partagent vos ambitions et
             votre passion pour le développement.
           </p>
-          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
+          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
             Rejoignez Develup et transformez vos visions en réalité avec le
             soutien d&apos;autres passionnés du développement web !
           </p>
@@ -88,7 +88,7 @@ function Home() {
             }`}
           >
             <p className="text-2xl font-semibold">
-              Collaborez sur un projet web qui vous donne envie
+              Collaborez sur des projets web qui vous donne envie
             </p>
             <span className="text-8xl">
               <LuMessagesSquare />
