@@ -10,11 +10,11 @@ import {
 
 import './styles/reset.css';
 import './styles/index.css';
-import Home from './pages/Home';
+import Home from './pages/public/Home';
 import NotFound from './pages/NotFound';
 import PublicLayout from './layouts/PublicLayout';
 import PrivateLayout from './layouts/PrivateLayout';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/private/Dashboard';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
