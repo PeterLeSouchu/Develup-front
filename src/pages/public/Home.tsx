@@ -4,8 +4,8 @@ import { MdLaptopMac } from 'react-icons/md';
 import { FaReact } from 'react-icons/fa';
 import { SiPhp } from 'react-icons/si';
 import { LuMessagesSquare } from 'react-icons/lu';
-import image from '../../assets/images/logo.png';
 import { Link } from 'react-router-dom';
+import image from '../../assets/images/logo.png';
 
 function Home() {
   const [isVisible, setIsVisible] = useState(false);
@@ -79,7 +79,7 @@ function Home() {
           En bref
         </p>
         <div
-          ref={sectionRef} // Ajout de la référence ici
+          ref={sectionRef}
           className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap"
         >
           <div
