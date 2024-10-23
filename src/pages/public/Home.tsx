@@ -52,7 +52,7 @@ function Home() {
           </Link>
         </div>
       </section>
-      <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-20">
+      <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-28">
         <div className="flex flex-col items-center justify-center gap-10">
           <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini">
             Develup est une plateforme innovante qui a pour objectif de faire

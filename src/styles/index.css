@@ -44,3 +44,11 @@
 body {
   font-family: montserrat;
 }
+
+/* Pour les mentions légales*/
+h2 {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #b79178;
+}
