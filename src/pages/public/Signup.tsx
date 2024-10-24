@@ -20,11 +20,11 @@ function Signup() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-84">
-      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-4 flex flex-col items-center">
+    <div className="flex items-center justify-center h-84">
+      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-8 flex flex-col items-center">
         <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
         <form className="flex flex-col items-center">
-          <div className="flex flex-col gap-2 my-3 max-w-96">
+          <div className="flex flex-col gap-2 my-5 max-w-96">
             <label className="text-md" htmlFor="e-mail">
               E-mail
             </label>
@@ -35,7 +35,7 @@ function Signup() {
               placeholder="Entrez votre adresse mail"
             />
           </div>
-          <div className="flex flex-col gap-2 mb-3 max-w-96">
+          <div className="flex flex-col gap-2 mb-5 max-w-96">
             <label className="text-md" htmlFor="pseudo">
               Pseudo
             </label>
@@ -46,7 +46,7 @@ function Signup() {
               placeholder="Entrez votre pseudo"
             />
           </div>
-          <div className="flex flex-col gap-2 mb-3 max-w-80 relative">
+          <div className="flex flex-col gap-2 mb-5 max-w-80 relative">
             <label className="text-md" htmlFor="password">
               Mot de passe
             </label>
@@ -71,7 +71,7 @@ function Signup() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 mb-3 max-w-80 relative">
+          <div className="flex flex-col gap-2 mb-5 max-w-80 relative">
             <label className="text-md" htmlFor="confirm-password">
               Confirmer le mot de passe
             </label>
