@@ -10,6 +10,7 @@ export default {
       colors: {
         darkgold: '#B79178',
         gold: '#D7C392',
+        lightgold: '#e9ddbf',
       },
       height: {
         8: '8vh',

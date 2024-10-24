@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 
@@ -12,7 +13,7 @@ function Login() {
 
   return (
     <div className="flex items-center justify-center h-84">
-      <div className="border-2 shadow-lg rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-10 flex flex-col items-center">
+      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-10 flex flex-col items-center">
         <img className="w-1/2 min-w-60" src={image} alt="Logo-entier-Develup" />
         <form className="w-full flex flex-col items-center">
           <div className="flex flex-col gap-2 my-8 max-w-96">
@@ -50,9 +51,15 @@ function Login() {
               </button>
             </div>
           </div>
+          <Link
+            to="/forget-password"
+            className="underline underline-offset-2 mb-6"
+          >
+            Mot de passe oublié ?
+          </Link>
 
           <button
-            className="p-2 rounded-3xl bg-gold hover:bg-darkgold transition"
+            className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
             type="button"
           >
             Se connecter

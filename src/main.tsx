@@ -17,6 +17,7 @@ import PrivateLayout from './layouts/PrivateLayout';
 import Dashboard from './pages/private/Dashboard';
 import LegalNotices from './pages/public/Legal-notices';
 import Login from './pages/public/Login';
+import Signup from './pages/public/Signup';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<Home />} />
         <Route path="/legal-notices" element={<LegalNotices />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Route>
 
       {/* <Route element={<ProtectedRoute />}>
