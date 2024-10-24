@@ -1,6 +1,7 @@
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
+
 import image from '../../assets/images/logo.png';
 
 function Signup() {
@@ -24,7 +25,7 @@ function Signup() {
         <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
         <form className="flex flex-col items-center">
           <div className="flex flex-col gap-2 my-3 max-w-96">
-            <label className="text-lg" htmlFor="e-mail">
+            <label className="text-md" htmlFor="e-mail">
               E-mail
             </label>
             <input
@@ -35,7 +36,7 @@ function Signup() {
             />
           </div>
           <div className="flex flex-col gap-2 mb-3 max-w-96">
-            <label className="text-lg" htmlFor="pseudo">
+            <label className="text-md" htmlFor="pseudo">
               Pseudo
             </label>
             <input
@@ -46,7 +47,7 @@ function Signup() {
             />
           </div>
           <div className="flex flex-col gap-2 mb-3 max-w-80 relative">
-            <label className="text-lg" htmlFor="password">
+            <label className="text-md" htmlFor="password">
               Mot de passe
             </label>
             <div className="relative">
@@ -69,9 +70,10 @@ function Signup() {
               </button>
             </div>
           </div>
+
           <div className="flex flex-col gap-2 mb-3 max-w-80 relative">
-            <label className="text-lg" htmlFor="confirm-password">
-              Confirmation de mot de passe
+            <label className="text-md" htmlFor="confirm-password">
+              Confirmer le mot de passe
             </label>
             <div className="relative">
               <input
