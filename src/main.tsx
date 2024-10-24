@@ -18,6 +18,7 @@ import Dashboard from './pages/private/Dashboard';
 import LegalNotices from './pages/public/Legal-notices';
 import Login from './pages/public/Login';
 import Signup from './pages/public/Signup';
+import Contact from './pages/public/Contact';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
         <Route path="/legal-notices" element={<LegalNotices />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/contact" element={<Contact />} />
       </Route>
 
       {/* <Route element={<ProtectedRoute />}>
