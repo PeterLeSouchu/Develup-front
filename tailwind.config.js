@@ -16,6 +16,7 @@ export default {
         8: '8vh',
         84: '84vh',
         30: '30rem',
+        33: '33rem',
         92: '92vh',
       },
       width: {

@@ -1,12 +1,20 @@
+import { useForm } from 'react-hook-form';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
+import { FormValues } from '../../types';
 
 import image from '../../assets/images/logo.png';
 
 function Signup() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
 
   function hanldeChangetypePassword(): void {
     setTypePassword((prevType) =>
@@ -18,13 +26,19 @@ function Signup() {
       prevType === 'password' ? 'text' : 'password'
     );
   }
+  function onSubmit(data: FormValues) {
+    console.log(data);
+  }
 
   return (
-    <div className="flex items-center justify-center h-84">
-      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-8 flex flex-col items-center">
+    <div className="flex items-center justify-center min-h-84 p-10 ">
+      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80  max-w-lg p-8 flex flex-col items-center ">
         <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
-        <form className="flex flex-col items-center">
-          <div className="flex flex-col gap-2 my-5 max-w-96">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center"
+        >
+          <div className="flex flex-col gap-2 my-3 max-w-96">
             <label className="text-md" htmlFor="e-mail">
               E-mail
             </label>
@@ -33,9 +47,13 @@ function Signup() {
               type="text"
               id="e-mail"
               placeholder="Entrez votre adresse mail"
+              {...register('email', { required: true })}
             />
+            {errors.email && (
+              <p className="text-red-600 text-sm">L&apos;email est requis</p>
+            )}
           </div>
-          <div className="flex flex-col gap-2 mb-5 max-w-96">
+          <div className="flex flex-col gap-2 mb-3 max-w-96">
             <label className="text-md" htmlFor="pseudo">
               Pseudo
             </label>
@@ -44,9 +62,13 @@ function Signup() {
               type="text"
               id="pseudo"
               placeholder="Entrez votre pseudo"
+              {...register('pseudo', { required: true })}
             />
+            {errors.pseudo && (
+              <p className="text-red-600 text-sm">Le pseudo est requis</p>
+            )}
           </div>
-          <div className="flex flex-col gap-2 mb-5 max-w-80 relative">
+          <div className="flex flex-col gap-2 mb-3 max-w-80 ">
             <label className="text-md" htmlFor="password">
               Mot de passe
             </label>
@@ -56,6 +78,7 @@ function Signup() {
                 type={typePassword}
                 id="password"
                 placeholder="Entrez votre mot de passe"
+                {...register('password', { required: true })}
               />
               <button
                 type="button"
@@ -69,18 +92,22 @@ function Signup() {
                 )}
               </button>
             </div>
+            {errors.password && (
+              <p className="text-red-600 text-sm">Le mot de passe est requis</p>
+            )}
           </div>
 
-          <div className="flex flex-col gap-2 mb-5 max-w-80 relative">
+          <div className="flex flex-col gap-2 mb-3 max-w-80 ">
             <label className="text-md" htmlFor="confirm-password">
               Confirmer le mot de passe
             </label>
             <div className="relative">
               <input
-                className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10"
+                className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 "
                 type={typeConfirmPassword}
                 id="confirm-password"
                 placeholder="Confirmer votre mot de passe"
+                {...register('confirmPassword', { required: true })}
               />
               <button
                 type="button"
@@ -94,11 +121,14 @@ function Signup() {
                 )}
               </button>
             </div>
+            {errors.confirmPassword && (
+              <p className="text-red-600 text-sm">Le mot de passe est requis</p>
+            )}
           </div>
 
           <button
             className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
-            type="button"
+            type="submit"
           >
             S&apos;inscrire
           </button>
