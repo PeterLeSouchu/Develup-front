@@ -52,7 +52,7 @@ function Login() {
             </div>
           </div>
           <Link
-            to="/forget-password"
+            to="/forgot-password"
             className="underline underline-offset-2 mb-6"
           >
             Mot de passe oublié ?
