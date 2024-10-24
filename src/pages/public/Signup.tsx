@@ -100,7 +100,7 @@ function Signup() {
             className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
             type="button"
           >
-            Se connecter
+            S&apos;inscrire
           </button>
         </form>
       </div>
