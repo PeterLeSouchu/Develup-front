@@ -16,6 +16,7 @@ import PublicLayout from './layouts/PublicLayout';
 import PrivateLayout from './layouts/PrivateLayout';
 import Dashboard from './pages/private/Dashboard';
 import LegalNotices from './pages/public/Legal-notices';
+import Login from './pages/public/Login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route element={<PublicLayout />} errorElement={<NotFound />}>
         <Route path="/" element={<Home />} />
         <Route path="/legal-notices" element={<LegalNotices />} />
+        <Route path="/login" element={<Login />} />
       </Route>
 
       {/* <Route element={<ProtectedRoute />}>

@@ -43,14 +43,13 @@ function Home() {
           <p className="mb-3">Développez ensemble,</p>
           <p>Progressez ensemble</p>
         </section>
-        <div className="flex justify-center">
-          <Link
-            to="/signup"
-            className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 hover:text-white transition shadow-xl"
-          >
-            Rejoindre la communauté
-          </Link>
-        </div>
+
+        <Link
+          to="/signup"
+          className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 mb-10 hover:text-white transition shadow-xl"
+        >
+          Rejoindre la communauté
+        </Link>
       </section>
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-28">
         <div className="flex flex-col items-center justify-center gap-10">
