@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <header className="h-8 backdrop-blur-mini  md:text-lg flex items-center px-4">
+    <header className="h-8 border-b-2 border-slate-200  md:text-lg flex items-center px-4">
       <nav className="flex justify-between items-center w-screen">
         <Link
           to="/"

@@ -48,7 +48,7 @@ function Signup() {
               id="e-mail"
               placeholder="Entrez votre adresse mail"
               {...register('email', {
-                required: true,
+                required: { value: true, message: "L'email est requis" },
                 minLength: { value: 2, message: '2 caracteres au moins' },
               })}
             />
