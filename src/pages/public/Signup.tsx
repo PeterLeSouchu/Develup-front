@@ -47,10 +47,13 @@ function Signup() {
               type="text"
               id="e-mail"
               placeholder="Entrez votre adresse mail"
-              {...register('email', { required: true })}
+              {...register('email', {
+                required: true,
+                minLength: { value: 2, message: '2 caracteres au moins' },
+              })}
             />
             {errors.email && (
-              <p className="text-red-600 text-sm">L&apos;email est requis</p>
+              <p className="text-red-600 text-sm">{errors.email.message}</p>
             )}
           </div>
           <div className="flex flex-col gap-2 mb-3 max-w-96">
