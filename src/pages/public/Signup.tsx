@@ -1,10 +1,11 @@
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
 import { FormValues } from '../../types';
-
 import image from '../../assets/images/logo.png';
+import tryCatchWrapper from '../../utils/try-catch-wrapper';
 
 function Signup() {
   const [typePassword, setTypePassword] = useState('password');
@@ -26,8 +27,18 @@ function Signup() {
       prevType === 'password' ? 'text' : 'password'
     );
   }
-  function onSubmit(data: FormValues) {
-    console.log(data);
+  async function onSubmit(data: FormValues) {
+    await tryCatchWrapper(async () => {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/signup`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(`Voici le code OTP : ${res.data.OTP}`);
+      console.log(data);
+    });
   }
 
   return (
@@ -110,7 +121,7 @@ function Signup() {
                 type={typeConfirmPassword}
                 id="confirm-password"
                 placeholder="Confirmer votre mot de passe"
-                {...register('confirmPassword', { required: true })}
+                {...register('passwordConfirm', { required: true })}
               />
               <button
                 type="button"
@@ -124,7 +135,7 @@ function Signup() {
                 )}
               </button>
             </div>
-            {errors.confirmPassword && (
+            {errors.passwordConfirm && (
               <p className="text-red-600 text-sm">Le mot de passe est requis</p>
             )}
           </div>
