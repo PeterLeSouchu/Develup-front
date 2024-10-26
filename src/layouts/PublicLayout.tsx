@@ -4,9 +4,9 @@ import Header from '../components/public/Header';
 
 function PublicLayout() {
   return (
-    <div>
+    <div className="bg-grid-pattern">
       <Header />
-      <main className="min-h-84 bg-grid-pattern">
+      <main className="min-h-80">
         <Outlet />
       </main>
       <Footer />

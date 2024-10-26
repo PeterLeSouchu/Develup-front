@@ -11,20 +11,27 @@ export default {
         darkgold: '#B79178',
         gold: '#D7C392',
         lightgold: '#e9ddbf',
+        black: '#303030',
       },
       height: {
         8: '8vh',
+        10: '10vh',
         84: '84vh',
+        80: '80vh',
         30: '30rem',
         33: '33rem',
         92: '92vh',
       },
       width: {
         25: '25%',
+        headerMd: '28rem',
+        headerLg: '35rem',
       },
       minHeight: {
         8: '8vh',
+        10: '10vh',
         84: '84vh',
+        80: '80vh',
         100: '100vh',
       },
       backdropBlur: {

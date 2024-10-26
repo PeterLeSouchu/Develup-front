@@ -57,8 +57,8 @@ function Signup() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-84 p-10 ">
-      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80  max-w-lg p-8 flex flex-col items-center ">
+    <div className="flex items-center justify-center p-10 ">
+      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80  max-w-lg p-4 flex flex-col items-center ">
         <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
         {otpModal ? (
           <div>

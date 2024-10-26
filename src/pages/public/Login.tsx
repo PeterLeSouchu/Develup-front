@@ -12,12 +12,12 @@ function Login() {
   }
 
   return (
-    <div className="flex items-center justify-center h-84">
+    <div className="flex items-center justify-center min-h-80">
       <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-10 flex flex-col items-center">
-        <img className="w-1/2 min-w-60" src={image} alt="Logo-entier-Develup" />
+        <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
         <form className="w-full flex flex-col items-center">
-          <div className="flex flex-col gap-2 my-8 max-w-96">
-            <label className="text-lg" htmlFor="e-mail">
+          <div className="flex flex-col gap-2 my-3 max-w-96">
+            <label className="text-md" htmlFor="e-mail">
               E-mail
             </label>
             <input
@@ -27,8 +27,8 @@ function Login() {
               placeholder="Entrez votre adresse mail"
             />
           </div>
-          <div className="flex flex-col gap-2 mb-8 max-w-80 relative">
-            <label className="text-lg" htmlFor="mot-de-passe">
+          <div className="flex flex-col gap-2 mb-3 max-w-80 relative">
+            <label className="text-md" htmlFor="mot-de-passe">
               Mot de passe
             </label>
             <div className="relative">

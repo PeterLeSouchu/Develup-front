@@ -3,23 +3,28 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   return (
-    <header className="h-8 border-b-2 border-slate-200  md:text-lg flex items-center px-4">
-      <nav className="flex justify-between items-center w-screen">
+    <header className="md:text-lg flex items-center justify-center pt-6 h-10 ">
+      <nav className="flex items-center  rounded-full bg-gold lg:w-headerLg md:w-headerMd  ">
         <Link
           to="/"
-          className="text-darkgold font-semibold flex justify-center items-center gap-2"
+          className="text-black font-semibold flex-1 flex justify-center text-center items-center gap-2 py-2 hover:bg-darkgold pl-4 rounded-l-full transition"
         >
           <FaHome />
           Accueil
         </Link>
-        <div>
-          <Link to="/login" className="hover:text-darkgold mr-5 transition">
-            Se connecter
-          </Link>
-          <Link to="/signup" className="hover:text-darkgold  transition">
-            S&apos;inscrire
-          </Link>
-        </div>
+
+        <Link
+          to="/login"
+          className=" hover:bg-darkgold transition flex-1   min-w-36 text-center py-2"
+        >
+          Se connecter
+        </Link>
+        <Link
+          to="/signup"
+          className="hover:bg-darkgold py-2 pr-4 flex-1 rounded-r-full text-center   transition"
+        >
+          S&apos;inscrire
+        </Link>
       </nav>
     </header>
   );

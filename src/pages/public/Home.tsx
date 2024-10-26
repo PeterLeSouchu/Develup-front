@@ -37,9 +37,9 @@ function Home() {
         <img
           src={image}
           alt="Logo-entier-Develup"
-          className=" w-1/2 min-w-96 max-w-4xl "
+          className=" w-1/2 min-w-96 max-w-2xl  "
         />
-        <section className="flex flex-col justify-center items-center text-2xl lg:text-5xl md:text-3xl  ">
+        <section className="flex flex-col justify-center items-center text-2xl lg:text-3xl  backdrop-blur-mini">
           <p className="mb-3">Développez ensemble,</p>
           <p>Progressez ensemble</p>
         </section>
@@ -51,7 +51,7 @@ function Home() {
           Rejoindre la communauté
         </Link>
       </section>
-      <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-28">
+      <section className="flex flex-col items-center justify-evenly text-center min-h-100 pb-20">
         <div className="flex flex-col items-center justify-center gap-10">
           <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
             Develup est une plateforme innovante qui a pour objectif de faire
