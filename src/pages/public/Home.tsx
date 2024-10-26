@@ -46,7 +46,7 @@ function Home() {
 
         <Link
           to="/signup"
-          className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 mb-10 hover:text-white transition shadow-xl"
+          className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold mb-10 hover:text-white transition shadow-xl"
         >
           Rejoindre la communauté
         </Link>
