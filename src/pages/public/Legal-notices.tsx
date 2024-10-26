@@ -6,7 +6,7 @@ function LegalNotices() {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="px-10 md:px-20 backdrop-blur-mini">
+    <div className="px-10 md:px-20 backdrop-blur-mini mb-28">
       <h2>Définitions</h2>
       <p>
         <b>Client :</b> tout professionnel ou personne physique capable au sens
