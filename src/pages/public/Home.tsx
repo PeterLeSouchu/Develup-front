@@ -82,7 +82,7 @@ function Home() {
           className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap"
         >
           <div
-            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
+            className={`bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -94,7 +94,7 @@ function Home() {
             </span>
           </div>
           <div
-            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
+            className={`bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
@@ -116,7 +116,7 @@ function Home() {
             </div>
           </div>
           <div
-            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
+            className={`bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
