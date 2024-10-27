@@ -20,6 +20,8 @@ import Signin from './pages/public/Signin';
 import Signup from './pages/public/Signup';
 import ForgotPassword from './pages/public/Forgot-password';
 import Conditions from './pages/public/Conditions';
+import PrivateRoute from './utils/Private-route';
+import PublicRoute from './utils/Public-route';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -28,23 +30,21 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<PublicLayout />} errorElement={<NotFound />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/legal-notices" element={<LegalNotices />} />
-        <Route path="/login" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/general-conditions-of-use" element={<Conditions />} />
+      <Route element={<PublicRoute />}>
+        <Route element={<PublicLayout />} errorElement={<NotFound />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/legal-notices" element={<LegalNotices />} />
+          <Route path="/login" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/general-conditions-of-use" element={<Conditions />} />
+        </Route>
       </Route>
 
-      {/* <Route element={<ProtectedRoute />}>
+      <Route element={<PrivateRoute />}>
         <Route element={<PrivateLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-      </Route> */}
-
-      <Route element={<PrivateLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
       </Route>
     </>
   )

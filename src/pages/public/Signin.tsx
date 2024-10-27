@@ -7,9 +7,14 @@ import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 import { FormSignin } from '../../types';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
+import useAppStore from '../../store';
 
 function Signin() {
   const [type, setType] = useState('password');
+  const { changeLogged, logged } = useAppStore();
+
+  console.log('de login');
+  console.log(logged);
 
   function hanldeChangetype(): void {
     setType((prevType) => (prevType === 'password' ? 'text' : 'password'));
@@ -26,6 +31,7 @@ function Signin() {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/signin`, data, {
         withCredentials: true,
       });
+      changeLogged();
     });
   }
 

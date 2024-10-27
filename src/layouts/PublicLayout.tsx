@@ -1,8 +1,26 @@
-import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from '../components/public/Footer';
 import Header from '../components/public/Header';
+import useAppStore from '../store';
 
 function PublicLayout() {
+  const navigate = useNavigate();
+  const { logged } = useAppStore();
+
+  /* 
+  Using useEffect to verify if user is connected in addition to the verification done in the public route component
+ */
+
+  useEffect(() => {
+    function isLogged() {
+      if (logged) {
+        navigate('/dashboard');
+      }
+    }
+    isLogged();
+  }, [logged, navigate]);
+
   return (
     <div className="bg-grid-pattern">
       <Header />

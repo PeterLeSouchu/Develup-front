@@ -13,4 +13,5 @@ export interface FormSignin {
 
 export interface AppStore {
   logged: boolean;
+  changeLogged: () => void;
 }
