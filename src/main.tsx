@@ -18,7 +18,6 @@ import Dashboard from './pages/private/Dashboard';
 import LegalNotices from './pages/public/Legal-notices';
 import Login from './pages/public/Login';
 import Signup from './pages/public/Signup';
-
 import ForgotPassword from './pages/public/Forgot-password';
 
 const root = ReactDOM.createRoot(

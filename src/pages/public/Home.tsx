@@ -33,7 +33,7 @@ function Home() {
 
   return (
     <>
-      <section className="h-92 flex flex-col items-center justify-evenly ">
+      <section className="h-92 flex flex-col items-center justify-evenly my-12 ">
         <img
           src={image}
           alt="Logo-entier-Develup"
