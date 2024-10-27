@@ -10,3 +10,7 @@ export interface FormSignin {
   email: string;
   password: string;
 }
+
+export interface AppStore {
+  logged: boolean;
+}
