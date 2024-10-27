@@ -43,9 +43,6 @@ export default {
           '100%': { opacity: '1' },
         },
       },
-      animation: {
-        'fade-in': 'fadeIn 1s ease-in-out forwards',
-      },
     },
   },
   plugins: [],

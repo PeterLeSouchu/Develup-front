@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { FaArrowTrendUp, FaJava, FaPython } from 'react-icons/fa6';
 import { MdLaptopMac } from 'react-icons/md';
 import { FaReact } from 'react-icons/fa';
@@ -8,32 +7,9 @@ import { Link } from 'react-router-dom';
 import image from '../../assets/images/logo.png';
 
 function Home() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Deconnect once section is visible
-        }
-      },
-      { threshold: 0.1 } // Start observation when 70% of section is visible
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <>
-      <section className="h-92 flex flex-col items-center justify-evenly my-12 ">
+      <section className=" min-h-80 flex flex-col items-center justify-evenly my-12 ">
         <img
           src={image}
           alt="Logo-entier-Develup"
@@ -46,7 +22,7 @@ function Home() {
 
         <Link
           to="/signup"
-          className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold mb-10 hover:text-white transition shadow-xl"
+          className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold my-10 hover:text-white transition shadow-xl"
         >
           Rejoindre la communauté
         </Link>
@@ -77,15 +53,8 @@ function Home() {
         <p className="text-6xl backdrop-blur-mini m-20 text-darkgold">
           En bref
         </p>
-        <div
-          ref={sectionRef}
-          className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap"
-        >
-          <div
-            className={`bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap">
+          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border">
             <p className="text-2xl font-semibold">
               Collaborez sur des projets web qui vous donne envie
             </p>
@@ -93,11 +62,7 @@ function Home() {
               <LuMessagesSquare />
             </span>
           </div>
-          <div
-            className={`bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border">
             <p className="text-2xl font-semibold">
               Travaillez ensemble, à votre rythme et selon vos technologies
             </p>
@@ -115,11 +80,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div
-            className={`bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border">
             <p className="text-2xl font-semibold">
               Progressez, gagnez en expérience et améliorer votre portfolio
             </p>
