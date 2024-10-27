@@ -196,6 +196,24 @@ function Signup() {
                 </p>
               )}
             </div>
+            <div className="mb-5 flex">
+              <input
+                type="checkbox"
+                id="cgu"
+                {...register('cgu', {
+                  required: {
+                    value: true,
+                    message: 'Veuillez accepter les CGU',
+                  },
+                })}
+              />
+              <label htmlFor="cgu" className="ml-3 ">
+                J&apos;accepte les conditions générales d&apos;utilisation
+              </label>
+            </div>
+            {errors.cgu && (
+              <p className="text-red-600 mb-5 text-sm">{errors.cgu.message}</p>
+            )}
 
             <button
               className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"

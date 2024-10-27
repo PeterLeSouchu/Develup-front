@@ -32,12 +32,11 @@ function Conditions() {
             3. Communication entre développeurs
           </h2>
           <p>
-            Develup est présenté comme un prototype expérimental, conçu pour par
-            un développeur dans le but d&apos; enrichir son portfolio. Cette
-            plateforme permet la collaboration entre développeurs sur des
-            projets web, mais n’est pas destinée à être utilisée comme une
-            véritable application. Elle est mise à disposition gratuitement, à
-            titre de démonstration.
+            Develup permet aux développeurs de collaborer et de communiquer en
+            temps réel sur des projets web. Les utilisateurs sont tenus de
+            respecter les règles de courtoisie et de ne pas diffuser de contenu
+            offensant, illégal ou inapproprié dans la messagerie de la
+            plateforme.
           </p>
         </div>
         <div className="flex flex-col items-start gap-1">

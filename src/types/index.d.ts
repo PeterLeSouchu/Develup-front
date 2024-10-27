@@ -3,4 +3,5 @@ export interface FormValues {
   pseudo: string;
   password: string;
   passwordConfirm: string;
+  cgu: boolean;
 }
