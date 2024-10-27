@@ -19,7 +19,7 @@ import LegalNotices from './pages/public/Legal-notices';
 import Login from './pages/public/Login';
 import Signup from './pages/public/Signup';
 import ForgotPassword from './pages/public/Forgot-password';
-import CGU from './pages/public/CGU';
+import Conditions from './pages/public/Conditions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -34,7 +34,7 @@ const router = createBrowserRouter(
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/general-conditions-of-use" element={<CGU />} />
+        <Route path="/general-conditions-of-use" element={<Conditions />} />
       </Route>
 
       {/* <Route element={<ProtectedRoute />}>

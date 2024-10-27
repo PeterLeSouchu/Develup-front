@@ -1,4 +1,4 @@
-function CGU() {
+function Conditions() {
   return (
     <div className="max-w-3xl px-10 min-h-80 flex justify-center items-center  py-14 m-auto">
       <div className="flex flex-col gap-6 justify-center">
@@ -100,4 +100,4 @@ function CGU() {
     </div>
   );
 }
-export default CGU;
+export default Conditions;
