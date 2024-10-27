@@ -16,7 +16,7 @@ import PublicLayout from './layouts/PublicLayout';
 import PrivateLayout from './layouts/PrivateLayout';
 import Dashboard from './pages/private/Dashboard';
 import LegalNotices from './pages/public/Legal-notices';
-import Login from './pages/public/Login';
+import Signin from './pages/public/Signin';
 import Signup from './pages/public/Signup';
 import ForgotPassword from './pages/public/Forgot-password';
 import Conditions from './pages/public/Conditions';
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
       <Route element={<PublicLayout />} errorElement={<NotFound />}>
         <Route path="/" element={<Home />} />
         <Route path="/legal-notices" element={<LegalNotices />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/general-conditions-of-use" element={<Conditions />} />

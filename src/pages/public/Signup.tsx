@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
-import { FormValues } from '../../types';
+import { Link } from 'react-router-dom';
+import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
 
@@ -16,7 +17,7 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormSignup>();
 
   const {
     register: registerOtp,
@@ -34,7 +35,7 @@ function Signup() {
       prevType === 'password' ? 'text' : 'password'
     );
   }
-  async function onSubmit(data: FormValues) {
+  async function onSubmit(data: FormSignup) {
     await tryCatchWrapper(async () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/signup/otp`, data, {
         withCredentials: true,
@@ -208,7 +209,10 @@ function Signup() {
                 })}
               />
               <label htmlFor="cgu" className="ml-3 ">
-                J&apos;accepte les conditions générales d&apos;utilisation
+                J&apos;accepte les{' '}
+                <Link to="/general-conditions-of-use" className="underline">
+                  conditions générales d&apos;utilisation
+                </Link>
               </label>
             </div>
             {errors.cgu && (
