@@ -17,7 +17,7 @@ export const useSettingsStore = create<SettingsStore>()(
   persist(
     (set) => ({
       loading: false,
-      changeLoading: (isLoading) => set({ loading: isLoading }),
+      changeLoading: () => set((state) => ({ loading: !state.loading })),
     }),
     {
       name: 'settings-storage',
