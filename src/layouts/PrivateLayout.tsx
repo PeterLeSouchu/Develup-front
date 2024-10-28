@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Footer from '../components/private/Footer';
 import Header from '../components/private/Header';
-import useAppStore from '../store';
+import { useUserStore } from '../store';
 
 function PrivateLayout() {
   const navigate = useNavigate();
-  const { logged } = useAppStore();
+  const { logged } = useUserStore();
 
   /* 
   Using useEffect to verify if user is connected in addition to the verification done in the private route component

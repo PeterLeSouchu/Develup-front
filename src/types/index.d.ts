@@ -16,7 +16,12 @@ export interface ResetPasswordForm {
   passwordConfirm: string;
 }
 
-export interface AppStore {
+export interface UserStore {
   logged: boolean;
   changeLogged: () => void;
+}
+
+export interface SettingsStore {
+  loading: boolean;
+  changeLoading: () => void;
 }

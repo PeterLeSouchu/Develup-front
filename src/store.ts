@@ -1,17 +1,26 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AppStore } from './types';
+import { UserStore, SettingsStore } from './types';
 
-const useAppStore = create<AppStore>()(
+export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
       logged: false,
       changeLogged: () => set((state) => ({ logged: !state.logged })),
     }),
     {
-      name: 'app-storage', // Le nom de la clé dans le localStorage
+      name: 'user-storage', // Le nom de la clé dans le localStorage
     }
   )
 );
-
-export default useAppStore;
+export const useSettingsStore = create<SettingsStore>()(
+  persist(
+    (set) => ({
+      loading: false,
+      changeLoading: () => set((state) => ({ loading: !state.loading })),
+    }),
+    {
+      name: 'settings-storage',
+    }
+  )
+);
