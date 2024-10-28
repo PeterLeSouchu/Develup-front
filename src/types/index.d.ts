@@ -23,5 +23,5 @@ export interface UserStore {
 
 export interface SettingsStore {
   loading: boolean;
-  changeLoading: () => void;
+  changeLoading: (isLoading: boolean) => void;
 }

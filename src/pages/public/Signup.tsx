@@ -7,17 +7,26 @@ import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
-import { useUserStore } from '../../store';
+import { useUserStore, useSettingsStore } from '../../store';
 import {
   hanldeChangetypeConfirmPassword,
   hanldeChangetypePassword,
 } from '../../utils/Password-visibility';
+import Loader from '../../components/Loader';
 
 function Signup() {
+  // Change password input to text
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
+
+  // Display otp form
   const [otpModal, setOtpModal] = useState<boolean>(false);
+
+  // change state connected to true
   const { changeLogged } = useUserStore();
+
+  // Display loader beacause nodemail take a lot of time
+  const { changeLoading, loading } = useSettingsStore();
 
   const {
     register,
@@ -32,12 +41,16 @@ function Signup() {
   } = useForm<{ userOTPcode: string }>();
 
   async function onSubmit(data: FormSignup) {
-    await tryCatchWrapper(async () => {
+    changeLoading(true);
+    try {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/signup/otp`, data, {
         withCredentials: true,
       });
-      setOtpModal(true);
-    });
+      changeLoading(false);
+      setOtpModal((state) => !state);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function onSubmitOTP(data: { userOTPcode: string }) {
@@ -53,10 +66,13 @@ function Signup() {
     });
   }
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="flex items-center justify-center p-10 min-h-80 ">
-      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80  max-w-lg p-4 flex flex-col items-center ">
+      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-4 flex flex-col items-center ">
         <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
+
         {otpModal ? (
           <div>
             <form
@@ -71,13 +87,13 @@ function Signup() {
                   className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
                   type="text"
                   id="otp"
-                  placeholder="Entrez le code OTP recu par mail"
+                  placeholder="Entrez le code OTP reçu par mail"
                   {...registerOtp('userOTPcode', {
                     required: {
                       value: true,
-                      message: 'Saisissez le code OTP recu par mail',
+                      message: 'Saisissez le code OTP reçu par mail',
                     },
-                    minLength: { value: 6, message: '6 caracteres au moins' },
+                    minLength: { value: 6, message: '6 caractères au moins' },
                   })}
                 />
                 {errorOtp.userOTPcode && (
@@ -100,23 +116,24 @@ function Signup() {
             className="flex flex-col items-center"
           >
             <div className="flex flex-col gap-2 my-3 max-w-96">
-              <label className="text-md" htmlFor="e-mail">
+              <label className="text-md" htmlFor="email">
                 E-mail
               </label>
               <input
                 className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
-                type="text"
-                id="e-mail"
+                type="email"
+                id="email"
                 placeholder="Entrez votre adresse mail"
                 {...register('email', {
                   required: { value: true, message: "L'email est requis" },
-                  minLength: { value: 2, message: '2 caracteres au moins' },
+                  minLength: { value: 2, message: '2 caractères au moins' },
                 })}
               />
               {errors.email && (
                 <p className="text-red-600 text-sm">{errors.email.message}</p>
               )}
             </div>
+
             <div className="flex flex-col gap-2 mb-3 max-w-96">
               <label className="text-md" htmlFor="pseudo">
                 Pseudo
@@ -132,13 +149,14 @@ function Signup() {
                 <p className="text-red-600 text-sm">Le pseudo est requis</p>
               )}
             </div>
+
             <div className="flex flex-col gap-2 mb-3 max-w-80 ">
               <label className="text-md" htmlFor="password">
                 Mot de passe
               </label>
               <div className="relative">
                 <input
-                  className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10"
+                  className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
                   type={typePassword}
                   id="password"
                   placeholder="Entrez votre mot de passe"
@@ -169,10 +187,10 @@ function Signup() {
               </label>
               <div className="relative">
                 <input
-                  className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 "
+                  className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 "
                   type={typeConfirmPassword}
                   id="confirm-password"
-                  placeholder="Entrez votre mot de passe"
+                  placeholder="Confirmez votre mot de passe"
                   {...register('passwordConfirm', { required: true })}
                 />
                 <button
@@ -191,11 +209,12 @@ function Signup() {
               </div>
               {errors.passwordConfirm && (
                 <p className="text-red-600 text-sm">
-                  Le mot de passe est requis
+                  La confirmation du mot de passe est requise
                 </p>
               )}
             </div>
-            <div className="mb-5 flex  max-w-80">
+
+            <div className="mb-5 flex max-w-80">
               <input
                 type="checkbox"
                 id="cgu"
