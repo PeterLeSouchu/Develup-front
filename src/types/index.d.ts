@@ -11,6 +11,11 @@ export interface FormSignin {
   password: string;
 }
 
+export interface ResetPasswordForm {
+  password: string;
+  passwordConfirm: string;
+}
+
 export interface AppStore {
   logged: boolean;
   changeLogged: () => void;

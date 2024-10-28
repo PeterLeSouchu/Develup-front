@@ -22,6 +22,7 @@ import ForgotPassword from './pages/public/Forgot-password';
 import Conditions from './pages/public/Conditions';
 import PrivateRoute from './utils/Private-route';
 import PublicRoute from './utils/Public-route';
+import ResetPassword from './pages/public/Reset-password';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,12 +32,13 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<PublicRoute />}>
-        <Route element={<PublicLayout />} errorElement={<NotFound />}>
+        <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/legal-notices" element={<LegalNotices />} />
           <Route path="/login" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:id" element={<ResetPassword />} />
           <Route path="/general-conditions-of-use" element={<Conditions />} />
         </Route>
       </Route>
@@ -46,6 +48,7 @@ const router = createBrowserRouter(
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
       </Route>
+      <Route path="*" element={<NotFound />} />
     </>
   )
 );

@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import image from '../../assets/images/logo.png';
-import { FormSignin } from '../../types';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
 
 function ForgotPassword() {
@@ -9,9 +8,9 @@ function ForgotPassword() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormSignin>();
+  } = useForm<{ email: string }>();
 
-  async function onSubmit(data: FormSignin) {
+  async function onSubmit(data: { email: string }) {
     await tryCatchWrapper(async () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/signin`, data, {
         withCredentials: true,
@@ -28,9 +27,9 @@ function ForgotPassword() {
           className="w-full flex flex-col items-center mt-5"
         >
           <div className="flex flex-col gap-2 my-3 max-w-96">
-            <label className="text-md" htmlFor="e-mail">
+            <label className="text-md text-center" htmlFor="e-mail">
               Saisissez votre email, une demande de réinitialisation de mot de
-              passe vous sera envoyer par mail.
+              passe vous sera envoyée par mail.
             </label>
             <input
               className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"

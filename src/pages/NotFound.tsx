@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import useAppStore from '../store';
 
 function NotFound() {
+  const { logged } = useAppStore();
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <div className="text-center">
         <h1 className="text-9xl font-montserrat text-darkgold">404</h1>
         <p className="text-lg font-montserrat text-gray-600 mt-2">
@@ -10,7 +12,7 @@ function NotFound() {
         </p>
 
         <Link
-          to="/"
+          to={logged ? '/dashboard' : '/'}
           className="bg-green mt-10 inline-block px-6 py-3 hover:bg-newgreen font-semibold rounded-full shadow-md bg-gold  transition duration-300 hover:scale-105 hover:bg-darkgold hover:text-white"
         >
           Retour à l&apos;accueil

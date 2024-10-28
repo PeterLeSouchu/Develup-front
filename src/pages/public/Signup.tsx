@@ -8,6 +8,10 @@ import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
 import useAppStore from '../../store';
+import {
+  hanldeChangetypeConfirmPassword,
+  hanldeChangetypePassword,
+} from '../../utils/Password-visibility';
 
 function Signup() {
   const [typePassword, setTypePassword] = useState('password');
@@ -27,16 +31,6 @@ function Signup() {
     formState: { errors: errorOtp },
   } = useForm<{ userOTPcode: string }>();
 
-  function hanldeChangetypePassword(): void {
-    setTypePassword((prevType) =>
-      prevType === 'password' ? 'text' : 'password'
-    );
-  }
-  function hanldeChangetypeConfirmPassword(): void {
-    setTypeConfirmPassword((prevType) =>
-      prevType === 'password' ? 'text' : 'password'
-    );
-  }
   async function onSubmit(data: FormSignup) {
     await tryCatchWrapper(async () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/signup/otp`, data, {
@@ -152,7 +146,7 @@ function Signup() {
                 />
                 <button
                   type="button"
-                  onClick={hanldeChangetypePassword}
+                  onClick={() => hanldeChangetypePassword(setTypePassword)}
                   className="absolute right-2 top-1/2 -translate-y-1/2"
                 >
                   {typePassword === 'password' ? (
@@ -171,19 +165,21 @@ function Signup() {
 
             <div className="flex flex-col gap-2 mb-3 max-w-80 ">
               <label className="text-md" htmlFor="confirm-password">
-                Confirmer le mot de passe
+                Confirmation du mot de passe
               </label>
               <div className="relative">
                 <input
                   className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 "
                   type={typeConfirmPassword}
                   id="confirm-password"
-                  placeholder="Confirmer votre mot de passe"
+                  placeholder="Entrez votre mot de passe"
                   {...register('passwordConfirm', { required: true })}
                 />
                 <button
                   type="button"
-                  onClick={hanldeChangetypeConfirmPassword}
+                  onClick={() =>
+                    hanldeChangetypeConfirmPassword(setTypeConfirmPassword)
+                  }
                   className="absolute right-2 top-1/2 -translate-y-1/2"
                 >
                   {typeConfirmPassword === 'password' ? (
@@ -199,7 +195,7 @@ function Signup() {
                 </p>
               )}
             </div>
-            <div className="mb-5 flex">
+            <div className="mb-5 flex  max-w-80">
               <input
                 type="checkbox"
                 id="cgu"
