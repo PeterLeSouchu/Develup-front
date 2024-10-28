@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
+import useAppStore from '../../store';
 
 function Signup() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [otpModal, setOtpModal] = useState<boolean>(false);
+  const { changeLogged } = useAppStore();
 
   const {
     register,
@@ -41,6 +43,7 @@ function Signup() {
         withCredentials: true,
       });
       setOtpModal(true);
+      changeLogged();
     });
   }
 
@@ -53,7 +56,6 @@ function Signup() {
           withCredentials: true,
         }
       );
-      setOtpModal(false);
     });
   }
 

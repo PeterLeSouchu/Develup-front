@@ -1,10 +1,64 @@
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+import image from '../../assets/images/logo.png';
+import { FormSignin } from '../../types';
+import tryCatchWrapper from '../../utils/try-catch-wrapper';
+
 function ForgotPassword() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormSignin>();
+
+  async function onSubmit(data: FormSignin) {
+    await tryCatchWrapper(async () => {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/signin`, data, {
+        withCredentials: true,
+      });
+    });
+  }
+
   return (
-    <div className="h-84 flex items-center justify-center ">
-      <h1 className="text-center text-5xl text-darkgold">
-        Page en cours de construction ...
-      </h1>
+    <div className="flex items-center justify-center p-10 min-h-80">
+      <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-10 flex flex-col items-center">
+        <img className="w-1/4 min-w-36" src={image} alt="Logo-entier-Develup" />
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full flex flex-col items-center mt-5"
+        >
+          <div className="flex flex-col gap-2 my-3 max-w-96">
+            <label className="text-md" htmlFor="e-mail">
+              Saisissez votre email, une demande de réinitialisation de mot de
+              passe vous sera envoyer par mail.
+            </label>
+            <input
+              className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
+              type="text"
+              id="e-mail"
+              placeholder="Entrez votre adresse mail"
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'Le champ email est requis',
+                },
+              })}
+            />
+            {errors.email && (
+              <p className="text-red-600 text-sm">{errors.email.message}</p>
+            )}
+          </div>
+
+          <button
+            className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
+            type="submit"
+          >
+            Envoyer
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
+
 export default ForgotPassword;

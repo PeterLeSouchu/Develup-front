@@ -11,10 +11,7 @@ import useAppStore from '../../store';
 
 function Signin() {
   const [type, setType] = useState('password');
-  const { changeLogged, logged } = useAppStore();
-
-  console.log('de login');
-  console.log(logged);
+  const { changeLogged } = useAppStore();
 
   function hanldeChangetype(): void {
     setType((prevType) => (prevType === 'password' ? 'text' : 'password'));
