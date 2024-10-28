@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
-import useAppStore from '../../store';
+import { useUserStore } from '../../store';
 import {
   hanldeChangetypeConfirmPassword,
   hanldeChangetypePassword,
@@ -17,7 +17,7 @@ function Signup() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
   const [otpModal, setOtpModal] = useState<boolean>(false);
-  const { changeLogged } = useAppStore();
+  const { changeLogged } = useUserStore();
 
   const {
     register,

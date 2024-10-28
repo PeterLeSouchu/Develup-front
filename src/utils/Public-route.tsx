@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import useAppStore from '../store';
+import { useUserStore } from '../store';
 
 function PublicRoute() {
-  const { logged } = useAppStore();
+  const { logged } = useUserStore();
   return logged ? <Navigate to="/dashboard" /> : <Outlet />;
 }
 export default PublicRoute;

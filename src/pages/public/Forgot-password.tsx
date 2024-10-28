@@ -14,16 +14,14 @@ function ForgotPassword() {
   } = useForm<{ email: string }>();
 
   async function onSubmit(data: { email: string }) {
-    console.log('le formulaire est soumis');
     await tryCatchWrapper(async () => {
-      const res = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_API_URL}/api/forgot-password`,
         data,
         {
           withCredentials: true,
         }
       );
-      console.log(res);
       setMail(data.email);
       setLinkSend((state) => !state);
     });

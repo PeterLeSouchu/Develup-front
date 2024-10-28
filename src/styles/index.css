@@ -36,6 +36,29 @@
   .bg-diagonal-gradient {
     background-image: linear-gradient(to right, #d7c392, #e0d4a8);
   }
+  @keyframes bubble {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-15px);
+      opacity: 0.5;
+    }
+  }
+
+  .animate-bubble {
+    animation: bubble 0.8s ease-in-out infinite;
+  }
+
+  .animate-bubble200 {
+    animation: bubble 0.8s ease-in-out infinite 0.2s;
+  }
+
+  .animate-bubble400 {
+    animation: bubble 0.8s ease-in-out infinite 0.4s;
+  }
 }
 
 body {

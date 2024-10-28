@@ -7,11 +7,11 @@ import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 import { FormSignin } from '../../types';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
-import useAppStore from '../../store';
+import { useUserStore } from '../../store';
 
 function Signin() {
   const [type, setType] = useState('password');
-  const { changeLogged } = useAppStore();
+  const { changeLogged } = useUserStore();
 
   function hanldeChangetype(): void {
     setType((prevType) => (prevType === 'password' ? 'text' : 'password'));

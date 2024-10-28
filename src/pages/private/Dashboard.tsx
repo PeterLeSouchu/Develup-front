@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import useAppStore from '../../store';
+import { useUserStore } from '../../store';
 
 function Dashboard() {
-  const { logged } = useAppStore();
+  const { logged } = useUserStore();
 
   console.log('du dashboard');
   console.log(logged);
