@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,8 @@ import {
 function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
+  const { token } = useParams();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -23,9 +26,17 @@ function ResetPassword() {
 
   async function onSubmit(data: ResetPasswordForm) {
     await tryCatchWrapper(async () => {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/signin`, data, {
-        withCredentials: true,
-      });
+      if (data.password !== data.passwordConfirm) {
+        console.log('les mots de passe ne correspondent pas');
+      }
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/reset-password`,
+        { ...data, token },
+        {
+          withCredentials: true,
+        }
+      );
+      navigate('/login');
     });
   }
 

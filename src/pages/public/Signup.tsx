@@ -37,7 +37,6 @@ function Signup() {
         withCredentials: true,
       });
       setOtpModal(true);
-      changeLogged();
     });
   }
 
@@ -50,6 +49,7 @@ function Signup() {
           withCredentials: true,
         }
       );
+      changeLogged();
     });
   }
 
