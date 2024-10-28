@@ -77,7 +77,7 @@ function ResetPassword() {
             <div className="relative">
               <input
                 className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10"
-                type={typePassword}
+                type={typeConfirmPassword}
                 id="passwordConfirm"
                 placeholder="Entrez votre mot de passe"
                 {...register('passwordConfirm', {
