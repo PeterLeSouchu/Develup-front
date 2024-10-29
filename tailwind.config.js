@@ -16,11 +16,7 @@ export default {
       height: {
         8: '8vh',
         10: '10vh',
-        84: '84vh',
         80: '80vh',
-        30: '30rem',
-        33: '33rem',
-        92: '92vh',
       },
       width: {
         25: '25%',
@@ -33,15 +29,6 @@ export default {
         84: '84vh',
         80: '80vh',
         100: '100vh',
-      },
-      backdropBlur: {
-        mini: '1px',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
       },
     },
   },
