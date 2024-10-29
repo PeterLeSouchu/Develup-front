@@ -8,10 +8,7 @@ import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
 import { useUserStore, useSettingsStore } from '../../store';
-import {
-  hanldeChangetypeConfirmPassword,
-  hanldeChangetypePassword,
-} from '../../utils/Password-visibility';
+import hanldeChangetypePassword from '../../utils/Password-visibility';
 import LoaderWrapper from '../../utils/LoaderWrapper';
 import { validateEmail, validatePassword } from '../../utils/form-validation';
 
@@ -156,7 +153,7 @@ function Signup() {
                 </label>
                 <div className="relative">
                   <input
-                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
+                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full"
                     type={typePassword}
                     id="password"
                     placeholder="Entrez votre mot de passe"
@@ -189,7 +186,7 @@ function Signup() {
                 </label>
                 <div className="relative">
                   <input
-                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 "
+                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full "
                     type={typeConfirmPassword}
                     id="confirm-password"
                     placeholder="Confirmez votre mot de passe"
@@ -201,7 +198,7 @@ function Signup() {
                   <button
                     type="button"
                     onClick={() =>
-                      hanldeChangetypeConfirmPassword(setTypeConfirmPassword)
+                      hanldeChangetypePassword(setTypeConfirmPassword)
                     }
                     className="absolute right-2 top-1/2 -translate-y-1/2"
                   >
