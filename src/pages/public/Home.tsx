@@ -15,10 +15,6 @@ function Home() {
           alt="Logo-entier-Develup"
           className=" w-1/2 min-w-96 max-w-2xl  "
         />
-        {/* <section className="flex flex-col justify-center items-center text-2xl lg:text-3xl  backdrop-blur-mini">
-          <p className="mb-3">Développez ensemble,</p>
-          <p>Progressez ensemble</p>
-        </section> */}
         <section className="flex flex-col justify-center items-center text-3xl lg:text-4xl  text-center font-semibold text-gray-800">
           <p className="font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#D7C392] to-[#B79178] drop-shadow-sm ">
             Développez ensemble
