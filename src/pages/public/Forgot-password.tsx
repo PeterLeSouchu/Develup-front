@@ -5,6 +5,7 @@ import image from '../../assets/images/logo.png';
 import tryCatchWrapper from '../../utils/try-catch-wrapper';
 import { useSettingsStore } from '../../store';
 import LoaderWrapper from '../../utils/LoaderWrapper';
+import { validateEmail } from '../../utils/form-validation';
 
 function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
@@ -63,6 +64,7 @@ function ForgotPassword() {
                       value: true,
                       message: 'Le champ email est requis',
                     },
+                    validate: validateEmail,
                   })}
                 />
                 {errors.email && (
