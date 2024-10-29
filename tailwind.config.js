@@ -22,6 +22,7 @@ export default {
         25: '25%',
         headerMd: '28rem',
         headerLg: '35rem',
+        18: '17rem',
       },
       minHeight: {
         8: '8vh',

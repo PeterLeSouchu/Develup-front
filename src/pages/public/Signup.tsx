@@ -28,6 +28,21 @@ function Signup() {
   // Display loader beacause nodemail take a lot of time
   const { changeLoading } = useSettingsStore();
 
+  const validatePassword = (value: string) => {
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    return (
+      passwordRegex.test(value) ||
+      'Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.'
+    );
+  };
+  const validateEmail = (value: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return (
+      emailRegex.test(value) || "L'email doit contenir un '@' et être valide."
+    );
+  };
+
   const {
     register,
     handleSubmit,
@@ -115,7 +130,7 @@ function Signup() {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col items-center"
             >
-              <div className="flex flex-col gap-2 my-3 max-w-96">
+              <div className="flex flex-col gap-2 my-3 w-18">
                 <label className="text-md" htmlFor="email">
                   E-mail
                 </label>
@@ -126,6 +141,7 @@ function Signup() {
                   placeholder="Entrez votre adresse mail"
                   {...register('email', {
                     required: { value: true, message: "L'email est requis" },
+                    validate: validateEmail,
                     minLength: { value: 2, message: '2 caractères au moins' },
                   })}
                 />
@@ -133,7 +149,7 @@ function Signup() {
                   <p className="text-red-600 text-sm">{errors.email.message}</p>
                 )}
               </div>
-              <div className="flex flex-col gap-2 mb-3 max-w-96">
+              <div className="flex flex-col gap-2 mb-3 w-18">
                 <label className="text-md" htmlFor="pseudo">
                   Pseudo
                 </label>
@@ -148,7 +164,7 @@ function Signup() {
                   <p className="text-red-600 text-sm">Le pseudo est requis</p>
                 )}
               </div>
-              <div className="flex flex-col gap-2 mb-3 max-w-80 ">
+              <div className="flex flex-col gap-2 mb-3 w-18 ">
                 <label className="text-md" htmlFor="password">
                   Mot de passe
                 </label>
@@ -158,7 +174,10 @@ function Signup() {
                     type={typePassword}
                     id="password"
                     placeholder="Entrez votre mot de passe"
-                    {...register('password', { required: true })}
+                    {...register('password', {
+                      required: true,
+                      validate: validatePassword,
+                    })}
                   />
                   <button
                     type="button"
@@ -174,11 +193,11 @@ function Signup() {
                 </div>
                 {errors.password && (
                   <p className="text-red-600 text-sm">
-                    Le mot de passe est requis
+                    {errors.password.message}
                   </p>
                 )}
               </div>
-              <div className="flex flex-col gap-2 mb-3 max-w-80 ">
+              <div className="flex flex-col gap-2 mb-3 w-18 ">
                 <label className="text-md" htmlFor="confirm-password">
                   Confirmation du mot de passe
                 </label>
@@ -188,7 +207,10 @@ function Signup() {
                     type={typeConfirmPassword}
                     id="confirm-password"
                     placeholder="Confirmez votre mot de passe"
-                    {...register('passwordConfirm', { required: true })}
+                    {...register('passwordConfirm', {
+                      required: true,
+                      validate: validatePassword,
+                    })}
                   />
                   <button
                     type="button"
@@ -204,9 +226,9 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                {errors.passwordConfirm && (
+                {errors.password && (
                   <p className="text-red-600 text-sm">
-                    Le mot de passe est requis
+                    {errors.password.message}
                   </p>
                 )}
               </div>

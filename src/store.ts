@@ -13,14 +13,7 @@ export const useUserStore = create<UserStore>()(
     }
   )
 );
-export const useSettingsStore = create<SettingsStore>()(
-  persist(
-    (set) => ({
-      loading: false,
-      changeLoading: () => set((state) => ({ loading: !state.loading })),
-    }),
-    {
-      name: 'settings-storage',
-    }
-  )
-);
+export const useSettingsStore = create<SettingsStore>()((set) => ({
+  loading: false,
+  changeLoading: () => set((state) => ({ loading: !state.loading })),
+}));
