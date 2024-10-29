@@ -13,6 +13,7 @@ import {
   hanldeChangetypePassword,
 } from '../../utils/Password-visibility';
 import LoaderWrapper from '../../utils/LoaderWrapper';
+import { validateEmail, validatePassword } from '../../utils/form-validation';
 
 function Signup() {
   // Change password input to text
@@ -27,21 +28,6 @@ function Signup() {
 
   // Display loader beacause nodemail take a lot of time
   const { changeLoading } = useSettingsStore();
-
-  const validatePassword = (value: string) => {
-    const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-    return (
-      passwordRegex.test(value) ||
-      'Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.'
-    );
-  };
-  const validateEmail = (value: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return (
-      emailRegex.test(value) || "L'email doit contenir un '@' et être valide."
-    );
-  };
 
   const {
     register,
