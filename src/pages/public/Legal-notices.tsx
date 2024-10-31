@@ -1,9 +1,20 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function LegalNotices() {
   useEffect(() => {
     window.scrollTo(0, 0);
+    async function lol() {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/csrf-token`,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+    }
+    lol();
   }, []);
 
   return (

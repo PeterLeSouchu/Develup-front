@@ -5,12 +5,10 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useState } from 'react';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../utils/try-catch-wrapper';
+import tryCatchWrapper from '../../security/try-catch-wrapper';
 import { ResetPasswordForm } from '../../types';
-import {
-  hanldeChangetypeConfirmPassword,
-  hanldeChangetypePassword,
-} from '../../utils/Password-visibility';
+import hanldeChangetypePassword from '../../utils/Password-visibility';
+import { validatePassword } from '../../security/form-validation';
 
 function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password');
@@ -63,6 +61,7 @@ function ResetPassword() {
                     value: true,
                     message: 'Le mot de passe est requis',
                   },
+                  validate: validatePassword,
                 })}
               />
               <button
@@ -96,13 +95,12 @@ function ResetPassword() {
                     value: true,
                     message: 'Le mot de passe est requis',
                   },
+                  validate: validatePassword,
                 })}
               />
               <button
                 type="button"
-                onClick={() =>
-                  hanldeChangetypeConfirmPassword(setTypeConfirmPassword)
-                }
+                onClick={() => hanldeChangetypePassword(setTypeConfirmPassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2"
               >
                 {typeConfirmPassword === 'password' ? (

@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../utils/try-catch-wrapper';
+import tryCatchWrapper from '../../security/try-catch-wrapper';
 import { useSettingsStore } from '../../store';
-import LoaderWrapper from '../../utils/LoaderWrapper';
-import { validateEmail } from '../../utils/form-validation';
+import LoaderWrapper from '../../utils/Loader-wrapper';
+import { validateEmail } from '../../security/form-validation';
 
 function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
-  const [mail, setMail] = useState<string>('');
+  const [response, setResponse] = useState<string>('');
   const { changeLoading } = useSettingsStore();
   const {
     register,
@@ -20,14 +20,14 @@ function ForgotPassword() {
   async function onSubmit(data: { email: string }) {
     changeLoading();
     await tryCatchWrapper(async () => {
-      await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/forgot-password`,
         data,
         {
           withCredentials: true,
         }
       );
-      setMail(data.email);
+      setResponse(res.data.message);
       setLinkSend((state) => !state);
       changeLoading();
     });
@@ -37,7 +37,7 @@ function ForgotPassword() {
     <LoaderWrapper>
       <div className="flex items-center justify-center p-10 min-h-80">
         {linkSend ? (
-          <h1>Lien envoyé à l&apos;adresse : {mail}</h1>
+          <h1 className="text-lg text-center">{response}</h1>
         ) : (
           <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-10 flex flex-col items-center">
             <img
