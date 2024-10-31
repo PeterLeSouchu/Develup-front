@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 import { FormSignin } from '../../types';
-import tryCatchWrapper from '../../utils/try-catch-wrapper';
+import tryCatchWrapper from '../../security/try-catch-wrapper';
 import { useUserStore } from '../../store';
 
 function Signin() {
@@ -25,7 +25,16 @@ function Signin() {
 
   async function onSubmit(data: FormSignin) {
     await tryCatchWrapper(async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/csrf-token`,
+        {
+          withCredentials: true,
+        }
+      );
       await axios.post(`${import.meta.env.VITE_API_URL}/api/signin`, data, {
+        headers: {
+          'x-csrf-token': res.data.csrfToken,
+        },
         withCredentials: true,
       });
       changeLogged();

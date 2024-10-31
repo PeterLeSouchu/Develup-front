@@ -6,11 +6,14 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../utils/try-catch-wrapper';
+import tryCatchWrapper from '../../security/try-catch-wrapper';
 import { useUserStore, useSettingsStore } from '../../store';
 import hanldeChangetypePassword from '../../utils/Password-visibility';
-import LoaderWrapper from '../../utils/LoaderWrapper';
-import { validateEmail, validatePassword } from '../../utils/form-validation';
+import LoaderWrapper from '../../utils/Loader-wrapper';
+import {
+  validateEmail,
+  validatePassword,
+} from '../../security/form-validation';
 
 function Signup() {
   // Change password input to text
@@ -41,9 +44,14 @@ function Signup() {
   async function onSubmit(data: FormSignup) {
     await tryCatchWrapper(async () => {
       changeLoading();
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/signup/otp`, data, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/signup/otp`,
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
       setOtpModal((state) => !state);
       changeLoading();
     });
@@ -79,13 +87,13 @@ function Signup() {
               >
                 <div className="flex flex-col gap-2 my-3 max-w-96">
                   <label className="text-md" htmlFor="otp">
-                    Code OTP
+                    Entrez le code OTP reçu par mail
                   </label>
                   <input
                     className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
                     type="text"
                     id="otp"
-                    placeholder="Entrez le code OTP reçu par mail"
+                    placeholder="Entrez le code OTP"
                     {...registerOtp('userOTPcode', {
                       required: {
                         value: true,
