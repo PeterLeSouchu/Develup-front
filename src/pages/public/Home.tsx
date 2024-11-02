@@ -86,7 +86,7 @@ function Home() {
           </div>
           <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl ">
             <p className="text-2xl font-semibold">
-              Progressez, gagnez en expérience et améliorer votre portfolio
+              Progressez, gagnez en expérience et enrichissez votre portfolio
             </p>
             <span className="text-8xl">
               <FaArrowTrendUp />

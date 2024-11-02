@@ -67,24 +67,23 @@
 
   /* Join community button */
   .link-comet {
-    position: relative;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: black;
+    background-color: #d7c392;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
   }
 
-  .link-comet::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #b79178, transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease-in-out;
-  }
-
-  .link-comet:hover::after {
-    transform: scaleX(1);
+  .link-comet:hover {
+    background-color: #b79178;
+    transform: scale(1.04);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 
   /* Navbar link */
