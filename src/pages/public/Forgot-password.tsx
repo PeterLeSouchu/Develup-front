@@ -61,10 +61,7 @@ function ForgotPassword() {
                   id="e-mail"
                   placeholder="Entrez votre adresse mail"
                   {...register('email', {
-                    required: {
-                      value: true,
-                      message: 'Le champ email est requis',
-                    },
+                    required: { value: true, message: "L'email est requis" },
                     validate: validateEmail,
                   })}
                 />

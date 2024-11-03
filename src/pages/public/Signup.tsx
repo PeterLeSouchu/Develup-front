@@ -136,7 +136,6 @@ function Signup() {
                   {...register('email', {
                     required: { value: true, message: "L'email est requis" },
                     validate: validateEmail,
-                    minLength: { value: 2, message: '2 caractères au moins' },
                   })}
                 />
                 <Error

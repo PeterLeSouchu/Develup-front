@@ -62,6 +62,11 @@ function ResetPassword() {
                     value: true,
                     message: 'Le mot de passe est requis',
                   },
+                  minLength: {
+                    value: 8,
+                    message:
+                      'Le mot de passe doit contenir au moins 8 caractères',
+                  },
                   validate: validatePassword,
                 })}
               />
@@ -96,6 +101,11 @@ function ResetPassword() {
                   required: {
                     value: true,
                     message: 'Le mot de passe est requis',
+                  },
+                  minLength: {
+                    value: 8,
+                    message:
+                      'Le mot de passe doit contenir au moins 8 caractères',
                   },
                   validate: validatePassword,
                 })}
