@@ -6,7 +6,7 @@ export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
       logged: false,
-      changeLogged: () => set((state) => ({ logged: !state.logged })),
+      setLogged: (isLogged) => set(() => ({ logged: isLogged })),
     }),
     {
       name: 'user-storage', // Le nom de la clé dans le localStorage
@@ -15,5 +15,7 @@ export const useUserStore = create<UserStore>()(
 );
 export const useSettingsStore = create<SettingsStore>()((set) => ({
   loading: false,
-  changeLoading: () => set((state) => ({ loading: !state.loading })),
+  setLoading: (isLoading) => set(() => ({ loading: isLoading })),
+  backError: '',
+  setError: (errorMessage) => set(() => ({ backError: errorMessage })),
 }));

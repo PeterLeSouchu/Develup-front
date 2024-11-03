@@ -81,8 +81,8 @@ import Signin from './pages/public/Signin';
 import Signup from './pages/public/Signup';
 import ForgotPassword from './pages/public/Forgot-password';
 import Conditions from './pages/public/Conditions';
-import PrivateRoute from './security/Private-route';
-import PublicRoute from './security/Public-route';
+import PrivateRoute from './security/Routes/Private-route';
+import PublicRoute from './security/Routes/Public-route';
 import ResetPassword from './pages/public/Reset-password';
 
 const root = ReactDOM.createRoot(

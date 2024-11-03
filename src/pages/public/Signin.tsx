@@ -6,12 +6,17 @@ import { Link } from 'react-router-dom';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 import { FormSignin } from '../../types';
-import tryCatchWrapper from '../../security/try-catch-wrapper';
+import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { useUserStore } from '../../store';
+import Error from '../../security/Errors/Error';
+import {
+  validateEmail,
+  validatePassword,
+} from '../../security/form-validation';
 
 function Signin() {
   const [type, setType] = useState('password');
-  const { changeLogged } = useUserStore();
+  const { setLogged } = useUserStore();
 
   function hanldeChangetype(): void {
     setType((prevType) => (prevType === 'password' ? 'text' : 'password'));
@@ -37,7 +42,7 @@ function Signin() {
         },
         withCredentials: true,
       });
-      changeLogged();
+      setLogged(true);
     });
   }
 
@@ -59,15 +64,15 @@ function Signin() {
               id="e-mail"
               placeholder="Entrez votre adresse mail"
               {...register('email', {
-                required: {
-                  value: true,
-                  message: 'Le champ email est requis',
-                },
+                required: { value: true, message: "L'email est requis" },
+                validate: validateEmail,
+                minLength: { value: 2, message: '2 caractères au moins' },
               })}
             />
-            {errors.email && (
-              <p className="text-red-600 text-sm">{errors.email.message}</p>
-            )}
+            <Error
+              frontError={errors.email}
+              errorMessage={errors.email?.message}
+            />
           </div>
           <div className="flex flex-col gap-2 mb-3 max-w-80 relative">
             <label className="text-md" htmlFor="mot-de-passe">
@@ -82,15 +87,20 @@ function Signin() {
                 {...register('password', {
                   required: {
                     value: true,
-                    message: 'Le champ password est requis',
+                    message: 'Le mot de passe est requis',
                   },
+                  minLength: {
+                    value: 8,
+                    message:
+                      'Le mot de passe doit contenir au moins 8 caractères',
+                  },
+                  validate: validatePassword,
                 })}
               />
-              {errors.password && (
-                <p className="text-red-600 text-sm">
-                  {errors.password.message}
-                </p>
-              )}
+              <Error
+                frontError={errors.password}
+                errorMessage={errors.password?.message}
+              />
               <button
                 type="button"
                 onClick={hanldeChangetype}

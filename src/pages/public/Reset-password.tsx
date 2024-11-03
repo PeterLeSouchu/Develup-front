@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useState } from 'react';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../security/try-catch-wrapper';
+import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { ResetPasswordForm } from '../../types';
 import hanldeChangetypePassword from '../../utils/Password-visibility';
 import { validatePassword } from '../../security/form-validation';
+import Error from '../../security/Errors/Error';
 
 function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password');
@@ -76,9 +77,10 @@ function ResetPassword() {
                 )}
               </button>
             </div>
-            {errors.password && (
-              <p className="text-red-600 text-sm">{errors.password.message}</p>
-            )}
+            <Error
+              frontError={errors.password}
+              errorMessage={errors.password?.message}
+            />
           </div>
           <div className="flex flex-col gap-2 mb-3 max-w-80 ">
             <label className="text-md" htmlFor="passwordConfirm">
@@ -110,9 +112,10 @@ function ResetPassword() {
                 )}
               </button>
             </div>
-            {errors.password && (
-              <p className="text-red-600 text-sm">{errors.password.message}</p>
-            )}
+            <Error
+              frontError={errors.passwordConfirm}
+              errorMessage={errors.passwordConfirm?.message}
+            />
           </div>
 
           <button

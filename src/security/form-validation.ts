@@ -9,7 +9,5 @@ export const validatePassword = (value: string) => {
 };
 export const validateEmail = (value: string) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return (
-    emailRegex.test(value) || "L'email doit contenir un '@' et être valide."
-  );
+  return emailRegex.test(value) || "L'email n'est pas valide.";
 };

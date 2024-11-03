@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../security/try-catch-wrapper';
+import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { useUserStore, useSettingsStore } from '../../store';
 import hanldeChangetypePassword from '../../utils/Password-visibility';
 import LoaderWrapper from '../../utils/Loader-wrapper';
@@ -14,6 +14,7 @@ import {
   validateEmail,
   validatePassword,
 } from '../../security/form-validation';
+import Error from '../../security/Errors/Error';
 
 function Signup() {
   // Change password input to text
@@ -24,10 +25,10 @@ function Signup() {
   const [otpModal, setOtpModal] = useState<boolean>(false);
 
   // change state connected to true
-  const { changeLogged } = useUserStore();
+  const { setLogged } = useUserStore();
 
   // Display loader beacause nodemail take a lot of time
-  const { changeLoading } = useSettingsStore();
+  const { setLoading } = useSettingsStore();
 
   const {
     register,
@@ -43,7 +44,7 @@ function Signup() {
 
   async function onSubmit(data: FormSignup) {
     await tryCatchWrapper(async () => {
-      changeLoading();
+      setLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/signup/otp`,
         data,
@@ -53,7 +54,7 @@ function Signup() {
       );
       console.log(res.data);
       setOtpModal((state) => !state);
-      changeLoading();
+      setLoading(false);
     });
   }
 
@@ -66,7 +67,7 @@ function Signup() {
           withCredentials: true,
         }
       );
-      changeLogged();
+      setLogged(true);
     });
   }
 
@@ -99,14 +100,16 @@ function Signup() {
                         value: true,
                         message: 'Saisissez le code OTP reçu par mail',
                       },
-                      minLength: { value: 6, message: '6 caractères au moins' },
+                      pattern: {
+                        value: /^.{6}$/,
+                        message: 'Le code OTP doit contenir 6 caractères.',
+                      },
                     })}
                   />
-                  {errorOtp.userOTPcode && (
-                    <p className="text-red-600 text-sm">
-                      {errorOtp.userOTPcode.message}
-                    </p>
-                  )}
+                  <Error
+                    frontError={errorOtp.userOTPcode}
+                    errorMessage={errorOtp.userOTPcode?.message}
+                  />
                 </div>
                 <button
                   className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
@@ -136,9 +139,10 @@ function Signup() {
                     minLength: { value: 2, message: '2 caractères au moins' },
                   })}
                 />
-                {errors.email && (
-                  <p className="text-red-600 text-sm">{errors.email.message}</p>
-                )}
+                <Error
+                  frontError={errors.email}
+                  errorMessage={errors.email?.message}
+                />
               </div>
               <div className="flex flex-col gap-2 mb-3 w-18">
                 <label className="text-md" htmlFor="pseudo">
@@ -149,11 +153,27 @@ function Signup() {
                   type="text"
                   id="pseudo"
                   placeholder="Entrez votre pseudo"
-                  {...register('pseudo', { required: true })}
+                  {...register('pseudo', {
+                    required: { value: true, message: 'Le pseudo est requis' },
+                    minLength: {
+                      value: 2,
+                      message: 'Le pseudo doit contenir au moins 2 caractères',
+                    },
+                    maxLength: {
+                      value: 30,
+                      message:
+                        'Le pseudo doit contenir au maximum 30 caractères',
+                    },
+                    pattern: {
+                      value: /^\S+$/,
+                      message: "Le pseudo ne doit pas contenir d'espaces",
+                    },
+                  })}
                 />
-                {errors.pseudo && (
-                  <p className="text-red-600 text-sm">Le pseudo est requis</p>
-                )}
+                <Error
+                  frontError={errors.pseudo}
+                  errorMessage={errors.pseudo?.message}
+                />
               </div>
               <div className="flex flex-col gap-2 mb-3 w-18 ">
                 <label className="text-md" htmlFor="password">
@@ -166,7 +186,15 @@ function Signup() {
                     id="password"
                     placeholder="Entrez votre mot de passe"
                     {...register('password', {
-                      required: true,
+                      required: {
+                        value: true,
+                        message: 'Le mot de passe est requis',
+                      },
+                      minLength: {
+                        value: 8,
+                        message:
+                          'Le mot de passe doit contenir au moins 8 caractères',
+                      },
                       validate: validatePassword,
                     })}
                   />
@@ -182,11 +210,10 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                {errors.password && (
-                  <p className="text-red-600 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
+                <Error
+                  frontError={errors.password}
+                  errorMessage={errors.password?.message}
+                />
               </div>
               <div className="flex flex-col gap-2 mb-3 w-18 ">
                 <label className="text-md" htmlFor="confirm-password">
@@ -199,7 +226,15 @@ function Signup() {
                     id="confirm-password"
                     placeholder="Confirmez votre mot de passe"
                     {...register('passwordConfirm', {
-                      required: true,
+                      required: {
+                        value: true,
+                        message: 'Le mot de passe est requis',
+                      },
+                      minLength: {
+                        value: 8,
+                        message:
+                          'Le mot de passe doit contenir au moins 8 caractères',
+                      },
                       validate: validatePassword,
                     })}
                   />
@@ -217,11 +252,10 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                {errors.password && (
-                  <p className="text-red-600 text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
+                <Error
+                  frontError={errors.passwordConfirm}
+                  errorMessage={errors.passwordConfirm?.message}
+                />
               </div>
               <div className="mb-5 flex max-w-80">
                 <input
@@ -241,11 +275,10 @@ function Signup() {
                   </Link>
                 </label>
               </div>
-              {errors.cgu && (
-                <p className="text-red-600 mb-5 text-sm">
-                  {errors.cgu.message}
-                </p>
-              )}
+              <Error
+                frontError={errors.cgu}
+                errorMessage={errors.cgu?.message}
+              />
               <button
                 className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
                 type="submit"

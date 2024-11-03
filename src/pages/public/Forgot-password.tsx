@@ -2,15 +2,16 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../security/try-catch-wrapper';
+import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { useSettingsStore } from '../../store';
 import LoaderWrapper from '../../utils/Loader-wrapper';
 import { validateEmail } from '../../security/form-validation';
+import Error from '../../security/Errors/Error';
 
 function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
-  const { changeLoading } = useSettingsStore();
+  const { setLoading } = useSettingsStore();
   const {
     register,
     handleSubmit,
@@ -18,7 +19,7 @@ function ForgotPassword() {
   } = useForm<{ email: string }>();
 
   async function onSubmit(data: { email: string }) {
-    changeLoading();
+    setLoading(true);
     await tryCatchWrapper(async () => {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/forgot-password`,
@@ -29,7 +30,7 @@ function ForgotPassword() {
       );
       setResponse(res.data.message);
       setLinkSend((state) => !state);
-      changeLoading();
+      setLoading(false);
     });
   }
 
@@ -67,9 +68,10 @@ function ForgotPassword() {
                     validate: validateEmail,
                   })}
                 />
-                {errors.email && (
-                  <p className="text-red-600 text-sm">{errors.email.message}</p>
-                )}
+                <Error
+                  frontError={errors.email}
+                  errorMessage={errors.email?.message}
+                />
               </div>
               <button
                 className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
