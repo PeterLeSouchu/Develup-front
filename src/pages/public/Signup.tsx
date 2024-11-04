@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
@@ -6,20 +7,21 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { useUserStore, useSettingsStore } from '../../store';
-import hanldeChangetypePassword from '../../utils/Password-visibility';
+import hanldeChangetypePassword from '../../utils/password-visibility';
 import LoaderWrapper from '../../utils/Loader-wrapper';
-import {
-  validateEmail,
-  validatePassword,
-} from '../../security/form-validation';
-import Error from '../../security/Errors/Error';
+import FrontError from '../../security/errors/FrontError';
+import signupSchema from '../../security/form-validation/signup-schema';
+import otpCodeSchema from '../../security/form-validation/otp-code-schema';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import BackError from '../../security/errors/BackError';
 
 function Signup() {
   // Change password input to text
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
+
+  const [errorMessage, setErrorMessage] = useState();
 
   // Display otp form
   const [otpModal, setOtpModal] = useState<boolean>(false);
@@ -34,41 +36,44 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormSignup>();
+  } = useForm<FormSignup>({ resolver: zodResolver(signupSchema) });
 
   const {
     register: registerOtp,
     handleSubmit: handleSubmitOtp,
     formState: { errors: errorOtp },
-  } = useForm<{ userOTPcode: string }>();
+  } = useForm<{ userOTPcode: string }>({
+    resolver: zodResolver(otpCodeSchema),
+  });
 
   async function onSubmit(data: FormSignup) {
-    await tryCatchWrapper(async () => {
+    try {
       setLoading(true);
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/signup/otp`,
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(res.data);
+      await axiosWithoutCSRFtoken.post('/signup/otp', data);
+      console.log("on est dans le onSubmit de l'envoi du form signup");
       setOtpModal((state) => !state);
       setLoading(false);
-    });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorAPImessage = error.response?.data?.message;
+        console.error(`voici le message d'erreur : ${errorAPImessage}`);
+        setErrorMessage(errorAPImessage);
+        setLoading(false);
+      }
+    }
   }
 
   async function onSubmitOTP(data: { userOTPcode: string }) {
-    await tryCatchWrapper(async () => {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/signup/register`,
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+    try {
+      await axiosWithoutCSRFtoken.post('/signup/register', data);
       setLogged(true);
-    });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorAPImessage = error.response?.data?.message;
+        console.error(`voici le message d'erreur : ${errorMessage}`);
+        setErrorMessage(errorAPImessage);
+      }
+    }
   }
 
   return (
@@ -86,7 +91,8 @@ function Signup() {
                 className="flex flex-col items-center"
                 onSubmit={handleSubmitOtp(onSubmitOTP)}
               >
-                <div className="flex flex-col gap-2 my-3 max-w-96">
+                <BackError message={errorMessage} />
+                <div className="flex flex-col gap-2 my-3 w-18">
                   <label className="text-md" htmlFor="otp">
                     Entrez le code OTP reçu par mail
                   </label>
@@ -95,20 +101,11 @@ function Signup() {
                     type="text"
                     id="otp"
                     placeholder="Entrez le code OTP"
-                    {...registerOtp('userOTPcode', {
-                      required: {
-                        value: true,
-                        message: 'Saisissez le code OTP reçu par mail',
-                      },
-                      pattern: {
-                        value: /^.{6}$/,
-                        message: 'Le code OTP doit contenir 6 caractères.',
-                      },
-                    })}
+                    {...registerOtp('userOTPcode')}
                   />
-                  <Error
-                    frontError={errorOtp.userOTPcode}
-                    errorMessage={errorOtp.userOTPcode?.message}
+                  <FrontError
+                    error={errorOtp.userOTPcode}
+                    message={errorOtp.userOTPcode?.message}
                   />
                 </div>
                 <button
@@ -124,6 +121,7 @@ function Signup() {
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col items-center"
             >
+              <BackError message={errorMessage} />
               <div className="flex flex-col gap-2 my-3 w-18">
                 <label className="text-md" htmlFor="email">
                   E-mail
@@ -133,14 +131,11 @@ function Signup() {
                   type="email"
                   id="email"
                   placeholder="Entrez votre adresse mail"
-                  {...register('email', {
-                    required: { value: true, message: "L'email est requis" },
-                    validate: validateEmail,
-                  })}
+                  {...register('email')}
                 />
-                <Error
-                  frontError={errors.email}
-                  errorMessage={errors.email?.message}
+                <FrontError
+                  error={errors.email}
+                  message={errors.email?.message}
                 />
               </div>
               <div className="flex flex-col gap-2 mb-3 w-18">
@@ -152,26 +147,11 @@ function Signup() {
                   type="text"
                   id="pseudo"
                   placeholder="Entrez votre pseudo"
-                  {...register('pseudo', {
-                    required: { value: true, message: 'Le pseudo est requis' },
-                    minLength: {
-                      value: 2,
-                      message: 'Le pseudo doit contenir au moins 2 caractères',
-                    },
-                    maxLength: {
-                      value: 30,
-                      message:
-                        'Le pseudo doit contenir au maximum 30 caractères',
-                    },
-                    pattern: {
-                      value: /^\S+$/,
-                      message: "Le pseudo ne doit pas contenir d'espaces",
-                    },
-                  })}
+                  {...register('pseudo')}
                 />
-                <Error
-                  frontError={errors.pseudo}
-                  errorMessage={errors.pseudo?.message}
+                <FrontError
+                  error={errors.pseudo}
+                  message={errors.pseudo?.message}
                 />
               </div>
               <div className="flex flex-col gap-2 mb-3 w-18 ">
@@ -180,22 +160,11 @@ function Signup() {
                 </label>
                 <div className="relative">
                   <input
-                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full"
+                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
                     type={typePassword}
                     id="password"
                     placeholder="Entrez votre mot de passe"
-                    {...register('password', {
-                      required: {
-                        value: true,
-                        message: 'Le mot de passe est requis',
-                      },
-                      minLength: {
-                        value: 8,
-                        message:
-                          'Le mot de passe doit contenir au moins 8 caractères',
-                      },
-                      validate: validatePassword,
-                    })}
+                    {...register('password')}
                   />
                   <button
                     type="button"
@@ -209,9 +178,9 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                <Error
-                  frontError={errors.password}
-                  errorMessage={errors.password?.message}
+                <FrontError
+                  error={errors.password}
+                  message={errors.password?.message}
                 />
               </div>
               <div className="flex flex-col gap-2 mb-3 w-18 ">
@@ -224,18 +193,7 @@ function Signup() {
                     type={typeConfirmPassword}
                     id="confirm-password"
                     placeholder="Confirmez votre mot de passe"
-                    {...register('passwordConfirm', {
-                      required: {
-                        value: true,
-                        message: 'Le mot de passe est requis',
-                      },
-                      minLength: {
-                        value: 8,
-                        message:
-                          'Le mot de passe doit contenir au moins 8 caractères',
-                      },
-                      validate: validatePassword,
-                    })}
+                    {...register('passwordConfirm')}
                   />
                   <button
                     type="button"
@@ -251,22 +209,13 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                <Error
-                  frontError={errors.passwordConfirm}
-                  errorMessage={errors.passwordConfirm?.message}
+                <FrontError
+                  error={errors.passwordConfirm}
+                  message={errors.passwordConfirm?.message}
                 />
               </div>
               <div className="mb-5 flex max-w-80">
-                <input
-                  type="checkbox"
-                  id="cgu"
-                  {...register('cgu', {
-                    required: {
-                      value: true,
-                      message: 'Veuillez accepter les CGU',
-                    },
-                  })}
-                />
+                <input type="checkbox" id="cgu" {...register('cgu')} />
                 <label htmlFor="cgu" className="ml-3 ">
                   J&apos;accepte les{' '}
                   <Link to="/general-conditions-of-use" className="underline">
@@ -274,10 +223,7 @@ function Signup() {
                   </Link>
                 </label>
               </div>
-              <Error
-                frontError={errors.cgu}
-                errorMessage={errors.cgu?.message}
-              />
+              <FrontError error={errors.cgu} message={errors.cgu?.message} />
               <button
                 className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
                 type="submit"

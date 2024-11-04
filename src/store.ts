@@ -16,6 +16,4 @@ export const useUserStore = create<UserStore>()(
 export const useSettingsStore = create<SettingsStore>()((set) => ({
   loading: false,
   setLoading: (isLoading) => set(() => ({ loading: isLoading })),
-  backError: '',
-  setError: (errorMessage) => set(() => ({ backError: errorMessage })),
 }));

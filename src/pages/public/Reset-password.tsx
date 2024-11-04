@@ -1,19 +1,22 @@
+import axios from 'axios';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, useParams } from 'react-router-dom';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { useState } from 'react';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { ResetPasswordForm } from '../../types';
-import hanldeChangetypePassword from '../../utils/Password-visibility';
-import { validatePassword } from '../../security/form-validation';
-import Error from '../../security/Errors/Error';
+import hanldeChangetypePassword from '../../utils/password-visibility';
+import FrontError from '../../security/errors/FrontError';
+import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import BackError from '../../security/errors/BackError';
 
 function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
+  const [errorMessage, setErrorMessage] = useState();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -21,22 +24,24 @@ function ResetPassword() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResetPasswordForm>();
+  } = useForm<ResetPasswordForm>({
+    resolver: zodResolver(resetPasswordSchema),
+  });
 
   async function onSubmit(data: ResetPasswordForm) {
-    await tryCatchWrapper(async () => {
-      if (data.password !== data.passwordConfirm) {
-        console.log('les mots de passe ne correspondent pas');
-      }
-      await axios.patch(
-        `${import.meta.env.VITE_API_URL}/api/reset-password`,
-        { ...data, token },
-        {
-          withCredentials: true,
-        }
-      );
+    try {
+      await axiosWithoutCSRFtoken.patch('/reset-password', {
+        ...data,
+        token,
+      });
       navigate('/login');
-    });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorAPImessage = error.response?.data?.message;
+        console.error(`voici le message d'erreur : ${errorAPImessage}`);
+        setErrorMessage(errorAPImessage);
+      }
+    }
   }
 
   return (
@@ -47,7 +52,8 @@ function ResetPassword() {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full flex flex-col items-center mt-5"
         >
-          <div className="flex flex-col gap-2 mb-3 max-w-80 ">
+          <BackError message={errorMessage} />
+          <div className="flex flex-col gap-2 mb-3 w-18 ">
             <label className="text-md" htmlFor="password">
               Nouveau mot de passe
             </label>
@@ -57,18 +63,7 @@ function ResetPassword() {
                 type={typePassword}
                 id="password"
                 placeholder="Entrez votre mot de passe"
-                {...register('password', {
-                  required: {
-                    value: true,
-                    message: 'Le mot de passe est requis',
-                  },
-                  minLength: {
-                    value: 8,
-                    message:
-                      'Le mot de passe doit contenir au moins 8 caractères',
-                  },
-                  validate: validatePassword,
-                })}
+                {...register('password')}
               />
               <button
                 type="button"
@@ -82,12 +77,12 @@ function ResetPassword() {
                 )}
               </button>
             </div>
-            <Error
-              frontError={errors.password}
-              errorMessage={errors.password?.message}
+            <FrontError
+              error={errors.password}
+              message={errors.password?.message}
             />
           </div>
-          <div className="flex flex-col gap-2 mb-3 max-w-80 ">
+          <div className="flex flex-col gap-2 mb-3 w-18 ">
             <label className="text-md" htmlFor="passwordConfirm">
               Confirmation du mot de passe
             </label>
@@ -97,18 +92,7 @@ function ResetPassword() {
                 type={typeConfirmPassword}
                 id="passwordConfirm"
                 placeholder="Entrez votre mot de passe"
-                {...register('passwordConfirm', {
-                  required: {
-                    value: true,
-                    message: 'Le mot de passe est requis',
-                  },
-                  minLength: {
-                    value: 8,
-                    message:
-                      'Le mot de passe doit contenir au moins 8 caractères',
-                  },
-                  validate: validatePassword,
-                })}
+                {...register('passwordConfirm')}
               />
               <button
                 type="button"
@@ -122,9 +106,9 @@ function ResetPassword() {
                 )}
               </button>
             </div>
-            <Error
-              frontError={errors.passwordConfirm}
-              errorMessage={errors.passwordConfirm?.message}
+            <FrontError
+              error={errors.passwordConfirm}
+              message={errors.passwordConfirm?.message}
             />
           </div>
 

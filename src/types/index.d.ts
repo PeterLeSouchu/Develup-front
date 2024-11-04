@@ -26,11 +26,17 @@ export interface UserStore {
 export interface SettingsStore {
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
-  backError: string;
-  setError: (errorMessage: string) => void;
 }
 
-export interface ErrorComponent {
-  frontError: FieldError | undefined;
-  errorMessage: string | undefined;
+export interface FrontErrorType {
+  error: FieldError | undefined;
+  message: string | undefined;
+}
+
+export interface BackErrorType {
+  message: string | undefined;
+}
+
+export interface ApiResponse {
+  message: string;
 }

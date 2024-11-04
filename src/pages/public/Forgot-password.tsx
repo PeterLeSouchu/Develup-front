@@ -1,37 +1,51 @@
+import axios from 'axios';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import image from '../../assets/images/logo.png';
-import tryCatchWrapper from '../../security/Errors/try-catch-wrapper';
 import { useSettingsStore } from '../../store';
 import LoaderWrapper from '../../utils/Loader-wrapper';
-import { validateEmail } from '../../security/form-validation';
-import Error from '../../security/Errors/Error';
+import FrontError from '../../security/errors/FrontError';
+import forgotPasswordSchema from '../../security/form-validation/forgot-password-schema';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import BackError from '../../security/errors/BackError';
 
 function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState();
   const { setLoading } = useSettingsStore();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<{ email: string }>();
+  } = useForm<{ email: string }>({
+    resolver: zodResolver(forgotPasswordSchema),
+  });
 
+  // Here in the catch, if email doesn't exist, back API send an error with 'Lien de réinitialisation du mot de passe envoyé' message, so we don't want user know that is an eror and we have to check it in the catch. If the error is this sentence, we just make a return so that BackError component doesn't show up.
   async function onSubmit(data: { email: string }) {
-    setLoading(true);
-    await tryCatchWrapper(async () => {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/forgot-password`,
-        data,
-        {
-          withCredentials: true,
-        }
-      );
+    try {
+      setLoading(true);
+      const res = await axiosWithoutCSRFtoken.post('/forgot-password', data);
       setResponse(res.data.message);
       setLinkSend((state) => !state);
       setLoading(false);
-    });
+    } catch (error) {
+      setLoading(false);
+      if (axios.isAxiosError(error)) {
+        const errorAPImessage = error.response?.data?.message;
+        console.error(`voici le message d'erreur : ${errorAPImessage}`);
+        if (
+          errorAPImessage === 'Lien de réinitialisation du mot de passe envoyé'
+        ) {
+          setLoading(false);
+          return;
+        }
+        setErrorMessage(errorAPImessage);
+        setLoading(false);
+      }
+    }
   }
 
   return (
@@ -50,6 +64,7 @@ function ForgotPassword() {
               onSubmit={handleSubmit(onSubmit)}
               className="w-full flex flex-col items-center mt-5"
             >
+              <BackError message={errorMessage} />
               <div className="flex flex-col gap-2 my-3 max-w-96">
                 <label className="text-md text-center" htmlFor="e-mail">
                   Saisissez votre email, une demande de réinitialisation de mot
@@ -60,14 +75,11 @@ function ForgotPassword() {
                   type="text"
                   id="e-mail"
                   placeholder="Entrez votre adresse mail"
-                  {...register('email', {
-                    required: { value: true, message: "L'email est requis" },
-                    validate: validateEmail,
-                  })}
+                  {...register('email')}
                 />
-                <Error
-                  frontError={errors.email}
-                  errorMessage={errors.email?.message}
+                <FrontError
+                  error={errors.email}
+                  message={errors.email?.message}
                 />
               </div>
               <button
