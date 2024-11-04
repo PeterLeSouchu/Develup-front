@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { useUserStore } from '../store';
+import { useUserStore } from '../../store';
 
 function PrivateRoute() {
   const { logged } = useUserStore();

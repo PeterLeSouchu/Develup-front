@@ -1,3 +1,5 @@
+import { FieldError } from 'react-hook-form';
+
 export interface FormSignup {
   email: string;
   pseudo: string;
@@ -18,10 +20,23 @@ export interface ResetPasswordForm {
 
 export interface UserStore {
   logged: boolean;
-  changeLogged: () => void;
+  setLogged: (isLogged: boolean) => void;
 }
 
 export interface SettingsStore {
   loading: boolean;
-  changeLoading: () => void;
+  setLoading: (isLoading: boolean) => void;
+}
+
+export interface FrontErrorType {
+  error: FieldError | undefined;
+  message: string | undefined;
+}
+
+export interface BackErrorType {
+  message: string | undefined;
+}
+
+export interface ApiResponse {
+  message: string;
 }
