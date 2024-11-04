@@ -50,13 +50,11 @@ function Signup() {
     try {
       setLoading(true);
       await axiosWithoutCSRFtoken.post('/signup/otp', data);
-      console.log("on est dans le onSubmit de l'envoi du form signup");
       setOtpModal((state) => !state);
       setLoading(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        console.error(`voici le message d'erreur : ${errorAPImessage}`);
         setErrorMessage(errorAPImessage);
         setLoading(false);
       }
@@ -70,7 +68,6 @@ function Signup() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        console.error(`voici le message d'erreur : ${errorMessage}`);
         setErrorMessage(errorAPImessage);
       }
     }
@@ -160,7 +157,7 @@ function Signup() {
                 </label>
                 <div className="relative">
                   <input
-                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
+                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full"
                     type={typePassword}
                     id="password"
                     placeholder="Entrez votre mot de passe"

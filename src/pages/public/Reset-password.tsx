@@ -38,7 +38,6 @@ function ResetPassword() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        console.error(`voici le message d'erreur : ${errorAPImessage}`);
         setErrorMessage(errorAPImessage);
       }
     }

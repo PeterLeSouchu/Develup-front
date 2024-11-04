@@ -11,11 +11,13 @@ const signupSchema = z
       .email("L'email n'est pas valide"),
     pseudo: z
       .string()
+      .min(1, 'Le pseudo est requis')
       .min(2, 'Le pseudo doit contenir au moins 2 caractères')
       .max(30, 'Le pseudo ne doit pas dépasser 30 caractères')
       .regex(/^\S*$/, "Le pseudo ne doit pas contenir d'espaces"),
     password: z
       .string()
+      .min(1, 'Le mot de passe est requis')
       .min(8, passwordMessage)
       .regex(/[A-Z]/, passwordMessage)
       .regex(/[0-9]/, passwordMessage)

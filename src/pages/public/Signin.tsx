@@ -27,7 +27,6 @@ function Signin() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        console.error(`voici le message d'erreur : ${errorAPImessage}`);
         setErrorMessage(errorAPImessage);
       }
     }
@@ -69,7 +68,7 @@ function Signin() {
             </label>
             <div className="relative">
               <input
-                className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10"
+                className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 w-full"
                 type={type}
                 id="password"
                 placeholder="Entrez votre mot de passe"

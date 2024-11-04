@@ -13,6 +13,7 @@ import BackError from '../../components/errors/BackError';
 function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
+
   const [errorMessage, setErrorMessage] = useState();
   const { setLoading } = useSettingsStore();
   const {
@@ -35,7 +36,6 @@ function ForgotPassword() {
       setLoading(false);
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        console.error(`voici le message d'erreur : ${errorAPImessage}`);
         if (
           errorAPImessage === 'Lien de réinitialisation du mot de passe envoyé'
         ) {
