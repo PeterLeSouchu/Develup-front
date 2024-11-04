@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import { useUserStore, useSettingsStore } from '../../store';
-import hanldeChangetypePassword from '../../utils/password-visibility';
+import hanldeChangeTypePassword from '../../utils/Password-visibility';
 import LoaderWrapper from '../../utils/Loader-wrapper';
 import FrontError from '../../security/errors/FrontError';
 import signupSchema from '../../security/form-validation/signup-schema';
@@ -168,7 +168,7 @@ function Signup() {
                   />
                   <button
                     type="button"
-                    onClick={() => hanldeChangetypePassword(setTypePassword)}
+                    onClick={() => hanldeChangeTypePassword(setTypePassword)}
                     className="absolute right-2 top-1/2 -translate-y-1/2"
                   >
                     {typePassword === 'password' ? (
@@ -198,7 +198,7 @@ function Signup() {
                   <button
                     type="button"
                     onClick={() =>
-                      hanldeChangetypePassword(setTypeConfirmPassword)
+                      hanldeChangeTypePassword(setTypeConfirmPassword)
                     }
                     className="absolute right-2 top-1/2 -translate-y-1/2"
                   >

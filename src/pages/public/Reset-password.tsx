@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import image from '../../assets/images/logo.png';
 import { ResetPasswordForm } from '../../types';
-import hanldeChangetypePassword from '../../utils/password-visibility';
+import hanldeChangeTypePassword from '../../utils/Password-visibility';
 import FrontError from '../../security/errors/FrontError';
 import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
@@ -67,7 +67,7 @@ function ResetPassword() {
               />
               <button
                 type="button"
-                onClick={() => hanldeChangetypePassword(setTypePassword)}
+                onClick={() => hanldeChangeTypePassword(setTypePassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2"
               >
                 {typePassword === 'password' ? (
@@ -96,7 +96,7 @@ function ResetPassword() {
               />
               <button
                 type="button"
-                onClick={() => hanldeChangetypePassword(setTypeConfirmPassword)}
+                onClick={() => hanldeChangeTypePassword(setTypeConfirmPassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2"
               >
                 {typeConfirmPassword === 'password' ? (
