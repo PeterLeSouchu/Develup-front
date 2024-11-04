@@ -9,12 +9,12 @@ import { FormSignup } from '../../types';
 import image from '../../assets/images/logo.png';
 import { useUserStore, useSettingsStore } from '../../store';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
-import LoaderWrapper from '../../utils/Loader-wrapper';
-import FrontError from '../../security/errors/FrontError';
+import LoaderWrapper from '../../components/Loader/Loader-wrapper';
+import FrontError from '../../components/errors/FrontError';
 import signupSchema from '../../security/form-validation/signup-schema';
 import otpCodeSchema from '../../security/form-validation/otp-code-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
-import BackError from '../../security/errors/BackError';
+import BackError from '../../components/errors/BackError';
 
 function Signup() {
   // Change password input to text

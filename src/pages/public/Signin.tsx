@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 import { useUserStore } from '../../store';
-import BackError from '../../security/errors/BackError';
+import BackError from '../../components/errors/BackError';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
 

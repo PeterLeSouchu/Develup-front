@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import image from '../../assets/images/logo.png';
 import { useSettingsStore } from '../../store';
-import LoaderWrapper from '../../utils/Loader-wrapper';
-import FrontError from '../../security/errors/FrontError';
+import LoaderWrapper from '../../components/Loader/Loader-wrapper';
+import FrontError from '../../components/errors/FrontError';
 import forgotPasswordSchema from '../../security/form-validation/forgot-password-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
-import BackError from '../../security/errors/BackError';
+import BackError from '../../components/errors/BackError';
 
 function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
