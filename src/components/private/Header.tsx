@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { Slide, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { GrProjects } from 'react-icons/gr';
 import { FaRegMessage } from 'react-icons/fa6';
@@ -11,25 +9,11 @@ import { FaMoon, FaRegFile, FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import { useUserStore } from '../../store';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
-import BackErrorNotification from '../errors/Back-error-notification';
+import BackErrorNotification from '../errors/back-error-notification/Back-error-component';
+import errorNotification from '../errors/back-error-notification/notification-function';
 
 function Header() {
   const { darkTheme, setDarkTheme } = useUserStore();
-  const [errorMessage, setErrorMessage] = useState();
-
-  const notifyLogout = () => {
-    toast.error(errorMessage, {
-      position: 'top-left',
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'light',
-      transition: Slide,
-    });
-  };
 
   async function handleLogout() {
     try {
@@ -37,8 +21,8 @@ function Header() {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        setErrorMessage(errorAPImessage);
-        notifyLogout();
+        console.log("lancement de la notification d'erreur");
+        errorNotification(errorAPImessage);
       }
     }
   }
