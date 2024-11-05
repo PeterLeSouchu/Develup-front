@@ -7,7 +7,7 @@ import { useSettingsStore } from '../../store';
 import LoaderWrapper from '../../components/Loader/Loader-wrapper';
 import FrontError from '../../components/errors/FrontError';
 import forgotPasswordSchema from '../../security/form-validation/forgot-password-schema';
-import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import BackError from '../../components/errors/BackError';
 
 function ForgotPassword() {

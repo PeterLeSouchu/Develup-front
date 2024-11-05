@@ -10,7 +10,7 @@ import { ResetPasswordForm } from '../../types';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
 import FrontError from '../../components/errors/FrontError';
 import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
-import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import BackError from '../../components/errors/BackError';
 
 function ResetPassword() {

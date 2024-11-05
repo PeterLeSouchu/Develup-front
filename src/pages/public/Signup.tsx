@@ -13,7 +13,7 @@ import LoaderWrapper from '../../components/Loader/Loader-wrapper';
 import FrontError from '../../components/errors/FrontError';
 import signupSchema from '../../security/form-validation/signup-schema';
 import otpCodeSchema from '../../security/form-validation/otp-code-schema';
-import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import BackError from '../../components/errors/BackError';
 
 function Signup() {
@@ -64,6 +64,10 @@ function Signup() {
   async function onSubmitOTP(data: { userOTPcode: string }) {
     try {
       await axiosWithoutCSRFtoken.post('/signup/register', data);
+      const { data: dataResponse } =
+        await axiosWithoutCSRFtoken.get('/csrf-token');
+      const { csrfToken } = dataResponse;
+      localStorage.setItem('csrfToken', csrfToken);
       setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -6,7 +6,7 @@ import { IoEyeOffOutline } from 'react-icons/io5';
 import image from '../../assets/images/logo.png';
 import { useUserStore } from '../../store';
 import BackError from '../../components/errors/BackError';
-import axiosWithoutCSRFtoken from '../../utils/request/axios-wtihout-csrf-token';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
 
 function Signin() {
@@ -23,6 +23,9 @@ function Signin() {
         email: emailInput,
         password: passwordInput,
       });
+      const { data } = await axiosWithoutCSRFtoken.get('/csrf-token');
+      const { csrfToken } = data;
+      localStorage.setItem('csrfToken', csrfToken);
       setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
