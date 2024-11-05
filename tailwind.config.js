@@ -12,6 +12,7 @@ export default {
         darkgold: '#B79178',
         gold: '#D7C392',
         lightgold: '#e9ddbf',
+        lightgold2: '#dfd4a7',
         black: '#303030',
       },
       height: {

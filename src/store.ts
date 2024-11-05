@@ -7,6 +7,8 @@ export const useUserStore = create<UserStore>()(
     (set) => ({
       logged: false,
       setLogged: (isLogged) => set(() => ({ logged: isLogged })),
+      darkTheme: false,
+      setDarkTheme: (isDarkTheme) => set(() => ({ darkTheme: isDarkTheme })),
     }),
     {
       name: 'user-storage', // Le nom de la clé dans le localStorage

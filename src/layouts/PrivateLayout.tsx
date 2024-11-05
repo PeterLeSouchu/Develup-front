@@ -1,16 +1,14 @@
 import { Outlet } from 'react-router-dom';
-import Footer from '../components/private/Footer';
 import Header from '../components/private/Header';
 
 function PrivateLayout() {
   return (
-    <>
+    <div className="flex">
       <Header />
-      <main>
+      <main className="w-full h-screen pt-2">
         <Outlet />
       </main>
-      <Footer />
-    </>
+    </div>
   );
 }
 
