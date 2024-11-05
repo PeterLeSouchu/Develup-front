@@ -7,7 +7,7 @@ function PublicLayout() {
     <div className="bg-grid-pattern">
       <Header />
 
-      <main className="min-h-80">
+      <main className="min-h-8">
         <Outlet />
       </main>
 

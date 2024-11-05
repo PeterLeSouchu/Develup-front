@@ -10,10 +10,14 @@ export default {
       },
       colors: {
         darkgold: '#B79178',
+        // darkgold2: '#b48b70',
+        darkgold2: '#9d7154',
         gold: '#D7C392',
         lightgold: '#e9ddbf',
         lightgold2: '#dfd4a7',
         black: '#303030',
+        darkTheme: '#2C2C2C',
+        white: '#f4f4f4',
       },
       height: {
         8: '8vh',

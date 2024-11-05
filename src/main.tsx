@@ -11,11 +11,12 @@ import {
 import './styles/reset.css';
 import './styles/index.css';
 import Home from './pages/public/Home';
-import NotFound from './pages/NotFound';
-import PublicLayout from './layouts/PublicLayout';
-import PrivateLayout from './layouts/PrivateLayout';
+import NotFound from './pages/Not-Found';
+import PublicLayout from './layouts/Public-layout';
+import PrivateLayout from './layouts/Private-layout';
 import Search from './pages/private/Search';
 import LegalNotices from './pages/public/Legal-notices';
+import LegalNoticesPrivate from './pages/private/Legal-notices';
 import Signin from './pages/public/Signin';
 import Signup from './pages/public/Signup';
 import ForgotPassword from './pages/public/Forgot-password';
@@ -23,6 +24,7 @@ import Conditions from './pages/public/Conditions';
 import PrivateRoute from './security/routes/Private-route';
 import PublicRoute from './security/routes/Public-route';
 import ResetPassword from './pages/public/Reset-password';
+import ConditionsPrivate from './pages/private/Conditions';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -46,6 +48,14 @@ const router = createBrowserRouter(
       <Route element={<PrivateRoute />}>
         <Route element={<PrivateLayout />}>
           <Route path="/dashboard/search" element={<Search />} />
+          <Route
+            path="/dashboard/general-conditions-of-use"
+            element={<ConditionsPrivate />}
+          />
+          <Route
+            path="/dashboard/legal-notices"
+            element={<LegalNoticesPrivate />}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
