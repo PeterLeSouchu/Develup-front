@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function LegalNoticesPrivate() {
   return (
-    <div className="max-w-5xl px-10 min-h-80 flex justify-center items-center  py-14 m-auto">
+    <div className="  flex justify-center items-center m-auto">
       <div className="flex flex-col gap-6 justify-center dark:text-white">
         <h1 className="text-4xl font-semibold  dark:text-darkgold text-gold ">
           Mentions légales

@@ -8,10 +8,10 @@ function PrivateLayout() {
   return (
     <div className={`${darkTheme && 'dark'}`}>
       <div
-        className={`flex  h-screen transition-colors duration-500  bg-white ${darkTheme && 'dark'} dark:bg-darkTheme`}
+        className={`flex   h-screen transition-colors duration-500  bg-white ${darkTheme && 'dark'} dark:bg-darkTheme`}
       >
         <Header />
-        <main className="w-full pt-2 overflow-scroll">
+        <main className="w-full px-20 py-6 overflow-scroll">
           <Outlet />
         </main>
       </div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { GrProjects } from 'react-icons/gr';
 import { FaRegMessage } from 'react-icons/fa6';
 import { CgProfile } from 'react-icons/cg';
@@ -13,15 +13,30 @@ import BackErrorNotification from '../errors/back-error-notification/Back-error-
 import errorNotification from '../errors/back-error-notification/notification-function';
 
 function Header() {
-  const { darkTheme, setDarkTheme } = useUserStore();
+  const { darkTheme, setDarkTheme, setLogged } = useUserStore();
+  // const csrfToken = localStorage.getItem('csrfToken');
+  const navigate = useNavigate();
 
   async function handleLogout() {
     try {
       await axiosWithCSRFtoken.post('/logout');
+      // await axios.post(
+      //   'http://localhost:3000/api/logout',
+      //   {},
+      //   {
+      //     headers: {
+      //       'x-csrf-token': csrfToken,
+      //     },
+      //     withCredentials: true,
+      //   }
+      // );
+      setLogged(false);
+      localStorage.removeItem('csrfToken');
+      localStorage.removeItem('user-storage');
+      navigate('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        console.log("lancement de la notification d'erreur");
         errorNotification(errorAPImessage);
       }
     }
