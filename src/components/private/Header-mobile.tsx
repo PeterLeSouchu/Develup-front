@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Import du composant Link
 import { IoIosSearch } from 'react-icons/io';
 import { GrProjects } from 'react-icons/gr';
-import { FaMoon, FaRegMessage } from 'react-icons/fa6';
+import { FaMoon, FaRegFile, FaRegMessage } from 'react-icons/fa6';
 import { RxCross1 } from 'react-icons/rx';
 import { BiLogOut } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
 import { IoMenu } from 'react-icons/io5';
+import { FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import BackErrorNotification from '../all/errors/back-error-notification/Back-error-component';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
@@ -69,60 +70,70 @@ function HeaderMobile() {
         </button>
         <nav className="p-4">
           <ul>
-            <li className="py-2 flex justify-center items-center">
+            <li className="  py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/search"
-                className="py-8 pt-7 text-3xl flex items-center "
+                className="py-3 pt-7 text-3xl flex items-center "
               >
                 <IoIosSearch className="mr-2" />
                 Recherche
               </Link>
             </li>
-            <li className="py-2 flex justify-center items-center">
+            <li className="  py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/search"
-                className="text-3xl py-8 flex items-center"
+                className="text-3xl py-3 flex items-center"
               >
                 <GrProjects className="mr-2" />
                 Projets
               </Link>
             </li>
-            <li className="py-2 flex justify-center items-center">
+            <li className="  py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/search"
-                className="text-3xl py-8  flex items-center"
+                className="text-3xl py-3  flex items-center"
               >
                 <FaRegMessage className="mr-2" />
                 Message
               </Link>
             </li>
-            <li className="py-2 flex justify-center items-center">
+            <li className="  py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/search"
-                className="text-3xl py-8 flex items-center"
+                className="text-3xl py-3  pb-12 flex items-center"
               >
                 <CgProfile className="mr-2" />
                 Profil
               </Link>
             </li>
-            <li>
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="text-md pt-10 pb-3 pl-4 w-full  flex justify-center items-center"
+            <li className="  py-2 flex justify-start items-center">
+              <Link
+                onClick={() => setIsNavbarOpen(false)}
+                to="/dashboard/legal-notices"
+                className="text-md  w-full underline-offset-2 underline  flex justify-start items-center"
               >
-                <BiLogOut className="mr-2 font-bold" />
-                Se déconnecter
-              </button>
+                <FaRegFile className="mr-2" />
+                Mentions légales
+              </Link>
+            </li>
+            <li className="  py-2 flex justify-start items-center">
+              <Link
+                onClick={() => setIsNavbarOpen(false)}
+                to="/dashboard/general-conditions-of-use"
+                className="text-md w-full underline-offset-2 underline  flex justify-start items-center"
+              >
+                <FaShieldAlt className="mr-2" />
+                CGU
+              </Link>
             </li>
             <li>
-              <span className="pl-3 py-3 flex justify-center items-center ">
+              <span className=" py-2 flex justify-start items-center ">
                 <button
-                  className={`toggle-btn py-3 pl-4 ${darkTheme ? 'toggled' : ''}`}
+                  className={`toggle-btn py-3  ${darkTheme ? 'toggled' : ''}`}
                   onClick={() => setDarkTheme(!darkTheme)}
                   type="button"
                   aria-label="theme button"
@@ -132,6 +143,16 @@ function HeaderMobile() {
                   </div>
                 </button>
               </span>
+            </li>
+            <li>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="text-md pt-24  w-full  flex justify-start items-center"
+              >
+                <BiLogOut className="mr-2 font-bold" />
+                Se déconnecter
+              </button>
             </li>
           </ul>
         </nav>
