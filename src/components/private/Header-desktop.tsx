@@ -9,8 +9,8 @@ import { FaMoon, FaRegFile, FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import { useUserStore } from '../../store';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
-import BackErrorNotification from '../errors/back-error-notification/Back-error-component';
-import errorNotification from '../errors/back-error-notification/notification-function';
+import BackErrorNotification from '../all/errors/back-error-notification/Back-error-component';
+import errorNotification from '../all/errors/back-error-notification/notification-function';
 
 function HeaderDesktop() {
   const { darkTheme, setDarkTheme, setLogged } = useUserStore();

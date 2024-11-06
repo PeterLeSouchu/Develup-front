@@ -5,9 +5,9 @@ import { UserStore, SettingsStore } from './types';
 export const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
-      logged: true,
+      logged: false,
       setLogged: (isLogged) => set(() => ({ logged: isLogged })),
-      darkTheme: true,
+      darkTheme: false,
       setDarkTheme: (isDarkTheme) => set(() => ({ darkTheme: isDarkTheme })),
     }),
     {

@@ -8,10 +8,10 @@ import { useState } from 'react';
 import image from '../../assets/images/logo.png';
 import { ResetPasswordForm } from '../../types';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
-import FrontError from '../../components/errors/Front-error';
+import FrontError from '../../components/all/errors/Front-error';
 import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
-import BackError from '../../components/errors/Back-error';
+import BackError from '../../components/all/errors/Back-error';
 
 function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password');

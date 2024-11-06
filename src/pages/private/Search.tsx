@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 function Search() {
   return (
-    <main>
+    <div>
       Vous êtes desormais connecté{' '}
       <Link to="/login">clique ici pour te rediriger vers /login</Link>
-    </main>
+    </div>
   );
 }
 export default Search;
