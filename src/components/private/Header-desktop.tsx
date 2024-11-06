@@ -9,21 +9,20 @@ import { FaMoon, FaRegFile, FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import { useUserStore } from '../../store';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
-import BackErrorNotification from '../errors/back-error-notification/Back-error-component';
-import errorNotification from '../errors/back-error-notification/notification-function';
+import BackErrorNotification from '../all/errors/back-error-notification/Back-error-component';
+import errorNotification from '../all/errors/back-error-notification/notification-function';
 
-function Header() {
+function HeaderDesktop() {
   const { darkTheme, setDarkTheme, setLogged } = useUserStore();
-  // const csrfToken = localStorage.getItem('csrfToken');
   const navigate = useNavigate();
 
   async function handleLogout() {
     try {
       await axiosWithCSRFtoken.post('/logout');
-
       setLogged(false);
       localStorage.removeItem('csrfToken');
       localStorage.removeItem('user-storage');
+      setDarkTheme(false);
       navigate('/');
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -109,4 +108,4 @@ function Header() {
     </>
   );
 }
-export default Header;
+export default HeaderDesktop;

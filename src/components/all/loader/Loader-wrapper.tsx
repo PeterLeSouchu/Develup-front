@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Loader from './Loader';
-import { useSettingsStore } from '../../store';
+import { useSettingsStore } from '../../../store';
 
 interface LoaderWrapperProps {
   children: ReactNode;
