@@ -39,28 +39,28 @@ function HeaderDesktop() {
           <nav className="flex flex-col flex-grow">
             <Link
               to="/dashboard/search"
-              className="py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center "
+              className="font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center "
             >
               <IoIosSearch className="mr-2" />
               Recherche
             </Link>
             <Link
               to="/dashboard/search"
-              className="text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
+              className="font-extrabold text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
             >
               <GrProjects className="mr-2" />
               Projets
             </Link>
             <Link
               to="/dashboard/search"
-              className="text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
+              className="font-extrabold text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
             >
               <FaRegMessage className="mr-2" />
               Message
             </Link>
             <Link
               to="/dashboard/search"
-              className="text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
+              className="font-extrabold text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
             >
               <CgProfile className="mr-2" />
               Profil

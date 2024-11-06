@@ -13,7 +13,7 @@ function PrivateLayout() {
       <div className="md:flex md:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
         {matches ? <HeaderMobile /> : <HeaderDesktop />}
 
-        <main className="dark:text-white overflow-scroll w-full md:px-14 px-6  py-6 pt-24 md:pb-6 md:min-h-0 min-h-78 ">
+        <main className="dark:text-white overflow-scroll w-full md:px-12 px-6  py-6 md:pt-6 pt-24 md:pb-6 md:min-h-0 min-h-78 ">
           <Outlet />
         </main>
       </div>
