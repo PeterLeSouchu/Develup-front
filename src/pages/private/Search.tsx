@@ -1,11 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useUserStore } from '../../store';
 
 function Search() {
-  const { logged } = useUserStore();
-
-  console.log('du dashboard');
-  console.log(logged);
   return (
     <main>
       Vous êtes desormais connecté{' '}
