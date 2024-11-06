@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import { useUserStore } from '../../store';
 
-function Dashboard() {
+function Search() {
   const { logged } = useUserStore();
 
   console.log('du dashboard');
   console.log(logged);
   return (
-    <h1>
+    <main>
       Vous êtes desormais connecté{' '}
       <Link to="/login">clique ici pour te rediriger vers /login</Link>
-    </h1>
+    </main>
   );
 }
-export default Dashboard;
+export default Search;

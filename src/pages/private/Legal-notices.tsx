@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 
-function LegalNotices() {
+function LegalNoticesPrivate() {
   return (
-    <div className="max-w-3xl px-10 min-h-80 flex justify-center items-center  py-14 m-auto">
+    <div className="  flex justify-center items-center m-auto">
       <div className="flex flex-col gap-6 justify-center">
-        <h1 className="text-4xl font-semibold  text-darkgold ">
+        <h1 className="text-4xl font-semibold  dark:text-darkgold text-gold ">
           Mentions légales
         </h1>
         <div className="flex flex-col md:items-end gap-1 md:flex-row">
@@ -46,4 +46,4 @@ function LegalNotices() {
   );
 }
 
-export default LegalNotices;
+export default LegalNoticesPrivate;

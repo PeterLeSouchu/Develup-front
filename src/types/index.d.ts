@@ -21,6 +21,8 @@ export interface ResetPasswordForm {
 export interface UserStore {
   logged: boolean;
   setLogged: (isLogged: boolean) => void;
+  darkTheme: boolean;
+  setDarkTheme: (isDarkTheme: boolean) => void;
 }
 
 export interface SettingsStore {

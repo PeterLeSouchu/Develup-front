@@ -107,6 +107,42 @@
   .link-underline:hover::after {
     transform: translateX(-50%) scaleX(0.8);
   }
+
+  /* For theme button */
+  .toggle-btn {
+    background-color: #b7b9ba;
+    border-radius: 99px;
+    width: 50px;
+    height: 28px;
+    transition:
+      background-color 0.1s ease,
+      border-color 0.2s ease;
+    position: relative;
+  }
+  .toggle-btn .thumb {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border-radius: 99px;
+    transform: translate(0);
+    transition: left 0.15s ease;
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .toggle-btn.toggled {
+    background-color: #15b58e;
+  }
+  .toggle-btn:hover {
+    border-color: #6f6f6f;
+  }
+  .toggle-btn.toggled .thumb {
+    left: calc(50px - 25px);
+  }
 }
 
 body {
