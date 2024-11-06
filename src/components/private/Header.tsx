@@ -20,16 +20,7 @@ function Header() {
   async function handleLogout() {
     try {
       await axiosWithCSRFtoken.post('/logout');
-      // await axios.post(
-      //   'http://localhost:3000/api/logout',
-      //   {},
-      //   {
-      //     headers: {
-      //       'x-csrf-token': csrfToken,
-      //     },
-      //     withCredentials: true,
-      //   }
-      // );
+
       setLogged(false);
       localStorage.removeItem('csrfToken');
       localStorage.removeItem('user-storage');
@@ -43,7 +34,7 @@ function Header() {
   }
   return (
     <>
-      <header className="h-screen min-w-56 flex  p-2  ">
+      <header className="h-screen min-w-56 flex  p-3  ">
         <div className="rounded-2xl flex-grow bg-gradient-to-b from-lightgold2 to-lightgold flex flex-col  dark:from-darkgold2 dark:to-darkgold">
           <img src={logo} alt="logo Develup" className="w-40 pl-2 pt-2 " />
           <nav className="flex flex-col flex-grow">

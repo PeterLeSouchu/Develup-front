@@ -7,11 +7,9 @@ function PrivateLayout() {
   const { darkTheme } = useUserStore();
   return (
     <div className={`${darkTheme && 'dark'}`}>
-      <div
-        className={`flex   h-screen transition-colors duration-500  bg-white ${darkTheme && 'dark'} dark:bg-darkTheme`}
-      >
+      <div className="flex h-screen transition-colors duration-500   bg-white  dark:bg-darkTheme">
         <Header />
-        <main className="w-full px-20 py-6 overflow-scroll">
+        <main className="dark:text-white w-full px-14 py-6 overflow-scroll">
           <Outlet />
         </main>
       </div>

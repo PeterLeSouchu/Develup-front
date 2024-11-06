@@ -26,7 +26,6 @@ function Signin() {
       const { data } = await axiosWithoutCSRFtoken.get('/csrf-token');
       const { csrfToken } = data;
       localStorage.setItem('csrfToken', csrfToken);
-      console.log(csrfToken);
       setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {

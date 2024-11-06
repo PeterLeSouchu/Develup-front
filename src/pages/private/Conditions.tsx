@@ -1,7 +1,7 @@
 function ConditionsPrivate() {
   return (
     <div className=" flex justify-center items-center  m-auto">
-      <div className="flex flex-col gap-6 justify-center dark:text-white">
+      <div className="flex flex-col gap-6 justify-center">
         <h1 className="text-4xl font-semibold  text-gold dark:text-darkgold ">
           Conditions générales d&apos;utilisation
         </h1>

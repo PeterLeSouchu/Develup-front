@@ -16,7 +16,7 @@ export default {
         lightgold: '#e9ddbf',
         lightgold2: '#dfd4a7',
         black: '#303030',
-        darkTheme: '#2C2C2C',
+        darkTheme: '#464a4e',
         white: '#f4f4f4',
       },
       height: {

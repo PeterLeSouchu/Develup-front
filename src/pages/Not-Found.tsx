@@ -12,7 +12,7 @@ function NotFound() {
         </p>
 
         <Link
-          to={logged ? '/dashboard' : '/'}
+          to={logged ? '/dashboard/search' : '/'}
           className="bg-green mt-10 inline-block px-6 py-3 hover:bg-newgreen font-semibold rounded-full shadow-md bg-gold  transition duration-300 hover:scale-105 hover:bg-darkgold hover:text-white"
         >
           Retour à l&apos;accueil

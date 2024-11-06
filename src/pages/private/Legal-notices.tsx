@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function LegalNoticesPrivate() {
   return (
     <div className="  flex justify-center items-center m-auto">
-      <div className="flex flex-col gap-6 justify-center dark:text-white">
+      <div className="flex flex-col gap-6 justify-center">
         <h1 className="text-4xl font-semibold  dark:text-darkgold text-gold ">
           Mentions légales
         </h1>
