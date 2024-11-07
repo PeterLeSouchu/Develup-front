@@ -10,7 +10,6 @@ export default {
       },
       colors: {
         darkgold: '#B79178',
-        // darkgold2: '#b48b70',
         darkgold2: '#9d7154',
         gold: '#D7C392',
         lightgold: '#e9ddbf',
@@ -24,6 +23,7 @@ export default {
         8: '8vh',
         10: '10vh',
         80: '80vh',
+        99: '30rem',
       },
       width: {
         25: '25%',

@@ -1,7 +1,38 @@
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
+import { LogoTechno } from '../../types';
 
 function Search() {
+  // Function to return 5 technos logo and +"x" if necessary
+  function technoLogo(array: LogoTechno[]) {
+    const displayLimit = 6;
+    const extraImagesCount = array.length - displayLimit;
+
+    return (
+      <div className="flex gap-2  whitespace-nowrap absolute left-3 bottom-3 ">
+        {array.length === 0 ? (
+          <p className="text-sm">Aucune techno</p>
+        ) : (
+          array
+            .slice(0, displayLimit)
+            .map((logo) => (
+              <img
+                key={logo.id}
+                src={logo.url}
+                alt={logo.name}
+                className="w-7 h-7 my-2  rounded-xl object-contain bg-white2 p-1"
+              />
+            ))
+        )}
+        {extraImagesCount > 0 && (
+          <div className="w-6 h-6 my-2 bg-gray-200 dark:bg-gray-400 dark:text-white rounded-xl flex items-center justify-center text-xs text-gray-700">
+            +{extraImagesCount}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="dark:text-black">
       <form
@@ -49,7 +80,7 @@ function Search() {
           </button>
         </div>
       </form>
-      <div className="mt-4 p-2 w-full rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
+      <div className="mt-4 p-2 w-3/4 mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
         <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
           {' '}
           <img
@@ -57,7 +88,7 @@ function Search() {
             alt="React"
             className="w-6 h-6 bg-white2 rounded-xl"
           />{' '}
-          React
+          <p className="hidden sm:block">React</p>
           <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
             <RxCross2 />
           </button>
@@ -69,7 +100,7 @@ function Search() {
             alt="React"
             className="w-6 h-6 bg-white2 rounded-xl"
           />{' '}
-          React
+          <p className="hidden sm:block">React</p>
           <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
             <RxCross2 />
           </button>
@@ -81,7 +112,7 @@ function Search() {
             alt="React"
             className="w-6 h-6 bg-white2 rounded-xl"
           />{' '}
-          React
+          <p className="hidden sm:block">React</p>
           <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
             <RxCross2 />
           </button>
@@ -93,36 +124,390 @@ function Search() {
             alt="React"
             className="w-6 h-6 bg-white2 rounded-xl"
           />{' '}
-          React
-          <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
-            <RxCross2 />
-          </button>
-        </span>
-        <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
-          {' '}
-          <img
-            src="https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png"
-            alt="React"
-            className="w-6 h-6 bg-white2 rounded-xl"
-          />{' '}
-          React
-          <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
-            <RxCross2 />
-          </button>
-        </span>
-        <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
-          {' '}
-          <img
-            src="https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png"
-            alt="React"
-            className="w-6 h-6 bg-white2 rounded-xl"
-          />{' '}
-          React
+          <p className="hidden sm:block">React</p>
           <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
             <RxCross2 />
           </button>
         </span>
       </div>
+      <section className="flex justify-center gap-6 flex-wrap mt-10">
+        <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <img
+            className="h-40 mx-auto"
+            src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
+            alt="nextjs"
+          />
+          <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+            Titresddjzkdzzdddddddzdzdzzdzdzddzzzdz
+          </h3>
+          <p className=" text-sm line-clamp-6  my-3 break-words ">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
+            eius quis odit officia minus necessitatibus corporis magnam quae,
+            sunt quosdfddd dzddzdzn
+            dzddfzfdzdzdzdzzdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzdizdjizejzdikzdjzdizddjzizdjdzizjdizdjzdijzdidzjzdijzdjzdizdjzdidzjdzij
+          </p>
+          {technoLogo([
+            {
+              name: 'react',
+              id: 1,
+              url: 'https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 2,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 3,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 4,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 5,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 6,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 7,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+          ])}
+        </div>
+        <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <img
+            className="h-40 mx-auto"
+            src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
+            alt="nextjs"
+          />
+          <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+            Titresddjzkdzzdddddddzdzdzzdzdzddzzzdz
+          </h3>
+          <p className=" text-sm line-clamp-6  my-3 break-words ">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
+            eius quis odit officia minus necessitatibus corporis magnam quae,
+            sunt quosdfddd dzddzdzn
+            dzddfzfdzdzdzdzzdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzdizdjizejzdikzdjzdizddjzizdjdzizjdizdjzdijzdidzjzdijzdjzdizdjzdidzjdzij
+          </p>
+          {technoLogo([
+            {
+              name: 'react',
+              id: 1,
+              url: 'https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 2,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 3,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 4,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 5,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 6,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 7,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+          ])}
+        </div>
+        <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <img
+            className="h-40 mx-auto"
+            src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
+            alt="nextjs"
+          />
+          <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+            Titresddjzkdzzdddddddzdzdzzdzdzddzzzdz
+          </h3>
+          <p className=" text-sm line-clamp-6  my-3 break-words ">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
+            eius quis odit officia minus necessitatibus corporis magnam quae,
+            sunt quosdfddd dzddzdzn
+            dzddfzfdzdzdzdzzdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzdizdjizejzdikzdjzdizddjzizdjdzizjdizdjzdijzdidzjzdijzdjzdizdjzdidzjdzij
+          </p>
+          {technoLogo([
+            {
+              name: 'react',
+              id: 1,
+              url: 'https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 2,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 3,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 4,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 5,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 6,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 7,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+          ])}
+        </div>
+        <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <img
+            className="h-40 mx-auto"
+            src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
+            alt="nextjs"
+          />
+          <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+            Titresddjzkdzzdddddddzdzdzzdzdzddzzzdz
+          </h3>
+          <p className=" text-sm line-clamp-6  my-3 break-words ">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
+            eius quis odit officia minus necessitatibus corporis magnam quae,
+            sunt quosdfddd dzddzdzn
+            dzddfzfdzdzdzdzzdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzdizdjizejzdikzdjzdizddjzizdjdzizjdizdjzdijzdidzjzdijzdjzdizdjzdidzjdzij
+          </p>
+          {technoLogo([
+            {
+              name: 'react',
+              id: 1,
+              url: 'https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 2,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 3,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 4,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 5,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 6,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 7,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+          ])}
+        </div>
+      </section>
     </div>
   );
 }

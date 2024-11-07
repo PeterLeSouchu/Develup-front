@@ -42,3 +42,9 @@ export interface BackErrorType {
 export interface ApiResponse {
   message: string;
 }
+
+export interface LogoTechno {
+  id: number;
+  name: string;
+  url: string;
+}

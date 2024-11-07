@@ -60,7 +60,7 @@ function HeaderMobile() {
   return (
     <>
       {/* navbar with btn toggle sidebar */}
-      <header className="w-full fixed backdrop-blur-sm p-3">
+      <header className="w-full fixed backdrop-blur-sm p-3 z-30">
         <div className="px-3 flex justify-between items-center h-14 rounded-2xl bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold">
           <button type="button" className=" text-4xl" onClick={toggleNavbar}>
             <IoMenu />
