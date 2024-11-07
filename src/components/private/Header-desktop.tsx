@@ -34,7 +34,7 @@ function HeaderDesktop() {
   return (
     <>
       <header className="h-screen min-w-56 flex  p-3  ">
-        <div className="rounded-2xl flex-grow bg-gradient-to-b from-lightgold2 to-lightgold flex flex-col  dark:from-darkgold2 dark:to-darkgold">
+        <div className="rounded-2xl flex-grow bg-gradient-to-b min-h-35 from-lightgold2 to-lightgold flex flex-col  dark:from-darkgold2 dark:to-darkgold">
           <img src={logo} alt="logo Develup" className="w-40 pl-2 pt-2 " />
           <nav className="flex flex-col flex-grow">
             <Link

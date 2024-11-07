@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoIosSearch } from 'react-icons/io';
 import { GrProjects } from 'react-icons/gr';
@@ -22,6 +22,23 @@ function HeaderMobile() {
   const toggleNavbar = () => {
     setIsNavbarOpen((state) => !state);
   };
+
+  const disableScroll = () => {
+    document.body.style.overflow = 'hidden';
+  };
+
+  const enableScroll = () => {
+    document.body.style.overflow = '';
+  };
+
+  useEffect(() => {
+    if (isNavbarOpen) {
+      disableScroll();
+    } else {
+      enableScroll();
+    }
+    return () => enableScroll();
+  }, [isNavbarOpen]);
 
   async function handleLogout() {
     try {
@@ -70,15 +87,15 @@ function HeaderMobile() {
           onKeyDown={() => setIsNavbarOpen(false)}
           role="button"
           tabIndex={0}
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm"
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm cursor-default"
           onClick={() => setIsNavbarOpen(false)}
         />
       )}
       {/* Sidebar */}
       <div
-        className={`fixed rounded-r-md top-0 left-0 h-full bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
+        className={`fixed rounded-r-xl top-0 left-0 h-full bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
           isNavbarOpen ? 'translate-x-0' : '-translate-x-full'
-        } w-72 shadow-lg z-50`}
+        } w-72  z-50`}
       >
         <button
           type="button"
@@ -129,7 +146,7 @@ function HeaderMobile() {
                 Profil
               </Link>
             </li>
-            <li className="pt-48 py-2 flex justify-start items-center">
+            <li className="pt-44 py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/legal-notices"
@@ -153,7 +170,7 @@ function HeaderMobile() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="text-md py-2 font-bold w-full flex justify-start items-center"
+                className="text-md py-2  font-bold w-full flex justify-start items-center"
               >
                 <BiLogOut className="mr-2 font-bold" />
                 Se déconnecter

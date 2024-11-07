@@ -16,6 +16,10 @@ function LegalNotices() {
           <p>Équipe Develup</p>
         </div>
         <div className="flex flex-col md:items-end gap-1 md:flex-row">
+          <h2 className="font-semibold text-lg">Contact :</h2>
+          <p>develup33@gmail.com</p>
+        </div>
+        <div className="flex flex-col md:items-end gap-1 md:flex-row">
           <h2 className="font-semibold text-lg">Hébergement :</h2>
           <p>
             Heroku -{' '}
