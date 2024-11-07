@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo-black.png';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useUserStore } from '../../store';
 import errorNotification from '../all/errors/back-error-notification/notification-function';
+import BackErrorNotification from '../all/errors/back-error-notification/Back-error-component';
 
 function HeaderMobile() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -179,6 +180,7 @@ function HeaderMobile() {
           </ul>
         </nav>
       </div>
+      <BackErrorNotification />
     </>
   );
 }
