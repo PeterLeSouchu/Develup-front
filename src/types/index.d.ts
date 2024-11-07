@@ -43,7 +43,7 @@ export interface ApiResponse {
   message: string;
 }
 
-export interface LogoTechno {
+export interface Technologie {
   id: number;
   name: string;
   url: string;

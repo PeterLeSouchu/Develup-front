@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
-import { LogoTechno } from '../../types';
+import { Technologie } from '../../types';
 
 function Search() {
   // simulate db
@@ -17,20 +17,20 @@ function Search() {
       url: 'https://i.postimg.cc/W1M4FJ5d/317755-badge-html-html5-achievement-award-icon.png',
     },
     {
-      id: 2,
+      id: 3,
       name: 'jll',
       url: 'https://i.postimg.cc/W1M4FJ5d/317755-badge-html-html5-achievement-award-icon.png',
     },
     {
-      id: 2,
+      id: 4,
       name: 'jsk',
       url: 'https://i.postimg.cc/W1M4FJ5d/317755-badge-html-html5-achievement-award-icon.png',
     },
   ];
 
-  const [suggestTechno, setSuggestTechno] = useState<
-    { name: string; id: number; url: string }[]
-  >([]);
+  const [suggestTechno, setSuggestTechno] = useState<Technologie[]>([]);
+
+  const [technoSelected, setTechnoSelected] = useState<Technologie[]>([]);
 
   const [inputValue, setInputValue] = useState<string>('');
 
@@ -49,18 +49,20 @@ function Search() {
     }
   }
 
-  function handleSelectTechno(technoSuggestion: {
-    name: string;
-    id: number;
-    url: string;
-  }) {
-    console.log(technoSuggestion);
+  function handleSelectTechno(technoSuggestion: Technologie) {
+    setTechnoSelected((prevArray) => [...prevArray, technoSuggestion]);
     setSuggestTechno([]);
     setInputValue('');
   }
 
+  function deleteTechno(tech: Technologie) {
+    setTechnoSelected((array) =>
+      array.filter((technologie) => technologie.id !== tech.id)
+    );
+  }
+
   // Function to return 5 technos logo and +"x" if necessary for card project
-  function technoLogo(array: LogoTechno[]) {
+  function technoLogo(array: Technologie[]) {
     const displayLimit = 6;
     const extraImagesCount = array.length - displayLimit;
 
@@ -169,56 +171,32 @@ function Search() {
           </button>
         </div>
       </form>
-      <div className="mt-4 p-2 w-3/4 mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
-        <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
-          {' '}
-          <img
-            src="https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png"
-            alt="React"
-            className="w-6 h-6 bg-white2 rounded-xl"
-          />{' '}
-          <p className="hidden sm:block">React</p>
-          <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
-            <RxCross2 />
-          </button>
-        </span>
-        <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
-          {' '}
-          <img
-            src="https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png"
-            alt="React"
-            className="w-6 h-6 bg-white2 rounded-xl"
-          />{' '}
-          <p className="hidden sm:block">React</p>
-          <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
-            <RxCross2 />
-          </button>
-        </span>
-        <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
-          {' '}
-          <img
-            src="https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png"
-            alt="React"
-            className="w-6 h-6 bg-white2 rounded-xl"
-          />{' '}
-          <p className="hidden sm:block">React</p>
-          <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
-            <RxCross2 />
-          </button>
-        </span>
-        <span className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2">
-          {' '}
-          <img
-            src="https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png"
-            alt="React"
-            className="w-6 h-6 bg-white2 rounded-xl"
-          />{' '}
-          <p className="hidden sm:block">React</p>
-          <button type="button" className="hover:bg-slate-300 rounded-3xl p-1">
-            <RxCross2 />
-          </button>
-        </span>
-      </div>
+      {technoSelected.length > 0 && (
+        <div className="mt-4 p-2 w-3/4 mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
+          {technoSelected.map((tech) => (
+            <span
+              key={tech.id}
+              className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2"
+            >
+              {' '}
+              <img
+                src={tech.url}
+                alt={tech.name}
+                className="w-6 h-6 bg-white2 rounded-xl"
+              />{' '}
+              <p className="hidden sm:block">{tech.name}</p>
+              <button
+                onClick={() => deleteTechno(tech)}
+                type="button"
+                className="hover:bg-slate-300 rounded-3xl p-1"
+              >
+                <RxCross2 />
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
       <section className="flex justify-center gap-6 flex-wrap mt-10">
         <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
           <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:bg-darkgold">
