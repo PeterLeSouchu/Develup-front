@@ -4,7 +4,7 @@ function Conditions() {
   const { logged } = useUserStore();
   return (
     <div
-      className={`${logged ? 'flex justify-center items-center  m-auto' : 'max-w-3xl px-10 min-h-80  py-14 flex justify-center items-center  m-auto'}`}
+      className={`${logged ? 'flex justify-center px-12 items-center  m-auto' : 'max-w-3xl px-10 min-h-80  py-14 flex justify-center items-center  m-auto'}`}
     >
       <div className="flex flex-col gap-6 justify-center">
         <h1 className="text-4xl font-semibold  text-gold dark:text-darkgold">
