@@ -105,7 +105,7 @@ function HeaderMobile() {
         >
           <RxCross1 />
         </button>
-        <nav className="p-4">
+        <nav className="p-4 relative h-full">
           <ul>
             <li className="py-2 flex justify-start items-center">
               <Link
@@ -147,7 +147,9 @@ function HeaderMobile() {
                 Profil
               </Link>
             </li>
-            <li className="pt-44 py-2 flex justify-start items-center">
+          </ul>
+          <div className="absolute bottom-5 left-5">
+            <div className="pt-44 py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/legal-notices"
@@ -156,8 +158,8 @@ function HeaderMobile() {
                 <FaRegFile className="mr-2" />
                 Mentions légales
               </Link>
-            </li>
-            <li className="py-2 flex justify-start items-center">
+            </div>
+            <div className="py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/general-conditions-of-use"
@@ -166,8 +168,8 @@ function HeaderMobile() {
                 <FaShieldAlt className="mr-2" />
                 CGU
               </Link>
-            </li>
-            <li>
+            </div>
+            <div>
               <button
                 type="button"
                 onClick={handleLogout}
@@ -176,8 +178,8 @@ function HeaderMobile() {
                 <BiLogOut className="mr-2 font-bold" />
                 Se déconnecter
               </button>
-            </li>
-          </ul>
+            </div>
+          </div>
         </nav>
       </div>
       <BackErrorNotification />

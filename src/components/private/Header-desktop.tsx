@@ -80,14 +80,14 @@ function HeaderDesktop() {
               </span>
               <Link
                 to="/dashboard/general-conditions-of-use"
-                className="text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
+                className="underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
               >
                 <FaShieldAlt className="mr-2" />
                 CGU
               </Link>
               <Link
                 to="/dashboard/legal-notices"
-                className="text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
+                className="underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
               >
                 <FaRegFile className="mr-2" />
                 Mentions légales
@@ -95,9 +95,9 @@ function HeaderDesktop() {
               <button
                 type="button"
                 onClick={handleLogout}
-                className="text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
+                className="text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center font-extrabold"
               >
-                <BiLogOut className="mr-2 font-bold" />
+                <BiLogOut className="mr-2 " />
                 Se déconnecter
               </button>
             </div>

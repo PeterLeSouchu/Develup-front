@@ -18,6 +18,7 @@ export default {
         black: '#303030',
         darkTheme: '#464a4e',
         white: '#f4f4f4',
+        white2: '#ffffff',
       },
       height: {
         8: '8vh',
