@@ -132,6 +132,9 @@ function Search() {
       </div>
       <section className="flex justify-center gap-6 flex-wrap mt-10">
         <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:bg-darkgold">
+            5 à 8h/semaine
+          </span>
           <img
             className="h-40 mx-auto"
             src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
@@ -226,6 +229,9 @@ function Search() {
           ])}
         </div>
         <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:bg-darkgold">
+            5 à 8h/semaine
+          </span>
           <img
             className="h-40 mx-auto"
             src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
@@ -320,100 +326,9 @@ function Search() {
           ])}
         </div>
         <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
-          <img
-            className="h-40 mx-auto"
-            src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
-            alt="nextjs"
-          />
-          <h3 className="text-2xl  my-3 line-clamp-2 break-words">
-            Titresddjzkdzzdddddddzdzdzzdzdzddzzzdz
-          </h3>
-          <p className=" text-sm line-clamp-6  my-3 break-words ">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
-            eius quis odit officia minus necessitatibus corporis magnam quae,
-            sunt quosdfddd dzddzdzn
-            dzddfzfdzdzdzdzzdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzdizdjizejzdikzdjzdizddjzizdjdzizjdizdjzdijzdidzjzdijzdjzdizdjzdidzjdzij
-          </p>
-          {technoLogo([
-            {
-              name: 'react',
-              id: 1,
-              url: 'https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 2,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 3,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 4,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 5,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 6,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 7,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-            {
-              name: 'Javacript',
-              id: 8,
-              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
-            },
-          ])}
-        </div>
-        <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:bg-darkgold">
+            5 à 8h/semaine
+          </span>
           <img
             className="h-40 mx-auto"
             src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
