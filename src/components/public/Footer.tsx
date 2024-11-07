@@ -11,13 +11,13 @@ function Footer() {
           Contactez-nous : develup33@gmail.com
         </Link>
         <Link
-          to="/dashboard/legal-notices"
+          to="/legal-notices"
           className="underline hover:text-darkgold underline-offset-3 "
         >
           Mentions légales
         </Link>
         <Link
-          to="/dashboard/general-conditions-of-use"
+          to="/general-conditions-of-use"
           className="underline hover:text-darkgold underline-offset-3 "
         >
           Conditions générales d&apos;utilisation

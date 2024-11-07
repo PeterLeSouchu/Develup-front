@@ -1,15 +1,23 @@
 import { Link } from 'react-router-dom';
+import { useUserStore } from '../../store';
 
 function LegalNotices() {
+  const { logged } = useUserStore();
   return (
-    <div className="max-w-3xl px-10 min-h-80 flex justify-center items-center  py-14 m-auto">
+    <div
+      className={`${logged ? ' flex justify-center items-center m-auto' : 'max-w-3xl px-10 min-h-80 flex justify-center items-center  py-14 m-auto'}`}
+    >
       <div className="flex flex-col gap-6 justify-center">
-        <h1 className="text-4xl font-semibold  text-darkgold ">
+        <h1 className="text-4xl font-semibold  text-gold dark:text-darkgold ">
           Mentions légales
         </h1>
         <div className="flex flex-col md:items-end gap-1 md:flex-row">
           <h2 className="font-semibold text-lg">Éditeur de l’application :</h2>
           <p>Équipe Develup</p>
+        </div>
+        <div className="flex flex-col md:items-end gap-1 md:flex-row">
+          <h2 className="font-semibold text-lg">Contact :</h2>
+          <p>develup33@gmail.com</p>
         </div>
         <div className="flex flex-col md:items-end gap-1 md:flex-row">
           <h2 className="font-semibold text-lg">Hébergement :</h2>

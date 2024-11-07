@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useUserStore } from '../store';
+import { useUserStore } from '../../store';
 
 function NotFound() {
   const { logged } = useUserStore();

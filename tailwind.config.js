@@ -18,6 +18,7 @@ export default {
         black: '#303030',
         darkTheme: '#464a4e',
         white: '#f4f4f4',
+        white2: '#ffffff',
       },
       height: {
         8: '8vh',
@@ -33,10 +34,9 @@ export default {
       minHeight: {
         8: '8vh',
         10: '10vh',
-        84: '84vh',
+        35: '35rem',
         80: '80vh',
         100: '100vh',
-        78: '78vh',
       },
     },
   },
