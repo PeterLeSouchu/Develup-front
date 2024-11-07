@@ -100,7 +100,7 @@ function HeaderMobile() {
       >
         <button
           type="button"
-          className="absolute top-4 right-4 text-3xl"
+          className="absolute top-4 right-4 text-3xl z-50"
           onClick={toggleNavbar}
         >
           <RxCross1 />

@@ -29,7 +29,8 @@ function Signin() {
       setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const errorAPImessage = error.response?.data?.message;
+        const errorAPImessage =
+          error.response?.data?.message || 'erreur inconnue';
         setErrorMessage(errorAPImessage);
       }
     }
