@@ -14,7 +14,7 @@ import Home from './pages/public/Home';
 import NotFound from './pages/all/Not-Found';
 import PublicLayout from './layouts/Public-layout';
 import PrivateLayout from './layouts/Private-layout';
-import Search from './pages/private/Search';
+import Search, { loadProjectsAndTechnos } from './pages/private/Search';
 import LegalNotices from './pages/all/Legal-notices';
 import Signin from './pages/public/Signin';
 import Signup from './pages/public/Signup';
@@ -45,7 +45,11 @@ const router = createBrowserRouter(
 
       <Route element={<PrivateRoute />}>
         <Route element={<PrivateLayout />}>
-          <Route path="/dashboard/search" element={<Search />} />
+          <Route
+            path="/dashboard/search"
+            loader={loadProjectsAndTechnos}
+            element={<Search />}
+          />
           <Route
             path="/dashboard/general-conditions-of-use"
             element={<Conditions />}

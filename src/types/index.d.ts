@@ -46,5 +46,21 @@ export interface ApiResponse {
 export interface Technologie {
   id: number;
   name: string;
+  image: string;
+}
+
+export interface Project {
+  id: number;
+  title: string;
+  rhythm: string;
+  description: string;
   url: string;
+  user_id: number;
+  user_id: number;
+  techno: Technologie[];
+}
+
+export interface ProjectsAndTechnos {
+  projects: Project[];
+  technologies: Technologie[];
 }

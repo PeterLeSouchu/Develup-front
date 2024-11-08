@@ -20,10 +20,6 @@ function HeaderMobile() {
   const { darkTheme, setDarkTheme, setLogged } = useUserStore();
   const navigate = useNavigate();
 
-  const toggleNavbar = () => {
-    setIsNavbarOpen((state) => !state);
-  };
-
   const disableScroll = () => {
     document.body.style.overflow = 'hidden';
   };
@@ -62,7 +58,11 @@ function HeaderMobile() {
       {/* navbar with btn toggle sidebar */}
       <header className="w-full fixed backdrop-blur-sm p-3 z-30">
         <div className="px-3 flex justify-between items-center h-14 rounded-2xl bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold">
-          <button type="button" className=" text-4xl" onClick={toggleNavbar}>
+          <button
+            type="button"
+            className=" text-4xl"
+            onClick={() => setIsNavbarOpen(true)}
+          >
             <IoMenu />
           </button>
           <img src={logo} alt="logo Develup" className="w-28" />
@@ -101,7 +101,7 @@ function HeaderMobile() {
         <button
           type="button"
           className="absolute top-4 right-4 text-3xl z-50"
-          onClick={toggleNavbar}
+          onClick={() => setIsNavbarOpen(false)}
         >
           <RxCross1 />
         </button>
