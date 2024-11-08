@@ -28,12 +28,15 @@ function Search() {
     },
   ];
 
+  // State for the suggest techno (list display below the input)
   const [suggestTechno, setSuggestTechno] = useState<Technologie[]>([]);
 
+  // State for the selected techno (display in a div below form)
   const [technoSelected, setTechnoSelected] = useState<Technologie[]>([]);
 
   const [inputValue, setInputValue] = useState<string>('');
 
+  // Function to change input value and update suggestions
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
     setInputValue(e.target.value);
@@ -49,13 +52,20 @@ function Search() {
     }
   }
 
-  function handleSelectTechno(technoSuggestion: Technologie) {
-    setTechnoSelected((prevArray) => [...prevArray, technoSuggestion]);
+  // Function to add techno to the search
+  function handleSelectTechno(tech: Technologie) {
+    setTechnoSelected((prevArray) => {
+      if (prevArray.some((technologie) => technologie.id === tech.id)) {
+        return prevArray;
+      }
+      return [...prevArray, tech];
+    });
     setSuggestTechno([]);
     setInputValue('');
   }
 
-  function deleteTechno(tech: Technologie) {
+  // Function to delete techno from the search
+  function handleDeleteTechno(tech: Technologie) {
     setTechnoSelected((array) =>
       array.filter((technologie) => technologie.id !== tech.id)
     );
@@ -129,23 +139,21 @@ function Search() {
                   onClick={() => setSuggestTechno([])}
                 />
                 <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md  overflow-scroll ">
-                  {suggestTechno.map(
-                    (suggestion: { name: string; id: number; url: string }) => (
-                      <button
-                        onClick={() => handleSelectTechno(suggestion)}
-                        type="button"
-                        className="dark:hover:bg-slate-200 hover:bg-white2 transition w-full flex items-center justify-start gap-2 p-1"
-                        key={suggestion.id}
-                      >
-                        <img
-                          src={suggestion.url}
-                          alt={suggestion.name}
-                          className="h-5"
-                        />
-                        {suggestion.name}
-                      </button>
-                    )
-                  )}
+                  {suggestTechno.map((suggestion: Technologie) => (
+                    <button
+                      onClick={() => handleSelectTechno(suggestion)}
+                      type="button"
+                      className="dark:hover:bg-slate-200 hover:bg-white2 transition w-full flex items-center justify-start gap-2 p-1"
+                      key={suggestion.id}
+                    >
+                      <img
+                        src={suggestion.url}
+                        alt={suggestion.name}
+                        className="h-5"
+                      />
+                      {suggestion.name}
+                    </button>
+                  ))}
                 </div>
               </>
             )}
@@ -186,7 +194,7 @@ function Search() {
               />{' '}
               <p className="hidden sm:block">{tech.name}</p>
               <button
-                onClick={() => deleteTechno(tech)}
+                onClick={() => handleDeleteTechno(tech)}
                 type="button"
                 className="hover:bg-slate-300 rounded-3xl p-1"
               >
@@ -199,7 +207,7 @@ function Search() {
 
       <section className="flex justify-center gap-6 flex-wrap mt-10">
         <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
-          <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:bg-darkgold">
+          <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
             5 à 8h/semaine
           </span>
           <img
@@ -291,6 +299,52 @@ function Search() {
             {
               name: 'Javacript',
               id: 8,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+          ])}
+        </div>
+        <div className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg border-2 p-3 flex flex-col relative ">
+          <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
+            5 à 8h/semaine
+          </span>
+          <img
+            className="h-40 mx-auto"
+            src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
+            alt="nextjs"
+          />
+          <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+            Titresddjzkdzzdddddddzdzdzzdzdzddzzzdz
+          </h3>
+          <p className=" text-sm line-clamp-6  my-3 break-words ">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione
+            eius quis odit officia minus necessitatibus corporis magnam quae,
+            sunt quosdfddd dzddzdzn
+            dzddfzfdzdzdzdzzdkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkzdizdjizejzdikzdjzdizddjzizdjdzizjdizdjzdijzdidzjzdijzdjzdizdjzdidzjdzij
+          </p>
+          {technoLogo([
+            {
+              name: 'react',
+              id: 1,
+              url: 'https://i.postimg.cc/JhydY1ZW/7423888-react-react-native-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 2,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 3,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 4,
+              url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
+            },
+            {
+              name: 'Javacript',
+              id: 5,
               url: 'https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png',
             },
           ])}
