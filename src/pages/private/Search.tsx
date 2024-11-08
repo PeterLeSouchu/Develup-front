@@ -4,16 +4,13 @@ import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 import { Technologie, Project, ProjectsAndTechnos } from '../../types';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
-import BackErrorNotification from '../../components/all/errors/back-error-notification/Back-error-component';
-import errorNotification from '../../components/all/errors/back-error-notification/notification-function';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
   try {
     const { data: dataProject } = await axiosWithoutCSRFtoken.get('/project');
-    // console.log(dataProject.result[0]);
     const { data: dataTechno } =
       await axiosWithoutCSRFtoken.get('/technologie');
-    // console.log(dataTechno.result);
     const projects = dataProject.result;
     const technologies = dataTechno.result;
     return { projects, technologies };
@@ -32,6 +29,7 @@ function Search() {
   const [inputValue, setInputValue] = useState<string>('');
   const [rhythm, setrhythm] = useState<string>('');
   const [results, setResults] = useState<Project[]>([]);
+  const [ErrorMessage, setErrorMessage] = useState<string>('');
   const { projects, technologies } = useLoaderData() as ProjectsAndTechnos;
 
   // setResults(projects);
@@ -77,16 +75,17 @@ function Search() {
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    setErrorMessage('');
     e.preventDefault();
     const technoNameSelected = technoSelected.map((tech) => tech.name);
     if (!rhythm && technoNameSelected.length === 0) {
-      errorNotification('Veuillez sélectionner au moins 1 champ');
+      return setErrorMessage('Veuillez sélectionner au moins 1 champ');
     }
     const { data } = await axiosWithoutCSRFtoken.post('/search', {
       technoNameSelected,
       rhythm,
     });
-    setResults(data.result);
+    return setResults(data.result);
   }
 
   // Function to return 5 technos logo and +"x" if necessary for card project
@@ -214,6 +213,11 @@ function Search() {
           </button>
         </div>
       </form>
+      {ErrorMessage && (
+        <p className="text-red-400 mt-1 text-center">
+          Veuillez sélectionner au moins 1 champ
+        </p>
+      )}
       {technoSelected.length > 0 && (
         <div className="mt-4 p-2 w-3/4 dark:border-white2  mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
           {technoSelected.map((tech) => (
@@ -240,7 +244,12 @@ function Search() {
         </div>
       )}
 
-      <section className="flex justify-center gap-6 flex-wrap mt-10">
+      {results.length > 0 && (
+        <p className="text-center mt-5 dark:text-white">
+          {results.length} résultat{results.length > 1 ? 's' : ''}
+        </p>
+      )}
+      <section className="flex justify-center gap-6 flex-wrap mt-5">
         {results?.length > 0 ? (
           results?.map((result) => (
             <div
@@ -268,7 +277,6 @@ function Search() {
           <p className="text-xl dark:text-white">Aucun resultat</p>
         )}
       </section>
-      <BackErrorNotification />
     </div>
   );
 }

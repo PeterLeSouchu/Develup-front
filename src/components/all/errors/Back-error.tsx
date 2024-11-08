@@ -1,5 +1,5 @@
 import { MdErrorOutline } from 'react-icons/md';
-import { BackErrorType } from '../../types';
+import { BackErrorType } from '../../../types';
 
 function BackError({ message }: BackErrorType) {
   return (
