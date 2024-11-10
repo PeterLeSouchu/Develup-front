@@ -23,6 +23,7 @@ import Conditions from './pages/all/Conditions';
 import PrivateRoute from './security/routes/Private-route';
 import PublicRoute from './security/routes/Public-route';
 import ResetPassword from './pages/public/Reset-password';
+import ProjectDetails from './pages/private/Project-details';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -55,6 +56,10 @@ const router = createBrowserRouter(
             element={<Conditions />}
           />
           <Route path="/dashboard/legal-notices" element={<LegalNotices />} />
+          <Route
+            path="/dashboard/project/:name/:id"
+            element={<ProjectDetails />}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

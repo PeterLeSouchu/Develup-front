@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -112,7 +112,7 @@ function Search() {
     const extraImagesCount = array.length - displayLimit;
 
     return (
-      <div className="flex gap-2  whitespace-nowrap absolute left-3 bottom-3 ">
+      <div className="flex gap-2 items-center whitespace-nowrap absolute left-3 bottom-3 ">
         {array.length === 0 ? (
           <p className="text-sm">Aucune techno</p>
         ) : (
@@ -123,7 +123,7 @@ function Search() {
                 key={logo.id}
                 src={logo.image}
                 alt={logo.name}
-                className="w-7 h-7 my-2  rounded-xl object-contain bg-white2 p-1"
+                className="w-8 h-8 my-2  rounded-xl object-contain bg-white2 p-1"
               />
             ))
         )}
@@ -280,14 +280,18 @@ function Search() {
                 <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
                   {result.rhythm}
                 </span>
-                <img
-                  className="h-40 mx-auto"
-                  src={result.image}
-                  alt={result.title}
-                />
-                <h3 className="text-2xl  my-3 line-clamp-2 break-words">
-                  {result.title}
-                </h3>
+                <Link
+                  to={`/dashboard/project/${result.title.replace(/ /g, '-')}/${result.id}`}
+                >
+                  <img
+                    className="h-40 mx-auto"
+                    src={result.image}
+                    alt={result.title}
+                  />
+                  <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+                    {result.title}
+                  </h3>
+                </Link>
                 <p className=" text-sm line-clamp-6  my-3 break-words ">
                   {result.description}
                 </p>
