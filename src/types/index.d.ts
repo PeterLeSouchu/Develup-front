@@ -28,6 +28,8 @@ export interface UserStore {
 export interface SettingsStore {
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
+  authErrorMessage: string;
+  setAuthErrorMessage: (message: string) => void;
 }
 
 export interface HookFormErrorType {
@@ -37,10 +39,6 @@ export interface HookFormErrorType {
 
 export interface BackErrorType {
   message: string | undefined;
-}
-
-export interface ApiResponse {
-  message: string;
 }
 
 export interface Technologie {
@@ -55,8 +53,7 @@ export interface Project {
   rhythm: string;
   description: string;
   image: string;
-  user_id: number;
-  user_id: number;
+  author: string;
   techno: Technologie[];
 }
 

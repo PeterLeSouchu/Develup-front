@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
@@ -9,11 +10,27 @@ import { useSettingsStore } from '../../store';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
-  const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
-  const { data: dataTechno } = await axiosWithoutCSRFtoken.get('/technologies');
-  const projects = dataProject.result;
-  const technologies = dataTechno.result;
-  return { projects, technologies };
+  const { setAuthErrorMessage } = useSettingsStore.getState();
+  try {
+    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
+    const { data: dataTechno } =
+      await axiosWithoutCSRFtoken.get('/technologies');
+    const projects = dataProject.result;
+    const technologies = dataTechno.result;
+    return { projects, technologies };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log(error.response?.data.message);
+      const errorMessage = error.response?.data.message;
+      setAuthErrorMessage(errorMessage);
+      return {
+        errorMessage: 'Error during fetch techno and project on home page',
+      };
+    }
+    return {
+      errorMessage: 'Error during fetch techno and project on home page',
+    };
+  }
 };
 
 function Search() {
@@ -108,7 +125,7 @@ function Search() {
 
   // Function to return 5 technos logo and +"x" if necessary for card project
   function technoLogo(array: Technologie[]) {
-    const displayLimit = 6;
+    const displayLimit = 5;
     const extraImagesCount = array.length - displayLimit;
 
     return (
@@ -123,7 +140,7 @@ function Search() {
                 key={logo.id}
                 src={logo.image}
                 alt={logo.name}
-                className="w-8 h-8 my-2  rounded-xl object-contain bg-white2 p-1"
+                className="w-9 h-9 my-2  rounded-xl object-contain bg-white2 p-1"
               />
             ))
         )}
