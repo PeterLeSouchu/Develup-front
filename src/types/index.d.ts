@@ -30,7 +30,7 @@ export interface SettingsStore {
   setLoading: (isLoading: boolean) => void;
 }
 
-export interface FrontErrorType {
+export interface HookFormErrorType {
   error: FieldError | undefined;
   message: string | undefined;
 }
@@ -54,7 +54,7 @@ export interface Project {
   title: string;
   rhythm: string;
   description: string;
-  url: string;
+  image: string;
   user_id: number;
   user_id: number;
   techno: Technologie[];

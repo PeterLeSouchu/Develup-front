@@ -8,7 +8,7 @@ import { useState } from 'react';
 import image from '../../assets/images/logo.png';
 import { ResetPasswordForm } from '../../types';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
-import FrontError from '../../components/all/errors/Front-error';
+import HookFormError from '../../components/all/errors/Hook-form-error';
 import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import BackError from '../../components/all/errors/Back-error';
@@ -76,7 +76,7 @@ function ResetPassword() {
                 )}
               </button>
             </div>
-            <FrontError
+            <HookFormError
               error={errors.password}
               message={errors.password?.message}
             />
@@ -105,7 +105,7 @@ function ResetPassword() {
                 )}
               </button>
             </div>
-            <FrontError
+            <HookFormError
               error={errors.passwordConfirm}
               message={errors.passwordConfirm?.message}
             />

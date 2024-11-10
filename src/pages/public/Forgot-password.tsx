@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import image from '../../assets/images/logo.png';
 import { useSettingsStore } from '../../store';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
-import FrontError from '../../components/all/errors/Front-error';
+import HookFormError from '../../components/all/errors/Hook-form-error';
 import forgotPasswordSchema from '../../security/form-validation/forgot-password-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import BackError from '../../components/all/errors/Back-error';
@@ -77,7 +77,7 @@ function ForgotPassword() {
                   placeholder="Entrez votre adresse mail"
                   {...register('email')}
                 />
-                <FrontError
+                <HookFormError
                   error={errors.email}
                   message={errors.email?.message}
                 />

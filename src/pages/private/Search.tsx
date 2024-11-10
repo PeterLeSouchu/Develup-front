@@ -1,38 +1,52 @@
 import { useLoaderData } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
 import { Technologie, Project, ProjectsAndTechnos } from '../../types';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
+import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
+import { useSettingsStore } from '../../store';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
-  try {
-    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/project');
-    const { data: dataTechno } =
-      await axiosWithoutCSRFtoken.get('/technologie');
-    const projects = dataProject.result;
-    const technologies = dataTechno.result;
-    return { projects, technologies };
-  } catch (error) {
-    throw new Error("Oops, les données n'ont pas pu être chargées");
-  }
+  const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
+  const { data: dataTechno } = await axiosWithoutCSRFtoken.get('/technologies');
+  const projects = dataProject.result;
+  const technologies = dataTechno.result;
+  return { projects, technologies };
 };
 
 function Search() {
+  // Function to display loader component (using during request for search project)
+  const { setLoading } = useSettingsStore();
   // State for the suggest techno (list display below the input)
   const [suggestTechno, setSuggestTechno] = useState<Technologie[]>([]);
+
+  // State to display number of result after a search only
+  const [isASearch, setIsASearch] = useState<boolean>(false);
 
   // State for the selected techno (display in a div below form)
   const [technoSelected, setTechnoSelected] = useState<Technologie[]>([]);
 
+  // State for inputValue (use setInputValue to '' after a submit to empty input)
   const [inputValue, setInputValue] = useState<string>('');
+
+  // State for rhythm project
   const [rhythm, setrhythm] = useState<string>('');
+
+  // State for result after a search (or initialize project when launch)
   const [results, setResults] = useState<Project[]>([]);
+
+  // State for error message when no input selected
   const [ErrorMessage, setErrorMessage] = useState<string>('');
+
+  // Data that contains projects (for launch) and all technologie from db for suggestion
   const { projects, technologies } = useLoaderData() as ProjectsAndTechnos;
 
-  // setResults(projects);
+  // For initialize page with most recent project
+  useEffect(() => {
+    setResults(projects);
+  }, [projects]);
 
   // Function to change rhythm
   const handleChangeRhythm = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -56,7 +70,7 @@ function Search() {
   }
 
   // Function to add techno to the search
-  function handleSelectTechno(tech: Technologie) {
+  function handleAddTechno(tech: Technologie) {
     setTechnoSelected((prevArray) => {
       if (prevArray.some((technologie) => technologie.id === tech.id)) {
         return prevArray;
@@ -74,6 +88,7 @@ function Search() {
     );
   }
 
+  // Function submit form
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     setErrorMessage('');
     e.preventDefault();
@@ -81,10 +96,13 @@ function Search() {
     if (!rhythm && technoNameSelected.length === 0) {
       return setErrorMessage('Veuillez sélectionner au moins 1 champ');
     }
+    setLoading(true);
     const { data } = await axiosWithoutCSRFtoken.post('/search', {
       technoNameSelected,
       rhythm,
     });
+    setIsASearch(true);
+    setLoading(false);
     return setResults(data.result);
   }
 
@@ -166,7 +184,7 @@ function Search() {
                 <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md  overflow-scroll ">
                   {suggestTechno.map((suggestion: Technologie) => (
                     <button
-                      onClick={() => handleSelectTechno(suggestion)}
+                      onClick={() => handleAddTechno(suggestion)}
                       type="button"
                       className="dark:hover:bg-slate-200 hover:bg-white2 transition w-full flex items-center justify-start gap-2 p-1"
                       key={suggestion.id}
@@ -174,7 +192,7 @@ function Search() {
                       <img
                         src={suggestion.image}
                         alt={suggestion.name}
-                        className="h-5"
+                        className="h-9 p-1 bg-white2 rounded-xl"
                       />
                       {suggestion.name}
                     </button>
@@ -229,7 +247,7 @@ function Search() {
               <img
                 src={tech.image}
                 alt={tech.name}
-                className="w-6 h-6 bg-white2 rounded-xl"
+                className="w-6 h-6  bg-white2 rounded-lg "
               />{' '}
               <p className="hidden sm:block">{tech.name}</p>
               <button
@@ -244,39 +262,40 @@ function Search() {
         </div>
       )}
 
-      {results.length > 0 && (
+      {isASearch && (
         <p className="text-center mt-5 dark:text-white">
-          {results.length} résultat{results.length > 1 ? 's' : ''}
+          {results.length > 0
+            ? `${results.length} résultat${results.length > 1 ? 's' : ''}`
+            : 'Aucun résultat'}
         </p>
       )}
-      <section className="flex justify-center gap-6 flex-wrap mt-5">
-        {results?.length > 0 ? (
-          results?.map((result) => (
-            <div
-              key={result.id}
-              className="bg-white2 dark:bg-slate-200 h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative "
-            >
-              <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
-                {result.rhythm}
-              </span>
-              <img
-                className="h-40 mx-auto"
-                src="https://i.postimg.cc/G3g0Kh4q/4373213-js-logo-logos-icon.png"
-                alt="nextjs"
-              />
-              <h3 className="text-2xl  my-3 line-clamp-2 break-words">
-                {result.title}
-              </h3>
-              <p className=" text-sm line-clamp-6  my-3 break-words ">
-                {result.description}
-              </p>
-              {technoLogo(result.techno)}
-            </div>
-          ))
-        ) : (
-          <p className="text-xl dark:text-white">Aucun resultat</p>
-        )}
-      </section>
+      <LoaderWrapper>
+        <section className="flex justify-center gap-6 flex-wrap mt-5">
+          {results?.length > 0 &&
+            results?.map((result) => (
+              <div
+                key={result.id}
+                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative "
+              >
+                <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
+                  {result.rhythm}
+                </span>
+                <img
+                  className="h-40 mx-auto"
+                  src={result.image}
+                  alt={result.title}
+                />
+                <h3 className="text-2xl  my-3 line-clamp-2 break-words">
+                  {result.title}
+                </h3>
+                <p className=" text-sm line-clamp-6  my-3 break-words ">
+                  {result.description}
+                </p>
+                {technoLogo(result.techno)}
+              </div>
+            ))}
+        </section>
+      </LoaderWrapper>
     </div>
   );
 }

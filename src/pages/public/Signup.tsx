@@ -10,7 +10,7 @@ import image from '../../assets/images/logo.png';
 import { useUserStore, useSettingsStore } from '../../store';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
-import FrontError from '../../components/all/errors/Front-error';
+import HookFormError from '../../components/all/errors/Hook-form-error';
 import signupSchema from '../../security/form-validation/signup-schema';
 import otpCodeSchema from '../../security/form-validation/otp-code-schema';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
@@ -104,7 +104,7 @@ function Signup() {
                     placeholder="Entrez le code OTP"
                     {...registerOtp('userOTPcode')}
                   />
-                  <FrontError
+                  <HookFormError
                     error={errorOtp.userOTPcode}
                     message={errorOtp.userOTPcode?.message}
                   />
@@ -134,7 +134,7 @@ function Signup() {
                   placeholder="Entrez votre adresse mail"
                   {...register('email')}
                 />
-                <FrontError
+                <HookFormError
                   error={errors.email}
                   message={errors.email?.message}
                 />
@@ -150,7 +150,7 @@ function Signup() {
                   placeholder="Entrez votre pseudo"
                   {...register('pseudo')}
                 />
-                <FrontError
+                <HookFormError
                   error={errors.pseudo}
                   message={errors.pseudo?.message}
                 />
@@ -179,7 +179,7 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                <FrontError
+                <HookFormError
                   error={errors.password}
                   message={errors.password?.message}
                 />
@@ -210,7 +210,7 @@ function Signup() {
                     )}
                   </button>
                 </div>
-                <FrontError
+                <HookFormError
                   error={errors.passwordConfirm}
                   message={errors.passwordConfirm?.message}
                 />
@@ -224,7 +224,7 @@ function Signup() {
                   </Link>
                 </label>
               </div>
-              <FrontError error={errors.cgu} message={errors.cgu?.message} />
+              <HookFormError error={errors.cgu} message={errors.cgu?.message} />
               <button
                 className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
                 type="submit"

@@ -6,14 +6,11 @@ import { FaMoon, FaRegFile, FaRegMessage } from 'react-icons/fa6';
 import { RxCross1 } from 'react-icons/rx';
 import { BiLogOut } from 'react-icons/bi';
 import { CgProfile } from 'react-icons/cg';
-import axios from 'axios';
 import { IoMenu } from 'react-icons/io5';
 import { FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useUserStore } from '../../store';
-import errorNotification from '../all/errors/back-error-notification/notification-function';
-import BackErrorNotification from '../all/errors/back-error-notification/Back-error-component';
 
 function HeaderMobile() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -38,19 +35,12 @@ function HeaderMobile() {
   }, [isNavbarOpen]);
 
   async function handleLogout() {
-    try {
-      await axiosWithCSRFtoken.post('/logout');
-      setLogged(false);
-      localStorage.removeItem('csrfToken');
-      setDarkTheme(false);
-      localStorage.removeItem('user-storage');
-      navigate('/');
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const errorAPImessage = error.response?.data?.message;
-        errorNotification(errorAPImessage);
-      }
-    }
+    await axiosWithCSRFtoken.post('/logout');
+    setLogged(false);
+    setDarkTheme(false);
+    localStorage.removeItem('csrfToken');
+    localStorage.removeItem('user-storage');
+    navigate('/');
   }
 
   return (
@@ -182,7 +172,6 @@ function HeaderMobile() {
           </div>
         </nav>
       </div>
-      <BackErrorNotification />
     </>
   );
 }
