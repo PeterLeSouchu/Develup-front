@@ -9,7 +9,7 @@ import { CgProfile } from 'react-icons/cg';
 import { IoMenu } from 'react-icons/io5';
 import { FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
-import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useUserStore } from '../../store';
 
 function HeaderMobile() {
@@ -35,7 +35,7 @@ function HeaderMobile() {
   }, [isNavbarOpen]);
 
   async function handleLogout() {
-    await axiosWithCSRFtoken.post('/logout');
+    await axiosWithoutCSRFtoken.post('/logout');
     setLogged(false);
     setDarkTheme(false);
     localStorage.removeItem('csrfToken');

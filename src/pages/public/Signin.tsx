@@ -13,7 +13,7 @@ function Signin() {
   const [type, setType] = useState('password');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
   const { setLogged } = useUserStore();
 
   async function handlerSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -26,13 +26,13 @@ function Signin() {
       const { data } = await axiosWithoutCSRFtoken.get('/csrf-token');
       const { csrfToken } = data;
       localStorage.setItem('csrfToken', csrfToken);
-      setLogged(true);
+      return setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const errorAPImessage =
-          error.response?.data?.message || 'erreur inconnue';
-        setErrorMessage(errorAPImessage);
+        const errorAPImessage = error.response?.data?.message;
+        return setErrorMessage(errorAPImessage);
       }
+      return setErrorMessage('Erreur inattendu');
     }
   }
 

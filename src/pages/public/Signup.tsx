@@ -21,7 +21,7 @@ function Signup() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
 
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Display otp form
   const [otpModal, setOtpModal] = useState<boolean>(false);
@@ -51,13 +51,15 @@ function Signup() {
       setLoading(true);
       await axiosWithoutCSRFtoken.post('/signup/otp', data);
       setOtpModal((state) => !state);
-      setLoading(false);
+      return setLoading(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
         setErrorMessage(errorAPImessage);
-        setLoading(false);
+        return setLoading(false);
       }
+      setLoading(false);
+      return setErrorMessage('Erreur inattendu');
     }
   }
 
@@ -68,12 +70,13 @@ function Signup() {
         await axiosWithoutCSRFtoken.get('/csrf-token');
       const { csrfToken } = dataResponse;
       localStorage.setItem('csrfToken', csrfToken);
-      setLogged(true);
+      return setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        setErrorMessage(errorAPImessage);
+        return setErrorMessage(errorAPImessage);
       }
+      return setErrorMessage('Erreur inattendu');
     }
   }
 

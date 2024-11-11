@@ -23,8 +23,8 @@ export interface UserStoreType {
 export interface SettingsStoreType {
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
-  authErrorMessage: string;
-  setAuthErrorMessage: (message: string) => void;
+  globalErrorMessage: string;
+  setGlobalErrorMessage: (message: string) => void;
 }
 
 export interface HookFormErrorType {
@@ -53,6 +53,6 @@ export interface ProjectType {
 }
 
 export interface ProjectsAndTechnosType {
-  Projects: ProjectType[];
-  Technologies: TechnologieType[];
+  projects: ProjectType[];
+  technologies: TechnologieType[];
 }

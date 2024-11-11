@@ -18,6 +18,7 @@ export const useUserStore = create<UserStoreType>()(
 export const useSettingsStore = create<SettingsStoreType>()((set) => ({
   loading: false,
   setLoading: (isLoading) => set(() => ({ loading: isLoading })),
-  authErrorMessage: '',
-  setAuthErrorMessage: (message) => set(() => ({ authErrorMessage: message })),
+  globalErrorMessage: '',
+  setGlobalErrorMessage: (message) =>
+    set(() => ({ globalErrorMessage: message })),
 }));

@@ -7,14 +7,14 @@ import { BiLogOut } from 'react-icons/bi';
 import { FaMoon, FaRegFile, FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import { useUserStore } from '../../store';
-import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 
 function HeaderDesktop() {
   const { darkTheme, setDarkTheme, setLogged } = useUserStore();
   const navigate = useNavigate();
 
   async function handleLogout() {
-    await axiosWithCSRFtoken.post('/logout');
+    await axiosWithoutCSRFtoken.post('/logout');
     setLogged(false);
     setDarkTheme(false);
     localStorage.removeItem('csrfToken');

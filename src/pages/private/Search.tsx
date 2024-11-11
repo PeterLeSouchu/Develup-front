@@ -14,30 +14,29 @@ import { useSettingsStore } from '../../store';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
-  const { setAuthErrorMessage } = useSettingsStore.getState();
+  const { setGlobalErrorMessage } = useSettingsStore.getState();
   try {
-    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/Projects');
+    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
     const { data: dataTechno } =
-      await axiosWithoutCSRFtoken.get('/Technologies');
-    const Projects = dataProject.result;
-    const Technologies = dataTechno.result;
-    return { Projects, Technologies };
+      await axiosWithoutCSRFtoken.get('/technologies');
+    const projects = dataProject.result;
+    const technologies = dataTechno.result;
+    return { projects, technologies };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      const errorMessage = error.response?.data.message;
-      setAuthErrorMessage(errorMessage);
-      return {
-        errorMessage: 'Error during fetch techno and Project on home page',
-      };
+      const message = error.response?.data.message;
+      // here if there's error, it's usually authError (or other unknow error), so we display the globalErrorMessage and force user to close session and login again
+      setGlobalErrorMessage(message);
+      // Here we have to return something or there's an error
+      return 'erreur inattendu';
     }
-    return {
-      errorMessage: 'Error during fetch techno and Project on home page',
-    };
+    setGlobalErrorMessage('Erreur innatendu, essayez de vous reconnecter');
+    return 'erreur inattendu';
   }
 };
 
 function Search() {
-  const { setAuthErrorMessage } = useSettingsStore();
+  const { setGlobalErrorMessage } = useSettingsStore();
   // Function to display loader component (using during request for search Project)
   const { setLoading } = useSettingsStore();
   // State for the suggest techno (list display below the input)
@@ -59,21 +58,21 @@ function Search() {
   const [results, setResults] = useState<ProjectType[]>([]);
 
   // State for error message when no input selected
-  const [ErrorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   // Data that contains Projects (for launch) and all Technologie from db for suggestion
-  const { Projects, Technologies } = useLoaderData() as ProjectsAndTechnosType;
+  const { projects, technologies } = useLoaderData() as ProjectsAndTechnosType;
 
   // For initialize page with most recent Project
   useEffect(() => {
-    setResults(Projects);
+    setResults(projects);
     // When user search project and then click on 'search' link in sidebar, we have to set 'isASearch' state at false, to empty technoSelected and rhythm value input or it's display when no search
     return () => {
       setIsASearch(false);
       setTechnoSelected([]);
       setInputRhythmValue('');
     };
-  }, [Projects]);
+  }, [projects]);
 
   // Function to change rhythm
   const handleChangeRhythm = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -85,7 +84,7 @@ function Search() {
     const value = e.target.value.toLowerCase();
     setInputTechnoValue(e.target.value);
 
-    const filteredTechno = Technologies.filter((tech) =>
+    const filteredTechno = technologies.filter((tech) =>
       tech.name.toLowerCase().includes(value)
     );
 
@@ -130,21 +129,23 @@ function Search() {
         inputRhythmValue,
       });
       setIsASearch(true);
-      setLoading(false);
-      return setResults(data.result);
+      setResults(data.result);
+      return setLoading(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data.message;
-        setAuthErrorMessage(errorMessage);
+        const message = error.response?.data.message;
+        if (message === 'Veuillez sélectionner au moins 1 champ') {
+          setLoading(false);
+          return setErrorMessage(errorMessage);
+        }
+        // here if error is not empty input, it's usually authError (or other unknow error), so we display the globalErrorMessage and force user to close session and login again
         setLoading(false);
-        return {
-          errorMessage: 'Error during fetch techno and Project on home page',
-        };
+        return setGlobalErrorMessage(errorMessage);
       }
       setLoading(false);
-      return {
-        errorMessage: 'Error during fetch techno and Project on home page',
-      };
+      return setGlobalErrorMessage(
+        'Erreur innatendu, essayez de vous reconnecter'
+      );
     }
   }
 
@@ -216,7 +217,7 @@ function Search() {
             {suggestTechno.length > 0 && (
               <>
                 <div
-                  aria-label="close side bar"
+                  aria-label="close suggest techno"
                   onKeyDown={() => setSuggestTechno([])}
                   role="button"
                   tabIndex={0}
@@ -273,10 +274,8 @@ function Search() {
           </button>
         </div>
       </form>
-      {ErrorMessage && (
-        <p className="text-red-400 mt-1 text-center">
-          Veuillez sélectionner au moins 1 champ
-        </p>
+      {errorMessage && (
+        <p className="text-red-400 mt-1 text-center">{errorMessage}</p>
       )}
       {technoSelected.length > 0 && (
         <div className="mt-4 p-2 w-3/4 dark:border-white2  mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">

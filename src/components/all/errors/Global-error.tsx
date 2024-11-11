@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { useSettingsStore, useUserStore } from '../../../store';
 
-function AuthError({ message }: { message: string }) {
+function GlobalError({ message }: { message: string }) {
   const navigate = useNavigate();
-  const { setAuthErrorMessage } = useSettingsStore();
+  const { setGlobalErrorMessage } = useSettingsStore();
   const { setLogged, setDarkTheme } = useUserStore();
 
   function handleResetSession() {
     setLogged(false);
-    setAuthErrorMessage('');
+    setGlobalErrorMessage('');
     setDarkTheme(false);
     localStorage.removeItem('csrfToken');
     localStorage.removeItem('user-storage');
@@ -30,4 +30,4 @@ function AuthError({ message }: { message: string }) {
     </div>
   );
 }
-export default AuthError;
+export default GlobalError;

@@ -15,7 +15,7 @@ import BackError from '../../components/all/errors/Back-error';
 function ResetPassword() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -39,12 +39,13 @@ function ResetPassword() {
           },
         }
       );
-      navigate('/login');
+      return navigate('/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        setErrorMessage(errorAPImessage);
+        return setErrorMessage(errorAPImessage);
       }
+      return setErrorMessage('Erreur inattendu');
     }
   }
 
