@@ -142,7 +142,6 @@ function Search() {
         }
         // here if error is not empty input, it's usually authError (or other unknow error), so we display the globalErrorMessage and force user to close session and login again
         setLoading(false);
-        console.log('dzdzffejezknfezjfhezfuefhu');
         return setGlobalErrorMessage(message);
       }
       setLoading(false);
@@ -325,7 +324,7 @@ function Search() {
                   {result.rhythm}
                 </span>
                 <Link
-                  to={`/dashboard/Project/${result.title.replace(/ /g, '-')}/${result.id}`}
+                  to={`/dashboard/project/${result.title.replace(/ /g, '-')}/${result.id}`}
                 >
                   <img
                     className="h-40 mx-auto"

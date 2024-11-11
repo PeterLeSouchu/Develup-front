@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { GrProjects } from 'react-icons/gr';
 import { FaRegMessage } from 'react-icons/fa6';
@@ -6,20 +7,31 @@ import { IoIosSearch } from 'react-icons/io';
 import { BiLogOut } from 'react-icons/bi';
 import { FaMoon, FaRegFile, FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
-import { useUserStore } from '../../store';
+import { useSettingsStore, useUserStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 
 function HeaderDesktop() {
   const { darkTheme, setDarkTheme, setLogged } = useUserStore();
   const navigate = useNavigate();
+  const { setGlobalErrorMessage } = useSettingsStore();
 
   async function handleLogout() {
-    await axiosWithoutCSRFtoken.post('/logout');
-    setLogged(false);
-    setDarkTheme(false);
-    localStorage.removeItem('csrfToken');
-    localStorage.removeItem('user-storage');
-    navigate('/');
+    try {
+      await axiosWithoutCSRFtoken.post('/logout');
+      setLogged(false);
+      setDarkTheme(false);
+      localStorage.removeItem('csrfToken');
+      localStorage.removeItem('user-storage');
+      return navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message;
+        return setGlobalErrorMessage(message);
+      }
+      return setGlobalErrorMessage(
+        'Erreur innatendu, essayez de vous reconnecter'
+      );
+    }
   }
   return (
     <header className="h-screen min-w-56 flex  p-3  ">

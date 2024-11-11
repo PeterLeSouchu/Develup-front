@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoIosSearch } from 'react-icons/io';
@@ -10,12 +11,13 @@ import { IoMenu } from 'react-icons/io5';
 import { FaShieldAlt } from 'react-icons/fa';
 import logo from '../../assets/images/logo-black.png';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
-import { useUserStore } from '../../store';
+import { useSettingsStore, useUserStore } from '../../store';
 
 function HeaderMobile() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const { darkTheme, setDarkTheme, setLogged } = useUserStore();
   const navigate = useNavigate();
+  const { setGlobalErrorMessage } = useSettingsStore();
 
   const disableScroll = () => {
     document.body.style.overflow = 'hidden';
@@ -35,12 +37,22 @@ function HeaderMobile() {
   }, [isNavbarOpen]);
 
   async function handleLogout() {
-    await axiosWithoutCSRFtoken.post('/logout');
-    setLogged(false);
-    setDarkTheme(false);
-    localStorage.removeItem('csrfToken');
-    localStorage.removeItem('user-storage');
-    navigate('/');
+    try {
+      await axiosWithoutCSRFtoken.post('/logout');
+      setLogged(false);
+      setDarkTheme(false);
+      localStorage.removeItem('csrfToken');
+      localStorage.removeItem('user-storage');
+      return navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message;
+        return setGlobalErrorMessage(message);
+      }
+      return setGlobalErrorMessage(
+        'Erreur innatendu, essayez de vous reconnecter'
+      );
+    }
   }
 
   return (
