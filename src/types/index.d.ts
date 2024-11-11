@@ -48,8 +48,8 @@ export interface ProjectType {
   rhythm: string;
   description: string;
   image: string;
-  author: string;
-  techno: Technologie[];
+  pseudo: string;
+  techno: TechnologieType[];
 }
 
 export interface ProjectsAndTechnosType {
