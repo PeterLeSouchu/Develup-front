@@ -1,6 +1,6 @@
 import { FieldError } from 'react-hook-form';
 
-export interface FormSignup {
+export interface FormSignupType {
   email: string;
   pseudo: string;
   password: string;
@@ -8,26 +8,23 @@ export interface FormSignup {
   cgu: boolean;
 }
 
-export interface FormSignin {
-  email: string;
-  password: string;
-}
-
-export interface ResetPasswordForm {
+export interface ResetPasswordFormType {
   password: string;
   passwordConfirm: string;
 }
 
-export interface UserStore {
+export interface UserStoreType {
   logged: boolean;
   setLogged: (isLogged: boolean) => void;
   darkTheme: boolean;
   setDarkTheme: (isDarkTheme: boolean) => void;
 }
 
-export interface SettingsStore {
+export interface SettingsStoreType {
   loading: boolean;
   setLoading: (isLoading: boolean) => void;
+  globalErrorMessage: string;
+  setGlobalErrorMessage: (message: string) => void;
 }
 
 export interface HookFormErrorType {
@@ -39,28 +36,23 @@ export interface BackErrorType {
   message: string | undefined;
 }
 
-export interface ApiResponse {
-  message: string;
-}
-
-export interface Technologie {
+export interface TechnologieType {
   id: number;
   name: string;
   image: string;
 }
 
-export interface Project {
+export interface ProjectType {
   id: number;
   title: string;
   rhythm: string;
   description: string;
   image: string;
-  user_id: number;
-  user_id: number;
+  author: string;
   techno: Technologie[];
 }
 
-export interface ProjectsAndTechnos {
-  projects: Project[];
-  technologies: Technologie[];
+export interface ProjectsAndTechnosType {
+  projects: ProjectType[];
+  technologies: TechnologieType[];
 }

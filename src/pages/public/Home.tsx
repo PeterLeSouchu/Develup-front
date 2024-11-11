@@ -68,7 +68,7 @@ function Home() {
           </div>
           <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl">
             <p className="text-2xl font-semibold">
-              Travaillez ensemble, à votre rythme et selon vos technologies
+              Travaillez ensemble, à votre rythme et selon vos Technologies
             </p>
             <div className="flex justify-evenly items-center">
               <div className="flex flex-col md:flex-row justify-center items-center mr-5">

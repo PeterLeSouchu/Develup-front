@@ -57,7 +57,7 @@ const router = createBrowserRouter(
           />
           <Route path="/dashboard/legal-notices" element={<LegalNotices />} />
           <Route
-            path="/dashboard/project/:name/:id"
+            path="/dashboard/Project/:name/:id"
             element={<ProjectDetails />}
           />
         </Route>

@@ -5,7 +5,7 @@ import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FormSignup } from '../../types';
+import { FormSignupType } from '../../types';
 import image from '../../assets/images/logo.png';
 import { useUserStore, useSettingsStore } from '../../store';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
@@ -21,7 +21,7 @@ function Signup() {
   const [typePassword, setTypePassword] = useState('password');
   const [typeConfirmPassword, setTypeConfirmPassword] = useState('password');
 
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Display otp form
   const [otpModal, setOtpModal] = useState<boolean>(false);
@@ -36,7 +36,7 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormSignup>({ resolver: zodResolver(signupSchema) });
+  } = useForm<FormSignupType>({ resolver: zodResolver(signupSchema) });
 
   const {
     register: registerOtp,
@@ -46,18 +46,20 @@ function Signup() {
     resolver: zodResolver(otpCodeSchema),
   });
 
-  async function onSubmit(data: FormSignup) {
+  async function onSubmit(data: FormSignupType) {
     try {
       setLoading(true);
       await axiosWithoutCSRFtoken.post('/signup/otp', data);
       setOtpModal((state) => !state);
-      setLoading(false);
+      return setLoading(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
         setErrorMessage(errorAPImessage);
-        setLoading(false);
+        return setLoading(false);
       }
+      setLoading(false);
+      return setErrorMessage('Erreur inattendu');
     }
   }
 
@@ -68,12 +70,13 @@ function Signup() {
         await axiosWithoutCSRFtoken.get('/csrf-token');
       const { csrfToken } = dataResponse;
       localStorage.setItem('csrfToken', csrfToken);
-      setLogged(true);
+      return setLogged(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        setErrorMessage(errorAPImessage);
+        return setErrorMessage(errorAPImessage);
       }
+      return setErrorMessage('Erreur inattendu');
     }
   }
 

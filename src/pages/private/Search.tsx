@@ -1,62 +1,88 @@
+import axios from 'axios';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
-import { Technologie, Project, ProjectsAndTechnos } from '../../types';
+import {
+  TechnologieType,
+  ProjectType,
+  ProjectsAndTechnosType,
+} from '../../types';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 import { useSettingsStore } from '../../store';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
-  const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
-  const { data: dataTechno } = await axiosWithoutCSRFtoken.get('/technologies');
-  const projects = dataProject.result;
-  const technologies = dataTechno.result;
-  return { projects, technologies };
+  const { setGlobalErrorMessage } = useSettingsStore.getState();
+  try {
+    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
+    const { data: dataTechno } =
+      await axiosWithoutCSRFtoken.get('/technologies');
+    const projects = dataProject.result;
+    const technologies = dataTechno.result;
+    return { projects, technologies };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data.message;
+      // here if there's error, it's usually authError (or other unknow error), so we display the globalErrorMessage and force user to close session and login again
+      setGlobalErrorMessage(message);
+      // Here we have to return something or there's an error
+      return 'erreur inattendu';
+    }
+    setGlobalErrorMessage('Erreur innatendu, essayez de vous reconnecter');
+    return 'erreur inattendu';
+  }
 };
 
 function Search() {
-  // Function to display loader component (using during request for search project)
+  const { setGlobalErrorMessage } = useSettingsStore();
+  // Function to display loader component (using during request for search Project)
   const { setLoading } = useSettingsStore();
   // State for the suggest techno (list display below the input)
-  const [suggestTechno, setSuggestTechno] = useState<Technologie[]>([]);
+  const [suggestTechno, setSuggestTechno] = useState<TechnologieType[]>([]);
 
   // State to display number of result after a search only
   const [isASearch, setIsASearch] = useState<boolean>(false);
 
   // State for the selected techno (display in a div below form)
-  const [technoSelected, setTechnoSelected] = useState<Technologie[]>([]);
+  const [technoSelected, setTechnoSelected] = useState<TechnologieType[]>([]);
 
-  // State for inputValue (use setInputValue to '' after a submit to empty input)
-  const [inputValue, setInputValue] = useState<string>('');
+  // State for inputTechnoValue (use setInputTechnoValue to '' after a submit to empty input and when component demount)
+  const [inputTechnoValue, setInputTechnoValue] = useState<string>('');
 
-  // State for rhythm project
-  const [rhythm, setrhythm] = useState<string>('');
+  // State for rhythm Project
+  const [inputRhythmValue, setInputRhythmValue] = useState<string>('');
 
-  // State for result after a search (or initialize project when launch)
-  const [results, setResults] = useState<Project[]>([]);
+  // State for result after a search (or initialize Project when launch)
+  const [results, setResults] = useState<ProjectType[]>([]);
 
   // State for error message when no input selected
-  const [ErrorMessage, setErrorMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  // Data that contains projects (for launch) and all technologie from db for suggestion
-  const { projects, technologies } = useLoaderData() as ProjectsAndTechnos;
+  // Data that contains Projects (for launch) and all Technologie from db for suggestion
+  const { projects, technologies } = useLoaderData() as ProjectsAndTechnosType;
 
-  // For initialize page with most recent project
+  // For initialize page with most recent Project
   useEffect(() => {
     setResults(projects);
+    // When user search project and then click on 'search' link in sidebar, we have to set 'isASearch' state at false, to empty technoSelected and rhythm value input or it's display when no search
+    return () => {
+      setIsASearch(false);
+      setTechnoSelected([]);
+      setInputRhythmValue('');
+    };
   }, [projects]);
 
   // Function to change rhythm
   const handleChangeRhythm = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setrhythm(e.target.value);
+    setInputRhythmValue(e.target.value);
   };
 
   // Function to change input value and update suggestions
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
-    setInputValue(e.target.value);
+    setInputTechnoValue(e.target.value);
 
     const filteredTechno = technologies.filter((tech) =>
       tech.name.toLowerCase().includes(value)
@@ -70,7 +96,7 @@ function Search() {
   }
 
   // Function to add techno to the search
-  function handleAddTechno(tech: Technologie) {
+  function handleAddTechno(tech: TechnologieType) {
     setTechnoSelected((prevArray) => {
       if (prevArray.some((technologie) => technologie.id === tech.id)) {
         return prevArray;
@@ -78,11 +104,11 @@ function Search() {
       return [...prevArray, tech];
     });
     setSuggestTechno([]);
-    setInputValue('');
+    setInputTechnoValue('');
   }
 
   // Function to delete techno from the search
-  function handleDeleteTechno(tech: Technologie) {
+  function handleDeleteTechno(tech: TechnologieType) {
     setTechnoSelected((array) =>
       array.filter((technologie) => technologie.id !== tech.id)
     );
@@ -90,25 +116,42 @@ function Search() {
 
   // Function submit form
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    setErrorMessage('');
-    e.preventDefault();
-    const technoNameSelected = technoSelected.map((tech) => tech.name);
-    if (!rhythm && technoNameSelected.length === 0) {
-      return setErrorMessage('Veuillez sélectionner au moins 1 champ');
+    try {
+      setErrorMessage('');
+      e.preventDefault();
+      const technoNameSelected = technoSelected.map((tech) => tech.name);
+      if (!inputRhythmValue && technoNameSelected.length === 0) {
+        return setErrorMessage('Veuillez sélectionner au moins 1 champ');
+      }
+      setLoading(true);
+      const { data } = await axiosWithoutCSRFtoken.post('/search', {
+        technoNameSelected,
+        inputRhythmValue,
+      });
+      setIsASearch(true);
+      setResults(data.result);
+      return setLoading(false);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message;
+        if (message === 'Veuillez sélectionner au moins 1 champ') {
+          setLoading(false);
+          return setErrorMessage(errorMessage);
+        }
+        // here if error is not empty input, it's usually authError (or other unknow error), so we display the globalErrorMessage and force user to close session and login again
+        setLoading(false);
+        return setGlobalErrorMessage(errorMessage);
+      }
+      setLoading(false);
+      return setGlobalErrorMessage(
+        'Erreur innatendu, essayez de vous reconnecter'
+      );
     }
-    setLoading(true);
-    const { data } = await axiosWithoutCSRFtoken.post('/search', {
-      technoNameSelected,
-      rhythm,
-    });
-    setIsASearch(true);
-    setLoading(false);
-    return setResults(data.result);
   }
 
-  // Function to return 5 technos logo and +"x" if necessary for card project
-  function technoLogo(array: Technologie[]) {
-    const displayLimit = 6;
+  // Function to return 5 technos logo and +"x" if necessary for card Project
+  function technoLogo(array: TechnologieType[]) {
+    const displayLimit = 5;
     const extraImagesCount = array.length - displayLimit;
 
     return (
@@ -123,7 +166,7 @@ function Search() {
                 key={logo.id}
                 src={logo.image}
                 alt={logo.name}
-                className="w-8 h-8 my-2  rounded-xl object-contain bg-white2 p-1"
+                className="w-9 h-9 my-2  rounded-xl object-contain bg-white2 p-1"
               />
             ))
         )}
@@ -146,7 +189,7 @@ function Search() {
           <select
             onChange={(e) => handleChangeRhythm(e)}
             className="h-full w-full p-2 outline-none bg-transparent rounded-r-3xl"
-            value={rhythm}
+            value={inputRhythmValue}
           >
             <option value="">Choisir un rythme</option>
             <option value="1 à 2h/semaine">1 à 2h/semaine</option>
@@ -166,7 +209,7 @@ function Search() {
           <div className="relative flex-grow rounded-3xl p-1">
             <input
               onChange={(e) => handleChangeInput(e)}
-              value={inputValue}
+              value={inputTechnoValue}
               type="text"
               placeholder="Rechercher une techno"
               className="h-full w-full p-2  outline-none bg-transparent pl-3 rounded-l-3xl"
@@ -174,7 +217,7 @@ function Search() {
             {suggestTechno.length > 0 && (
               <>
                 <div
-                  aria-label="close side bar"
+                  aria-label="close suggest techno"
                   onKeyDown={() => setSuggestTechno([])}
                   role="button"
                   tabIndex={0}
@@ -182,7 +225,7 @@ function Search() {
                   onClick={() => setSuggestTechno([])}
                 />
                 <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md  overflow-scroll ">
-                  {suggestTechno.map((suggestion: Technologie) => (
+                  {suggestTechno.map((suggestion: TechnologieType) => (
                     <button
                       onClick={() => handleAddTechno(suggestion)}
                       type="button"
@@ -206,7 +249,7 @@ function Search() {
             <select
               onChange={(e) => handleChangeRhythm(e)}
               className="h-full w-full p-2 outline-none bg-transparent rounded-r-3xl"
-              value={rhythm}
+              value={inputRhythmValue}
             >
               <option value="">Choisir un rythme</option>
               <option value="1 à 2h/semaine">1 à 2h/semaine</option>
@@ -231,10 +274,8 @@ function Search() {
           </button>
         </div>
       </form>
-      {ErrorMessage && (
-        <p className="text-red-400 mt-1 text-center">
-          Veuillez sélectionner au moins 1 champ
-        </p>
+      {errorMessage && (
+        <p className="text-red-400 mt-1 text-center">{errorMessage}</p>
       )}
       {technoSelected.length > 0 && (
         <div className="mt-4 p-2 w-3/4 dark:border-white2  mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
@@ -275,13 +316,13 @@ function Search() {
             results?.map((result) => (
               <div
                 key={result.id}
-                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative "
+                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative hover:scale-105 transition "
               >
                 <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
                   {result.rhythm}
                 </span>
                 <Link
-                  to={`/dashboard/project/${result.title.replace(/ /g, '-')}/${result.id}`}
+                  to={`/dashboard/Project/${result.title.replace(/ /g, '-')}/${result.id}`}
                 >
                   <img
                     className="h-40 mx-auto"

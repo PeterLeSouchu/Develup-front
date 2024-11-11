@@ -14,7 +14,7 @@ function ForgotPassword() {
   const [linkSend, setLinkSend] = useState<boolean>(false);
   const [response, setResponse] = useState<string>('');
 
-  const [errorMessage, setErrorMessage] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
   const { setLoading } = useSettingsStore();
   const {
     register,
@@ -31,20 +31,15 @@ function ForgotPassword() {
       const res = await axiosWithoutCSRFtoken.post('/forgot-password', data);
       setResponse(res.data.message);
       setLinkSend((state) => !state);
-      setLoading(false);
+      return setLoading(false);
     } catch (error) {
-      setLoading(false);
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
-        if (
-          errorAPImessage === 'Lien de réinitialisation du mot de passe envoyé'
-        ) {
-          setLoading(false);
-          return;
-        }
         setErrorMessage(errorAPImessage);
-        setLoading(false);
+        return setLoading(false);
       }
+      setErrorMessage('Erreur inattendu');
+      return setLoading(false);
     }
   }
 
