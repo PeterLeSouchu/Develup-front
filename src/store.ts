@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { UserStore, SettingsStore } from './types';
+import { UserStoreType, SettingsStoreType } from './types';
 
-export const useUserStore = create<UserStore>()(
+export const useUserStore = create<UserStoreType>()(
   persist(
     (set) => ({
       logged: false,
@@ -15,7 +15,7 @@ export const useUserStore = create<UserStore>()(
     }
   )
 );
-export const useSettingsStore = create<SettingsStore>()((set) => ({
+export const useSettingsStore = create<SettingsStoreType>()((set) => ({
   loading: false,
   setLoading: (isLoading) => set(() => ({ loading: isLoading })),
   authErrorMessage: '',

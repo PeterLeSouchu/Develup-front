@@ -3,7 +3,11 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
-import { Technologie, Project, ProjectsAndTechnos } from '../../types';
+import {
+  TechnologieType,
+  ProjectType,
+  ProjectsAndTechnosType,
+} from '../../types';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 import { useSettingsStore } from '../../store';
@@ -37,13 +41,13 @@ function Search() {
   // Function to display loader component (using during request for search Project)
   const { setLoading } = useSettingsStore();
   // State for the suggest techno (list display below the input)
-  const [suggestTechno, setSuggestTechno] = useState<Technologie[]>([]);
+  const [suggestTechno, setSuggestTechno] = useState<TechnologieType[]>([]);
 
   // State to display number of result after a search only
   const [isASearch, setIsASearch] = useState<boolean>(false);
 
   // State for the selected techno (display in a div below form)
-  const [technoSelected, setTechnoSelected] = useState<Technologie[]>([]);
+  const [technoSelected, setTechnoSelected] = useState<TechnologieType[]>([]);
 
   // State for inputTechnoValue (use setInputTechnoValue to '' after a submit to empty input and when component demount)
   const [inputTechnoValue, setInputTechnoValue] = useState<string>('');
@@ -52,13 +56,13 @@ function Search() {
   const [inputRhythmValue, setInputRhythmValue] = useState<string>('');
 
   // State for result after a search (or initialize Project when launch)
-  const [results, setResults] = useState<Project[]>([]);
+  const [results, setResults] = useState<ProjectType[]>([]);
 
   // State for error message when no input selected
   const [ErrorMessage, setErrorMessage] = useState<string>('');
 
   // Data that contains Projects (for launch) and all Technologie from db for suggestion
-  const { Projects, Technologies } = useLoaderData() as ProjectsAndTechnos;
+  const { Projects, Technologies } = useLoaderData() as ProjectsAndTechnosType;
 
   // For initialize page with most recent Project
   useEffect(() => {
@@ -93,7 +97,7 @@ function Search() {
   }
 
   // Function to add techno to the search
-  function handleAddTechno(tech: Technologie) {
+  function handleAddTechno(tech: TechnologieType) {
     setTechnoSelected((prevArray) => {
       if (prevArray.some((technologie) => technologie.id === tech.id)) {
         return prevArray;
@@ -105,7 +109,7 @@ function Search() {
   }
 
   // Function to delete techno from the search
-  function handleDeleteTechno(tech: Technologie) {
+  function handleDeleteTechno(tech: TechnologieType) {
     setTechnoSelected((array) =>
       array.filter((technologie) => technologie.id !== tech.id)
     );
@@ -145,7 +149,7 @@ function Search() {
   }
 
   // Function to return 5 technos logo and +"x" if necessary for card Project
-  function technoLogo(array: Technologie[]) {
+  function technoLogo(array: TechnologieType[]) {
     const displayLimit = 5;
     const extraImagesCount = array.length - displayLimit;
 
@@ -220,7 +224,7 @@ function Search() {
                   onClick={() => setSuggestTechno([])}
                 />
                 <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md  overflow-scroll ">
-                  {suggestTechno.map((suggestion: Technologie) => (
+                  {suggestTechno.map((suggestion: TechnologieType) => (
                     <button
                       onClick={() => handleAddTechno(suggestion)}
                       type="button"
