@@ -14,7 +14,7 @@ const resetPasswordSchema = z
     passwordConfirm: z.string().min(1, 'Veuillez confirmer votre mot de passe'),
   })
   .refine((data) => data.password === data.passwordConfirm, {
-    path: ['passwordConfirm'],
+    path: ['password'],
     message: 'Les mots de passe ne correspondent pas',
   });
 

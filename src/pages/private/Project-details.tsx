@@ -4,10 +4,10 @@ import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token'
 export const loadProjectsAndTechnos = async ({
   params,
 }: LoaderFunctionArgs) => {
-  const { data } = await axiosWithoutCSRFtoken.get(`/project/${params.id}`);
+  const { data } = await axiosWithoutCSRFtoken.get(`/Project/${params.id}`);
 
-  const project = data.result;
-  return project;
+  const Project = data.result;
+  return Project;
 };
 
 function ProjectDetails() {

@@ -18,7 +18,7 @@ function PrivateLayout() {
         {authErrorMessage ? (
           <AuthError message={authErrorMessage} />
         ) : (
-          <main className="dark:text-white overflow-scroll w-full   py-6 lg:pt-6 pt-24 lg:pb-6  ">
+          <main className="dark:text-white overflow-scroll w-full  md:px-3   py-6 lg:pt-6 pt-24 lg:pb-6  ">
             <Outlet />
           </main>
         )}

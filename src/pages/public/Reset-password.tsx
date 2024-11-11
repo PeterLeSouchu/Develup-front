@@ -6,11 +6,10 @@ import { IoEyeOffOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import image from '../../assets/images/logo.png';
-import { ResetPasswordForm } from '../../types';
+import { ResetPasswordFormType } from '../../types';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
 import HookFormError from '../../components/all/errors/Hook-form-error';
 import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
-import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import BackError from '../../components/all/errors/Back-error';
 
 function ResetPassword() {
@@ -24,16 +23,22 @@ function ResetPassword() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ResetPasswordForm>({
+  } = useForm<ResetPasswordFormType>({
     resolver: zodResolver(resetPasswordSchema),
   });
 
-  async function onSubmit(data: ResetPasswordForm) {
+  async function onSubmit(data: ResetPasswordFormType) {
     try {
-      await axiosWithoutCSRFtoken.patch('/reset-password', {
-        ...data,
-        token,
-      });
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/reset-password`,
+        data,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       navigate('/login');
     } catch (error) {
       if (axios.isAxiosError(error)) {

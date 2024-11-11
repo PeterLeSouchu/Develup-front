@@ -1,6 +1,6 @@
 import { FieldError } from 'react-hook-form';
 
-export interface FormSignup {
+export interface FormSignupType {
   email: string;
   pseudo: string;
   password: string;
@@ -8,12 +8,7 @@ export interface FormSignup {
   cgu: boolean;
 }
 
-export interface FormSignin {
-  email: string;
-  password: string;
-}
-
-export interface ResetPasswordForm {
+export interface ResetPasswordFormType {
   password: string;
   passwordConfirm: string;
 }
@@ -58,6 +53,6 @@ export interface Project {
 }
 
 export interface ProjectsAndTechnos {
-  projects: Project[];
-  technologies: Technologie[];
+  Projects: Project[];
+  Technologies: Technologie[];
 }

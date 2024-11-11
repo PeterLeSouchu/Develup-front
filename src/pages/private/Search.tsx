@@ -12,29 +12,29 @@ import { useSettingsStore } from '../../store';
 export const loadProjectsAndTechnos = async () => {
   const { setAuthErrorMessage } = useSettingsStore.getState();
   try {
-    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/projects');
+    const { data: dataProject } = await axiosWithoutCSRFtoken.get('/Projects');
     const { data: dataTechno } =
-      await axiosWithoutCSRFtoken.get('/technologies');
-    const projects = dataProject.result;
-    const technologies = dataTechno.result;
-    return { projects, technologies };
+      await axiosWithoutCSRFtoken.get('/Technologies');
+    const Projects = dataProject.result;
+    const Technologies = dataTechno.result;
+    return { Projects, Technologies };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error.response?.data.message);
       const errorMessage = error.response?.data.message;
       setAuthErrorMessage(errorMessage);
       return {
-        errorMessage: 'Error during fetch techno and project on home page',
+        errorMessage: 'Error during fetch techno and Project on home page',
       };
     }
     return {
-      errorMessage: 'Error during fetch techno and project on home page',
+      errorMessage: 'Error during fetch techno and Project on home page',
     };
   }
 };
 
 function Search() {
-  // Function to display loader component (using during request for search project)
+  const { setAuthErrorMessage } = useSettingsStore();
+  // Function to display loader component (using during request for search Project)
   const { setLoading } = useSettingsStore();
   // State for the suggest techno (list display below the input)
   const [suggestTechno, setSuggestTechno] = useState<Technologie[]>([]);
@@ -48,22 +48,22 @@ function Search() {
   // State for inputValue (use setInputValue to '' after a submit to empty input)
   const [inputValue, setInputValue] = useState<string>('');
 
-  // State for rhythm project
+  // State for rhythm Project
   const [rhythm, setrhythm] = useState<string>('');
 
-  // State for result after a search (or initialize project when launch)
+  // State for result after a search (or initialize Project when launch)
   const [results, setResults] = useState<Project[]>([]);
 
   // State for error message when no input selected
   const [ErrorMessage, setErrorMessage] = useState<string>('');
 
-  // Data that contains projects (for launch) and all technologie from db for suggestion
-  const { projects, technologies } = useLoaderData() as ProjectsAndTechnos;
+  // Data that contains Projects (for launch) and all Technologie from db for suggestion
+  const { Projects, Technologies } = useLoaderData() as ProjectsAndTechnos;
 
-  // For initialize page with most recent project
+  // For initialize page with most recent Project
   useEffect(() => {
-    setResults(projects);
-  }, [projects]);
+    setResults(Projects);
+  }, [Projects]);
 
   // Function to change rhythm
   const handleChangeRhythm = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -75,7 +75,7 @@ function Search() {
     const value = e.target.value.toLowerCase();
     setInputValue(e.target.value);
 
-    const filteredTechno = technologies.filter((tech) =>
+    const filteredTechno = Technologies.filter((tech) =>
       tech.name.toLowerCase().includes(value)
     );
 
@@ -107,23 +107,38 @@ function Search() {
 
   // Function submit form
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    setErrorMessage('');
-    e.preventDefault();
-    const technoNameSelected = technoSelected.map((tech) => tech.name);
-    if (!rhythm && technoNameSelected.length === 0) {
-      return setErrorMessage('Veuillez sélectionner au moins 1 champ');
+    try {
+      setErrorMessage('');
+      e.preventDefault();
+      const technoNameSelected = technoSelected.map((tech) => tech.name);
+      if (!rhythm && technoNameSelected.length === 0) {
+        return setErrorMessage('Veuillez sélectionner au moins 1 champ');
+      }
+      setLoading(true);
+      const { data } = await axiosWithoutCSRFtoken.post('/search', {
+        technoNameSelected,
+        rhythm,
+      });
+      setIsASearch(true);
+      setLoading(false);
+      return setResults(data.result);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data.message;
+        setAuthErrorMessage(errorMessage);
+        setLoading(false);
+        return {
+          errorMessage: 'Error during fetch techno and Project on home page',
+        };
+      }
+      setLoading(false);
+      return {
+        errorMessage: 'Error during fetch techno and Project on home page',
+      };
     }
-    setLoading(true);
-    const { data } = await axiosWithoutCSRFtoken.post('/search', {
-      technoNameSelected,
-      rhythm,
-    });
-    setIsASearch(true);
-    setLoading(false);
-    return setResults(data.result);
   }
 
-  // Function to return 5 technos logo and +"x" if necessary for card project
+  // Function to return 5 technos logo and +"x" if necessary for card Project
   function technoLogo(array: Technologie[]) {
     const displayLimit = 5;
     const extraImagesCount = array.length - displayLimit;
@@ -292,13 +307,13 @@ function Search() {
             results?.map((result) => (
               <div
                 key={result.id}
-                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative "
+                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative hover:scale-105 transition "
               >
                 <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
                   {result.rhythm}
                 </span>
                 <Link
-                  to={`/dashboard/project/${result.title.replace(/ /g, '-')}/${result.id}`}
+                  to={`/dashboard/Project/${result.title.replace(/ /g, '-')}/${result.id}`}
                 >
                   <img
                     className="h-40 mx-auto"

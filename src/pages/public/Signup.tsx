@@ -5,7 +5,7 @@ import { IoEyeOffOutline } from 'react-icons/io5';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FormSignup } from '../../types';
+import { FormSignupType } from '../../types';
 import image from '../../assets/images/logo.png';
 import { useUserStore, useSettingsStore } from '../../store';
 import hanldeChangeTypePassword from '../../utils/Password-visibility';
@@ -36,7 +36,7 @@ function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormSignup>({ resolver: zodResolver(signupSchema) });
+  } = useForm<FormSignupType>({ resolver: zodResolver(signupSchema) });
 
   const {
     register: registerOtp,
@@ -46,7 +46,7 @@ function Signup() {
     resolver: zodResolver(otpCodeSchema),
   });
 
-  async function onSubmit(data: FormSignup) {
+  async function onSubmit(data: FormSignupType) {
     try {
       setLoading(true);
       await axiosWithoutCSRFtoken.post('/signup/otp', data);
