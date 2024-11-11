@@ -31,6 +31,7 @@ export const loadProjectsAndTechnos = async () => {
       return 'erreur inattendu';
     }
     setGlobalErrorMessage('Erreur innatendu, essayez de vous reconnecter');
+    // Here we have to return something or there's an error
     return 'erreur inattendu';
   }
 };
@@ -66,7 +67,7 @@ function Search() {
   // For initialize page with most recent Project
   useEffect(() => {
     setResults(projects);
-    // When user search project and then click on 'search' link in sidebar, we have to set 'isASearch' state at false, to empty technoSelected and rhythm value input or it's display when no search
+    // When user search project and then click on 'search' link in sidebar, we have to set 'isASearch' state at false, to empty errorMessage and to empty technoSelected and rhythm value input or it's display when no search
     return () => {
       setIsASearch(false);
       setTechnoSelected([]);
@@ -137,11 +138,12 @@ function Search() {
         const message = error.response?.data.message;
         if (message === 'Veuillez sélectionner au moins 1 champ') {
           setLoading(false);
-          return setErrorMessage(errorMessage);
+          return setErrorMessage(message);
         }
         // here if error is not empty input, it's usually authError (or other unknow error), so we display the globalErrorMessage and force user to close session and login again
         setLoading(false);
-        return setGlobalErrorMessage(errorMessage);
+        console.log('dzdzffejezknfezjfhezfuefhu');
+        return setGlobalErrorMessage(message);
       }
       setLoading(false);
       return setGlobalErrorMessage(
