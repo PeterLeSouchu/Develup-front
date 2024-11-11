@@ -45,11 +45,11 @@ function Search() {
   // State for the selected techno (display in a div below form)
   const [technoSelected, setTechnoSelected] = useState<Technologie[]>([]);
 
-  // State for inputValue (use setInputValue to '' after a submit to empty input)
-  const [inputValue, setInputValue] = useState<string>('');
+  // State for inputTechnoValue (use setInputTechnoValue to '' after a submit to empty input and when component demount)
+  const [inputTechnoValue, setInputTechnoValue] = useState<string>('');
 
   // State for rhythm Project
-  const [rhythm, setrhythm] = useState<string>('');
+  const [inputRhythmValue, setInputRhythmValue] = useState<string>('');
 
   // State for result after a search (or initialize Project when launch)
   const [results, setResults] = useState<Project[]>([]);
@@ -63,17 +63,23 @@ function Search() {
   // For initialize page with most recent Project
   useEffect(() => {
     setResults(Projects);
+    // When user search project and then click on 'search' link in sidebar, we have to set 'isASearch' state at false, to empty technoSelected and rhythm value input or it's display when no search
+    return () => {
+      setIsASearch(false);
+      setTechnoSelected([]);
+      setInputRhythmValue('');
+    };
   }, [Projects]);
 
   // Function to change rhythm
   const handleChangeRhythm = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setrhythm(e.target.value);
+    setInputRhythmValue(e.target.value);
   };
 
   // Function to change input value and update suggestions
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
-    setInputValue(e.target.value);
+    setInputTechnoValue(e.target.value);
 
     const filteredTechno = Technologies.filter((tech) =>
       tech.name.toLowerCase().includes(value)
@@ -95,7 +101,7 @@ function Search() {
       return [...prevArray, tech];
     });
     setSuggestTechno([]);
-    setInputValue('');
+    setInputTechnoValue('');
   }
 
   // Function to delete techno from the search
@@ -111,13 +117,13 @@ function Search() {
       setErrorMessage('');
       e.preventDefault();
       const technoNameSelected = technoSelected.map((tech) => tech.name);
-      if (!rhythm && technoNameSelected.length === 0) {
+      if (!inputRhythmValue && technoNameSelected.length === 0) {
         return setErrorMessage('Veuillez sélectionner au moins 1 champ');
       }
       setLoading(true);
       const { data } = await axiosWithoutCSRFtoken.post('/search', {
         technoNameSelected,
-        rhythm,
+        inputRhythmValue,
       });
       setIsASearch(true);
       setLoading(false);
@@ -178,7 +184,7 @@ function Search() {
           <select
             onChange={(e) => handleChangeRhythm(e)}
             className="h-full w-full p-2 outline-none bg-transparent rounded-r-3xl"
-            value={rhythm}
+            value={inputRhythmValue}
           >
             <option value="">Choisir un rythme</option>
             <option value="1 à 2h/semaine">1 à 2h/semaine</option>
@@ -198,7 +204,7 @@ function Search() {
           <div className="relative flex-grow rounded-3xl p-1">
             <input
               onChange={(e) => handleChangeInput(e)}
-              value={inputValue}
+              value={inputTechnoValue}
               type="text"
               placeholder="Rechercher une techno"
               className="h-full w-full p-2  outline-none bg-transparent pl-3 rounded-l-3xl"
@@ -238,7 +244,7 @@ function Search() {
             <select
               onChange={(e) => handleChangeRhythm(e)}
               className="h-full w-full p-2 outline-none bg-transparent rounded-r-3xl"
-              value={rhythm}
+              value={inputRhythmValue}
             >
               <option value="">Choisir un rythme</option>
               <option value="1 à 2h/semaine">1 à 2h/semaine</option>
