@@ -71,6 +71,7 @@ function Search() {
       setIsASearch(false);
       setTechnoSelected([]);
       setInputRhythmValue('');
+      setErrorMessage('');
     };
   }, [projects]);
 
