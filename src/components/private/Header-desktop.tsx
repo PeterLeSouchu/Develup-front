@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { GrProjects } from 'react-icons/gr';
 import { FaRegMessage } from 'react-icons/fa6';
 import { CgProfile } from 'react-icons/cg';
@@ -38,34 +38,58 @@ function HeaderDesktop() {
       <div className="rounded-2xl flex-grow bg-gradient-to-b min-h-35 from-lightgold2 to-lightgold flex flex-col  dark:from-darkgold2 dark:to-darkgold">
         <img src={logo} alt="logo Develup" className="w-40 pl-2 pt-2 " />
         <nav className="flex flex-col flex-grow">
-          <Link
+          <NavLink
             to="/dashboard/search"
-            className="font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center "
+            className={({ isActive }) =>
+              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+                isActive
+                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  : ''
+              }`
+            }
           >
             <IoIosSearch className="mr-2" />
             Recherche
-          </Link>
-          <Link
-            to="/dashboard/search"
-            className="font-extrabold text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
+          </NavLink>
+          <NavLink
+            to="/dashboard/my-projects"
+            className={({ isActive }) =>
+              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+                isActive
+                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  : ''
+              }`
+            }
           >
             <GrProjects className="mr-2" />
             Projets
-          </Link>
-          <Link
-            to="/dashboard/search"
-            className="font-extrabold text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
+          </NavLink>
+          <NavLink
+            to="/dashboard/my-messages"
+            className={({ isActive }) =>
+              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+                isActive
+                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  : ''
+              }`
+            }
           >
             <FaRegMessage className="mr-2" />
             Message
-          </Link>
-          <Link
-            to="/dashboard/search"
-            className="font-extrabold text-xl py-5 pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center"
+          </NavLink>
+          <NavLink
+            to="/dashboard/my-profile"
+            className={({ isActive }) =>
+              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+                isActive
+                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  : ''
+              }`
+            }
           >
             <CgProfile className="mr-2" />
             Profil
-          </Link>
+          </NavLink>
           <div className="flex-grow flex flex-col justify-end">
             <span className="pl-3 py-3 ">
               <button
@@ -79,20 +103,32 @@ function HeaderDesktop() {
                 </div>
               </button>
             </span>
-            <Link
+            <NavLink
               to="/dashboard/general-conditions-of-use"
-              className="underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
+              className={({ isActive }) =>
+                `relative underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+                  isActive
+                    ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                    : ''
+                }`
+              }
             >
               <FaShieldAlt className="mr-2" />
               CGU
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/dashboard/legal-notices"
-              className="underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center"
+              className={({ isActive }) =>
+                `relative underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+                  isActive
+                    ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                    : ''
+                }`
+              }
             >
               <FaRegFile className="mr-2" />
               Mentions légales
-            </Link>
+            </NavLink>
             <button
               type="button"
               onClick={handleLogout}

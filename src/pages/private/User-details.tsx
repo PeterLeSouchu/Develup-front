@@ -43,7 +43,7 @@ function UserDetails() {
         </div>
       </div>
       <h2 className="my-5">
-        {user.techno.length === 1 ? 'Sa technologie :' : 'Ses technologies'}{' '}
+        {user.techno.length === 1 ? 'Sa technologie :' : 'Ses technologies :'}{' '}
       </h2>
       {user.techno.map((techno) => (
         <span
