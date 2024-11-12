@@ -11,6 +11,7 @@ import {
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 import { useSettingsStore } from '../../store';
+import technoLogoDisplay from '../../utils/techno-logo-display';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -149,36 +150,6 @@ function Search() {
         'Erreur innatendu, essayez de vous reconnecter'
       );
     }
-  }
-
-  // Function to return 5 technos logo and +"x" if necessary for card Project
-  function technoLogo(array: TechnologieType[]) {
-    const displayLimit = 5;
-    const extraImagesCount = array.length - displayLimit;
-
-    return (
-      <div className="flex gap-2 items-center whitespace-nowrap absolute left-3 bottom-3 ">
-        {array.length === 0 ? (
-          <p className="text-sm">Aucune techno</p>
-        ) : (
-          array
-            .slice(0, displayLimit)
-            .map((logo) => (
-              <img
-                key={logo.id}
-                src={logo.image}
-                alt={logo.name}
-                className="w-9 h-9 my-2  rounded-xl object-contain bg-white2 p-1"
-              />
-            ))
-        )}
-        {extraImagesCount > 0 && (
-          <div className="w-6 h-6 my-2 bg-gray-200 dark:bg-gray-400 dark:text-white rounded-xl flex items-center justify-center text-xs text-gray-700">
-            +{extraImagesCount}
-          </div>
-        )}
-      </div>
-    );
   }
 
   return (
@@ -336,7 +307,7 @@ function Search() {
                 <p className=" text-sm line-clamp-6  my-3 break-words ">
                   {result.description}
                 </p>
-                {technoLogo(result.techno)}
+                {technoLogoDisplay(result.techno)}
               </div>
             ))}
         </section>
