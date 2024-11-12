@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -11,7 +11,7 @@ import {
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 import { useSettingsStore } from '../../store';
-import technoLogoDisplay from '../../utils/techno-logo-display';
+import ProjectCard from '../../components/private/Project-card';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -287,28 +287,7 @@ function Search() {
         <section className="flex justify-center gap-6 flex-wrap mt-5">
           {results?.length > 0 &&
             results?.map((result) => (
-              <div
-                key={result.id}
-                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative hover:scale-105 transition "
-              >
-                <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
-                  {result.rhythm}
-                </span>
-                <Link to={`/dashboard/project/${result.slug}`}>
-                  <img
-                    className="h-40 mx-auto"
-                    src={result.image}
-                    alt={result.title}
-                  />
-                  <h3 className="text-2xl  my-3 line-clamp-2 break-words">
-                    {result.title}
-                  </h3>
-                </Link>
-                <p className=" text-sm line-clamp-6  my-3 break-words ">
-                  {result.description}
-                </p>
-                {technoLogoDisplay(result.techno)}
-              </div>
+              <ProjectCard key={result.id} project={result} />
             ))}
         </section>
       </LoaderWrapper>

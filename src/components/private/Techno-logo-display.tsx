@@ -1,7 +1,8 @@
-import { TechnologieType } from '../types';
+/* eslint-disable react/destructuring-assignment */
+import { TechnologieType } from '../../types';
 
 // Function to return 5 technos logo and +"x" if necessary for card Project
-function technoLogoDisplay(array: TechnologieType[]) {
+function TechnoLogoDisplay(array: TechnologieType[]) {
   const displayLimit = 5;
   const extraImagesCount = array.length - displayLimit;
 
@@ -30,4 +31,4 @@ function technoLogoDisplay(array: TechnologieType[]) {
   );
 }
 
-export default technoLogoDisplay;
+export default TechnoLogoDisplay;

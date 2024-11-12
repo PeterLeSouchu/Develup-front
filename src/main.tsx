@@ -27,7 +27,7 @@ import ProjectDetails, {
   loadProjectDetails,
 } from './pages/private/Project-details';
 import UserDetails, { loadUserDetails } from './pages/private/User-details';
-import MyProjects from './pages/private/My-projects';
+import MyProjects, { loadPersonalProjects } from './pages/private/My-projects';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -70,7 +70,11 @@ const router = createBrowserRouter(
             loader={loadUserDetails}
             element={<UserDetails />}
           />
-          <Route path="/dashboard/my-projects" element={<MyProjects />} />
+          <Route
+            path="/dashboard/my-projects"
+            element={<MyProjects />}
+            loader={loadPersonalProjects}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
