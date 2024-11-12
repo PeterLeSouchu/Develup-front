@@ -41,9 +41,9 @@ function HeaderDesktop() {
           <NavLink
             to="/dashboard/search"
             className={({ isActive }) =>
-              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+              `relative font-extrabold py-5 mt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                 isActive
-                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                   : ''
               }`
             }
@@ -54,9 +54,9 @@ function HeaderDesktop() {
           <NavLink
             to="/dashboard/my-projects"
             className={({ isActive }) =>
-              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+              `relative font-extrabold py-5  text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                 isActive
-                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                   : ''
               }`
             }
@@ -67,9 +67,9 @@ function HeaderDesktop() {
           <NavLink
             to="/dashboard/my-messages"
             className={({ isActive }) =>
-              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+              `relative font-extrabold py-5  text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                 isActive
-                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                   : ''
               }`
             }
@@ -80,9 +80,9 @@ function HeaderDesktop() {
           <NavLink
             to="/dashboard/my-profile"
             className={({ isActive }) =>
-              `relative font-extrabold py-5 pt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+              `relative font-extrabold py-5 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                 isActive
-                  ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                  ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                   : ''
               }`
             }
@@ -108,7 +108,7 @@ function HeaderDesktop() {
               className={({ isActive }) =>
                 `relative underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                   isActive
-                    ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                    ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                     : ''
                 }`
               }
@@ -121,7 +121,7 @@ function HeaderDesktop() {
               className={({ isActive }) =>
                 `relative underline underline-offset-2 text-sm py-3 pl-4 w-full hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                   isActive
-                    ? 'after:content-[""] after:absolute after:right-0 after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold2 dark:after:border-gold'
+                    ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                     : ''
                 }`
               }

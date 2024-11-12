@@ -9,6 +9,7 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   try {
     const { data } = await axiosWithoutCSRFtoken.get(`/project/${params.slug}`);
     const project = data.result;
+    console.log(project);
     return project;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -57,20 +58,24 @@ function ProjectDetails() {
         {' '}
         {project.techno.length === 1 ? 'Technologie :' : 'Technologies :'}{' '}
       </h2>
-      {project.techno.map((techno) => (
-        <span
-          key={techno.id}
-          className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-slate-300 hover:op mr-3"
-        >
-          {' '}
-          <img
-            src={techno.image}
-            alt="nextjs"
-            className="w-9 h-9 p-1 bg-white2 rounded-lg "
-          />{' '}
-          <p>{techno.name}</p>
-        </span>
-      ))}
+      {project.techno.length < 0 ? (
+        project.techno.map((techno) => (
+          <span
+            key={techno.id}
+            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-slate-300 hover:op mr-3"
+          >
+            {' '}
+            <img
+              src={techno.image}
+              alt="nextjs"
+              className="w-9 h-9 p-1 bg-white2 rounded-lg "
+            />{' '}
+            <p>{techno.name}</p>
+          </span>
+        ))
+      ) : (
+        <p className="text-sm">Aucune technologie</p>
+      )}
 
       <p className="mt-10 break-words">{project.description}</p>
     </div>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { Link, useLoaderData } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { useSettingsStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { ProjectType } from '../../types';
 import TechnoLogoDisplay from '../../components/private/Techno-logo-display';
+import DeleteProjectModal from '../../components/private/modals/Delete-project-modal';
 
 export const loadPersonalProjects = async () => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -27,45 +29,61 @@ export const loadPersonalProjects = async () => {
 function MyProjects() {
   const projects = useLoaderData() as ProjectType[];
 
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [projectId, setProjectId] = useState<string>('');
+
+  // we use this state for better ui, when user delete/add/update a project we reflecte the db
+  const [results, setResults] = useState<ProjectType[]>([]);
+
+  useEffect(() => {
+    setResults(projects);
+  }, [projects]);
+
+  function handleDeleModal(id: string) {
+    setProjectId(id);
+    setDeleteModal(true);
+  }
+
   return (
     <div className="flex items-center justify-center  flex-col gap-10 mx-auto dark:text-black">
       <h1 className="text-3xl text-center dark:text-white">Vos projets</h1>
       <section className="flex justify-start sm:flex-row flex-col gap-6 h-full overflow-x-auto w-full items-center py-7 px-2">
-        {projects?.length > 0 &&
-          projects?.map((project) => (
+        {results?.length > 0 &&
+          results?.map((result) => (
             <div
-              key={project.id}
+              key={result.id}
               className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex-shrink-0 flex flex-col relative"
             >
               <button
                 type="button"
                 className="absolute left-3 top-3 hover:scale-150 transition"
               >
-                <FaEdit className="text-xl" />
+                <FaEdit className="text-2xl" />
               </button>
               <button
                 type="button"
                 className="absolute left-12 top-3 hover:scale-150 transition"
+                onClick={() => handleDeleModal(result.id)}
               >
-                <MdDelete className="text-xl" />
+                <MdDelete className="text-2xl" />
               </button>
               <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
-                {project.rhythm}
+                {result.rhythm}
               </span>
-              <Link to={`/dashboard/project/${project.slug}`}>
+              <Link to={`/dashboard/project/${result.slug}`}>
                 <img
                   className="h-40 mx-auto"
-                  src={project.image}
-                  alt={project.title}
+                  src={result.image}
+                  alt={result.title}
                 />
                 <h3 className="text-2xl my-3 line-clamp-2 break-words">
-                  {project.title}
+                  {result.title}
                 </h3>
               </Link>
               <p className="text-sm line-clamp-6 my-3 break-words">
-                {project.description}
+                {result.description}
               </p>
-              {TechnoLogoDisplay(project.techno)}
+              {TechnoLogoDisplay(result.techno)}
             </div>
           ))}
         <button
@@ -75,6 +93,14 @@ function MyProjects() {
           +
         </button>
       </section>
+      {deleteModal && (
+        <DeleteProjectModal
+          setModal={setDeleteModal}
+          projectId={projectId}
+          setProjectId={setProjectId}
+          setResults={setResults}
+        />
+      )}
     </div>
   );
 }
