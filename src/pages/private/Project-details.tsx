@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
@@ -7,9 +7,8 @@ import { ProjectType } from '../../types';
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
   try {
-    const { data } = await axiosWithoutCSRFtoken.get(`/project/${params.id}`);
+    const { data } = await axiosWithoutCSRFtoken.get(`/project/${params.slug}`);
     const project = data.result;
-
     return project;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -24,12 +23,11 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
-  console.log(project);
   return (
     <div className="px-10">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
-          className=" md:mx-0 dark:bg-white p-1 rounded-lg   mx-auto max-w-72 md:mb-0 mb-10"
+          className=" md:mx-0 bg-slate-300 dark:bg-white p-1 rounded-2xl   mx-auto max-w-72 md:mb-0 mb-10"
           src={project.image}
           alt={project.title}
         />
@@ -37,21 +35,28 @@ function ProjectDetails() {
           <h1 className=" md:text-center w-full md:text-5xl text-4xl font-bol break-words">
             {project.title}
           </h1>
-          <p className="  rounded-xl  max-w-64 italic ">{project.rhythm}</p>
+          <p className="  rounded-xl  max-w-64 italic ">
+            Rythme : {project.rhythm}
+          </p>
           <div className="flex items-center md:justify-center">
-            <h2 className=" underline underline-offset-4 mr-4 ">
-              Par {project.pseudo}
+            <h2 className=" underline underline-offset-4 mr-4 transition hover:text-darkgold2 dark:hover:text-gold ">
+              <Link to={`/dashboard/user/${project.user_slug}`}>
+                Par {project.pseudo}
+              </Link>
             </h2>
             <button
               type="button"
-              className="rounded-lg p-3 bg-gold dark:bg-darkgold transition hover:bg-darkgold dark:hover:bg-gold dark:hover:text-black "
+              className="rounded-lg p-2 bg-gold dark:bg-darkgold transition hover:bg-darkgold dark:hover:bg-gold dark:hover:text-black "
             >
               Contacter l&apos;auteur
             </button>
           </div>
         </div>
       </div>
-      <h2 className="my-5">Technologie(s) : </h2>
+      <h2 className="my-5">
+        {' '}
+        {project.techno.length === 1 ? 'Technologie :' : 'Technologies :'}{' '}
+      </h2>
       {project.techno.map((techno) => (
         <span
           key={techno.id}
@@ -67,7 +72,7 @@ function ProjectDetails() {
         </span>
       ))}
 
-      <p className="mt-10">{project.description}</p>
+      <p className="mt-10 break-words">{project.description}</p>
     </div>
   );
 }

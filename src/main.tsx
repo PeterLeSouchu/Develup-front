@@ -26,6 +26,7 @@ import ResetPassword from './pages/public/Reset-password';
 import ProjectDetails, {
   loadProjectDetails,
 } from './pages/private/Project-details';
+import UserDetails, { loadUserDetails } from './pages/private/User-details';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -59,9 +60,14 @@ const router = createBrowserRouter(
           />
           <Route path="/dashboard/legal-notices" element={<LegalNotices />} />
           <Route
-            path="/dashboard/project/:name/:id"
+            path="/dashboard/project/:slug"
             loader={loadProjectDetails}
             element={<ProjectDetails />}
+          />
+          <Route
+            path="/dashboard/user/:slug"
+            loader={loadUserDetails}
+            element={<UserDetails />}
           />
         </Route>
       </Route>

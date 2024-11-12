@@ -43,11 +43,14 @@ export interface TechnologieType {
 }
 
 export interface ProjectType {
-  id: number;
+  id: string;
+  user_id: string;
   title: string;
   rhythm: string;
   description: string;
   image: string;
+  slug: string;
+  user_slug: string;
   pseudo: string;
   techno: TechnologieType[];
 }
@@ -55,4 +58,14 @@ export interface ProjectType {
 export interface ProjectsAndTechnosType {
   projects: ProjectType[];
   technologies: TechnologieType[];
+}
+
+export interface UserType {
+  id: string;
+  pseudo: string;
+  image: string;
+  slug: string;
+  type: string;
+  description: string;
+  techno: TechnologieType[];
 }

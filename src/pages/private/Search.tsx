@@ -284,13 +284,13 @@ function Search() {
           {technoSelected.map((tech) => (
             <span
               key={tech.id}
-              className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2"
+              className="inline-flex items-center gap-1 p-2 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2"
             >
               {' '}
               <img
                 src={tech.image}
                 alt={tech.name}
-                className="w-6 h-6  bg-white2 rounded-lg "
+                className="w-7 h-7 p-1  bg-white2 rounded-lg "
               />{' '}
               <p className="hidden sm:block">{tech.name}</p>
               <button
@@ -323,9 +323,7 @@ function Search() {
                 <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
                   {result.rhythm}
                 </span>
-                <Link
-                  to={`/dashboard/project/${result.title.replace(/ /g, '-')}/${result.id}`}
-                >
+                <Link to={`/dashboard/project/${result.slug}`}>
                   <img
                     className="h-40 mx-auto"
                     src={result.image}
