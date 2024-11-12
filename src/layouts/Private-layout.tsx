@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function PrivateLayout() {
   const { darkTheme } = useUserStore();
   const { globalErrorMessage } = useSettingsStore();
-  const matches = useMediaQuery('(max-width: 1024px)');
+  const matches = useMediaQuery('(max-width: 1023px)');
   return (
     <div className={`${darkTheme && 'dark'}`}>
       <div className="md:flex md:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
