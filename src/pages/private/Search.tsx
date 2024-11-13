@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -11,6 +11,7 @@ import {
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 import { useSettingsStore } from '../../store';
+import ProjectCard from '../../components/private/Project-card';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -151,36 +152,6 @@ function Search() {
     }
   }
 
-  // Function to return 5 technos logo and +"x" if necessary for card Project
-  function technoLogo(array: TechnologieType[]) {
-    const displayLimit = 5;
-    const extraImagesCount = array.length - displayLimit;
-
-    return (
-      <div className="flex gap-2 items-center whitespace-nowrap absolute left-3 bottom-3 ">
-        {array.length === 0 ? (
-          <p className="text-sm">Aucune techno</p>
-        ) : (
-          array
-            .slice(0, displayLimit)
-            .map((logo) => (
-              <img
-                key={logo.id}
-                src={logo.image}
-                alt={logo.name}
-                className="w-9 h-9 my-2  rounded-xl object-contain bg-white2 p-1"
-              />
-            ))
-        )}
-        {extraImagesCount > 0 && (
-          <div className="w-6 h-6 my-2 bg-gray-200 dark:bg-gray-400 dark:text-white rounded-xl flex items-center justify-center text-xs text-gray-700">
-            +{extraImagesCount}
-          </div>
-        )}
-      </div>
-    );
-  }
-
   return (
     <div className="dark:text-black">
       <form
@@ -284,13 +255,13 @@ function Search() {
           {technoSelected.map((tech) => (
             <span
               key={tech.id}
-              className="inline-flex items-center gap-1 p-1 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2"
+              className="inline-flex items-center gap-1 p-2 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2"
             >
               {' '}
               <img
                 src={tech.image}
                 alt={tech.name}
-                className="w-6 h-6  bg-white2 rounded-lg "
+                className="w-7 h-7 p-1  bg-white2 rounded-lg "
               />{' '}
               <p className="hidden sm:block">{tech.name}</p>
               <button
@@ -316,30 +287,7 @@ function Search() {
         <section className="flex justify-center gap-6 flex-wrap mt-5">
           {results?.length > 0 &&
             results?.map((result) => (
-              <div
-                key={result.id}
-                className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex flex-col relative hover:scale-105 transition "
-              >
-                <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
-                  {result.rhythm}
-                </span>
-                <Link
-                  to={`/dashboard/project/${result.title.replace(/ /g, '-')}/${result.id}`}
-                >
-                  <img
-                    className="h-40 mx-auto"
-                    src={result.image}
-                    alt={result.title}
-                  />
-                  <h3 className="text-2xl  my-3 line-clamp-2 break-words">
-                    {result.title}
-                  </h3>
-                </Link>
-                <p className=" text-sm line-clamp-6  my-3 break-words ">
-                  {result.description}
-                </p>
-                {technoLogo(result.techno)}
-              </div>
+              <ProjectCard key={result.id} project={result} />
             ))}
         </section>
       </LoaderWrapper>

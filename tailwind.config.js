@@ -31,6 +31,9 @@ export default {
         headerLg: '35rem',
         18: '17rem',
       },
+      maxWidth: {
+        8: '90rem',
+      },
       minHeight: {
         8: '8vh',
         10: '10vh',

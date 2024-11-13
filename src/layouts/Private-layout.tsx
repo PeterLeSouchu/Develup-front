@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function PrivateLayout() {
   const { darkTheme } = useUserStore();
   const { globalErrorMessage } = useSettingsStore();
-  const matches = useMediaQuery('(max-width: 1024px)');
+  const matches = useMediaQuery('(max-width: 1023px)');
   return (
     <div className={`${darkTheme && 'dark'}`}>
       <div className="md:flex md:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
@@ -18,7 +18,7 @@ function PrivateLayout() {
         {globalErrorMessage ? (
           <GlobalError message={globalErrorMessage} />
         ) : (
-          <main className="dark:text-white overflow-scroll w-full  md:px-10 px-4   py-6 lg:pt-6 pt-24 lg:pb-6  ">
+          <main className="dark:text-white overflow-scroll w-full  md:px-10 px-4 max-w-8 mx-auto   py-6 lg:pt-6 pt-24 lg:pb-6  ">
             <Outlet />
           </main>
         )}

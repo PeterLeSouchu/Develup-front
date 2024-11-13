@@ -51,6 +51,7 @@ function Signup() {
       setLoading(true);
       await axiosWithoutCSRFtoken.post('/signup/otp', data);
       setOtpModal((state) => !state);
+      setErrorMessage('');
       return setLoading(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
