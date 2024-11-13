@@ -9,7 +9,6 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   try {
     const { data } = await axiosWithoutCSRFtoken.get(`/project/${params.slug}`);
     const project = data.result;
-    console.log(project);
     return project;
   } catch (error) {
     if (axios.isAxiosError(error)) {

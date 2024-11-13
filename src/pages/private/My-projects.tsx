@@ -48,7 +48,7 @@ function MyProjects() {
     <div className="flex items-center justify-center  flex-col gap-10 mx-auto dark:text-black">
       <h1 className="text-3xl text-center dark:text-white">Vos projets</h1>
       <section className="flex justify-start sm:flex-row flex-col gap-6 h-full overflow-x-auto w-full items-center py-7 px-2">
-        {results?.length > 0 &&
+        {results?.length > 0 ? (
           results?.map((result) => (
             <div
               key={result.id}
@@ -85,10 +85,13 @@ function MyProjects() {
               </p>
               {TechnoLogoDisplay(result.techno)}
             </div>
-          ))}
+          ))
+        ) : (
+          <p>Vous n&apos;avez pas encore créé de projet</p>
+        )}
         <button
           type="button"
-          className="text-6xl text-white dark:text-darkTheme text-center rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center bg-darkgold2 dark:bg-gold hover:scale-105 transition "
+          className="text-6xl text-white dark:text-darkTheme text-center rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center bg-darkgold2 dark:bg-gold hover:scale-110 hover:bg-gold dark:hover:bg-darkgold2 transition "
         >
           +
         </button>

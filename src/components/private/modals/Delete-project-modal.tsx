@@ -1,8 +1,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
+import axios from 'axios';
+import { useState } from 'react';
 import { ProjectType } from '../../../types';
 import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
+import { useSettingsStore } from '../../../store';
+import BackError from '../../all/errors/Back-error';
 
 function DeleteProjectModal({
   setModal,
@@ -15,12 +19,31 @@ function DeleteProjectModal({
   setProjectId: React.Dispatch<React.SetStateAction<string>>;
   setResults: React.Dispatch<React.SetStateAction<ProjectType[]>>;
 }) {
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const { setGlobalErrorMessage } = useSettingsStore();
+
   async function handleDeleteProject() {
-    const { data } = await axiosWithCSRFtoken.delete(`/project/${projectId}`);
-    const { id } = data.result;
-    setResults((prev) => prev.filter((project) => project.id !== id));
-    setProjectId('');
-    setModal(false);
+    try {
+      const { data } = await axiosWithCSRFtoken.delete(`/project/${projectId}`);
+      const { id } = data.result;
+      setResults((prev) => prev.filter((project) => project.id !== id));
+      setProjectId('');
+      return setModal(false);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message;
+        if (
+          message ===
+          "Une erreur inattendue s'est produite, veuillez réessayer plus tard"
+        ) {
+          return setErrorMessage(message);
+        }
+        return setGlobalErrorMessage(message);
+      }
+      return setGlobalErrorMessage(
+        'Erreur innatendu, essayez de vous reconnecter'
+      );
+    }
   }
 
   return (
@@ -39,6 +62,7 @@ function DeleteProjectModal({
         <p className="text-center">
           Êtes-vous sûr de vouloir supprimer ce projet ?{' '}
         </p>
+        <BackError message={errorMessage} />
         <div className="flex items-center justify-center gap-4">
           <button
             type="button"
