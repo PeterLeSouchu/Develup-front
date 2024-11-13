@@ -96,7 +96,7 @@ function HeaderMobile() {
       )}
       {/* Sidebar */}
       <div
-        className={`fixed rounded-r-xl top-0 left-0 h-full bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
+        className={`fixed rounded-r-xl top-0 left-0 h-full min-h-35 overflow-scroll bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
           isNavbarOpen ? 'translate-x-0' : '-translate-x-full'
         } w-72  z-50`}
       >

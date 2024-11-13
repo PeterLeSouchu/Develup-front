@@ -47,7 +47,7 @@ function MyProjects() {
   return (
     <div className="flex items-center justify-center  flex-col gap-10 mx-auto dark:text-black">
       <h1 className="text-3xl text-center dark:text-white">Vos projets</h1>
-      <section className="flex justify-start sm:flex-row flex-col gap-6 h-full overflow-x-auto w-full items-center py-7 px-2">
+      <section className="flex sm:flex-row flex-col gap-6 h-full overflow-x-auto w-full items-center py-7 px-2">
         {results?.length > 0 ? (
           results?.map((result) => (
             <div
@@ -87,7 +87,9 @@ function MyProjects() {
             </div>
           ))
         ) : (
-          <p>Vous n&apos;avez pas encore créé de projet</p>
+          <p className="dark:text-white2">
+            Vous n&apos;avez pas encore créé de projet
+          </p>
         )}
         <button
           type="button"

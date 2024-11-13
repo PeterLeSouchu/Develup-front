@@ -34,14 +34,14 @@ function HeaderDesktop() {
     }
   }
   return (
-    <header className="h-screen min-w-56 flex  p-3  ">
-      <div className="rounded-2xl flex-grow bg-gradient-to-b min-h-35 from-lightgold2 to-lightgold flex flex-col  dark:from-darkgold2 dark:to-darkgold">
+    <header className=" min-w-56 flex  p-3  ">
+      <div className="rounded-2xl flex-grow overflow-scroll bg-gradient-to-b  from-lightgold2 to-lightgold flex flex-col  dark:from-darkgold2 dark:to-darkgold">
         <img src={logo} alt="logo Develup" className="w-40 pl-2 pt-2 " />
         <nav className="flex flex-col flex-grow">
           <NavLink
             to="/dashboard/search"
             className={({ isActive }) =>
-              `relative font-extrabold py-5 mt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
+              `relative font-extrabold py-5 mt-7 text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex  items-center ${
                 isActive
                   ? 'after:content-[""] after:absolute after:right-0 after:rounded-full after:top-1/2 after:transform after:-translate-y-1/2 after:h-2/3 after:border-r-4 after:border-darkgold dark:after:border-gold'
                   : ''
