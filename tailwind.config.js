@@ -41,6 +41,9 @@ export default {
         80: '80vh',
         100: '100vh',
       },
+      maxHeight: {
+        35: '35rem',
+      },
     },
   },
   plugins: [],

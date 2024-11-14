@@ -3,22 +3,17 @@
 
 import axios from 'axios';
 import { useState } from 'react';
-import { ProjectType } from '../../../types';
 import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../../store';
 import BackError from '../../all/errors/Back-error';
+import { DeleteModalType } from '../../../types';
 
 function DeleteProjectModal({
   setModal,
   projectId,
   setProjectId,
   setResults,
-}: {
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  projectId: string;
-  setProjectId: React.Dispatch<React.SetStateAction<string>>;
-  setResults: React.Dispatch<React.SetStateAction<ProjectType[]>>;
-}) {
+}: DeleteModalType) {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { setGlobalErrorMessage } = useSettingsStore();
 
@@ -32,13 +27,10 @@ function DeleteProjectModal({
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message;
-        if (
-          message ===
-          "Une erreur inattendue s'est produite, veuillez réessayer plus tard"
-        ) {
-          return setErrorMessage(message);
+        if (message === 'Votre session a expiré, veuillez vous reconnecter') {
+          return setGlobalErrorMessage(message);
         }
-        return setGlobalErrorMessage(message);
+        return setErrorMessage(message);
       }
       return setGlobalErrorMessage(
         'Erreur innatendu, essayez de vous reconnecter'

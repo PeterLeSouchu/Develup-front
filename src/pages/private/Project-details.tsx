@@ -32,7 +32,7 @@ function ProjectDetails() {
           alt={project.title}
         />
         <div className="flex flex-col md:w-1/2 md:items-center justify-center gap-3 md:gap-7   dark:text-white2  rounded-lg md:max-w-xl">
-          <h1 className=" md:text-center w-full md:text-5xl text-4xl font-bol break-words">
+          <h1 className=" md:text-center w-full md:text-4xl text-4xl font-bol break-words">
             {project.title}
           </h1>
           <p className="  rounded-xl  max-w-64 italic ">
@@ -57,7 +57,7 @@ function ProjectDetails() {
         {' '}
         {project.techno.length === 1 ? 'Technologie :' : 'Technologies :'}{' '}
       </h2>
-      {project.techno.length < 0 ? (
+      {project.techno.length > 0 ? (
         project.techno.map((techno) => (
           <span
             key={techno.id}

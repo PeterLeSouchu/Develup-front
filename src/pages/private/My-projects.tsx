@@ -8,6 +8,7 @@ import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token'
 import { ProjectType } from '../../types';
 import TechnoLogoDisplay from '../../components/private/Techno-logo-display';
 import DeleteProjectModal from '../../components/private/modals/Delete-project-modal';
+import CreateProjectModal from '../../components/private/modals/Create-project-modal';
 
 export const loadPersonalProjects = async () => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -30,6 +31,7 @@ function MyProjects() {
   const projects = useLoaderData() as ProjectType[];
 
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [createModal, setCreateModal] = useState<boolean>(false);
   const [projectId, setProjectId] = useState<string>('');
 
   // we use this state for better ui, when user delete/add/update a project we reflecte the db
@@ -39,9 +41,13 @@ function MyProjects() {
     setResults(projects);
   }, [projects]);
 
-  function handleDeleModal(id: string) {
+  function handleDeleteModal(id: string) {
     setProjectId(id);
     setDeleteModal(true);
+  }
+
+  function handleCreateModal() {
+    setCreateModal(true);
   }
 
   return (
@@ -63,7 +69,7 @@ function MyProjects() {
               <button
                 type="button"
                 className="absolute left-12 top-3 hover:scale-150 transition"
-                onClick={() => handleDeleModal(result.id)}
+                onClick={() => handleDeleteModal(result.id)}
               >
                 <MdDelete className="text-2xl" />
               </button>
@@ -94,6 +100,7 @@ function MyProjects() {
         <button
           type="button"
           className="text-6xl text-white dark:text-darkTheme text-center rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center bg-darkgold2 dark:bg-gold hover:scale-110 hover:bg-gold dark:hover:bg-darkgold2 transition "
+          onClick={handleCreateModal}
         >
           +
         </button>
@@ -105,6 +112,9 @@ function MyProjects() {
           setProjectId={setProjectId}
           setResults={setResults}
         />
+      )}
+      {createModal && (
+        <CreateProjectModal setModal={setCreateModal} setResults={setResults} />
       )}
     </div>
   );
