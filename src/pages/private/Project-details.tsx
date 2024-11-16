@@ -27,7 +27,7 @@ function ProjectDetails() {
     <div className="px-10">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
-          className=" md:mx-0  dark:bg-slate-200 p-1 rounded-2xl   mx-auto max-w-72 md:mb-0 mb-10"
+          className=" md:mx-0  dark:bg-slate-200 p-1 rounded-2xl   mx-auto max-w-60 md:max-w-72 md:mb-0 mb-10"
           src={project.image}
           alt={project.title}
         />
@@ -76,7 +76,9 @@ function ProjectDetails() {
         <p className="text-sm">Aucune technologie</p>
       )}
 
-      <p className="mt-10 break-words">{project.description}</p>
+      <p className="mt-10 break-words whitespace-pre-wrap">
+        {project.description}
+      </p>
     </div>
   );
 }

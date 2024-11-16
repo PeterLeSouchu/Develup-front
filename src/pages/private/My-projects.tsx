@@ -62,23 +62,23 @@ function MyProjects() {
             >
               <button
                 type="button"
-                className="absolute left-3 top-3 hover:scale-150 transition"
+                className="absolute left-5 top-3  p-2 rounded-full bg-white2"
               >
-                <FaEdit className="text-2xl" />
+                <FaEdit className="text-2xl hover:scale-125 transition " />
               </button>
               <button
                 type="button"
-                className="absolute left-12 top-3 hover:scale-150 transition"
+                className="absolute left-16 top-3  p-2 rounded-full bg-white2"
                 onClick={() => handleDeleteModal(result.id)}
               >
-                <MdDelete className="text-2xl" />
+                <MdDelete className="text-2xl hover:scale-125 transition " />
               </button>
               <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
                 {result.rhythm}
               </span>
               <Link to={`/dashboard/project/${result.slug}`}>
                 <img
-                  className="h-40 mx-auto"
+                  className="h-40 w-full object-cover rounded-lg"
                   src={result.image}
                   alt={result.title}
                 />

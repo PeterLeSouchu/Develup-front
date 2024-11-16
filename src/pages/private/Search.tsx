@@ -21,6 +21,7 @@ export const loadProjectsAndTechnos = async () => {
     const { data: dataTechno } =
       await axiosWithoutCSRFtoken.get('/technologies');
     const projects = dataProject.result;
+    console.log(projects);
     const technologies = dataTechno.result;
     return { projects, technologies };
   } catch (error) {
