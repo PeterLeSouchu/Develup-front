@@ -7,7 +7,7 @@ function TechnoLogoDisplay(array: TechnologieType[]) {
   const extraImagesCount = array.length - displayLimit;
 
   return (
-    <div className="flex gap-2 items-center whitespace-nowrap absolute left-3 bottom-3 ">
+    <div className="flex gap-2 items-center whitespace-nowrap absolute left-3 bottom-2 ">
       {array.length === 0 ? (
         <p className="text-sm">Aucune techno</p>
       ) : (

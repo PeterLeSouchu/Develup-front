@@ -17,6 +17,7 @@ import projectSchema from '../../../security/form-validation/project-schema';
 import BackError from '../../all/errors/Back-error';
 import HookFormError from '../../all/errors/Hook-form-error';
 import LoaderWrapper from '../../all/loader/Loader-wrapper';
+import defautlImageProject from '../../../assets/images/default-project-image.jpg';
 
 function CreateProjectModal({ setModal, setResults }: CreateModalType) {
   const { setGlobalErrorMessage, setLoading } = useSettingsStore();
@@ -125,9 +126,8 @@ function CreateProjectModal({ setModal, setResults }: CreateModalType) {
           withCredentials: true,
         }
       );
-      console.log(dataProjectCreated);
       const project = dataProjectCreated.result;
-      setResults((prev) => [...prev, project]);
+      setResults((prev) => [project, ...prev]);
       setLoading(false);
       return setModal(false);
     } catch (error) {
@@ -184,7 +184,11 @@ function CreateProjectModal({ setModal, setResults }: CreateModalType) {
                       </button>
                     </>
                   ) : (
-                    <span className="text-gray-500">Pas d&apos;image</span>
+                    <img
+                      src={defautlImageProject}
+                      alt="Prévisualisation"
+                      className="w-full h-full object-cover"
+                    />
                   )}
                 </div>
                 <label
@@ -221,7 +225,7 @@ function CreateProjectModal({ setModal, setResults }: CreateModalType) {
                     message={errors.title?.message}
                   />
                 </div>
-                <div className=" mt-4 dark:bg-slate-200 bg-white2 border-2 rounded-lg ">
+                <div className=" mt-4  bg-white2 border-2 rounded-lg ">
                   <select
                     {...register('rhythm')}
                     className="h-full w-full mb-2 px-1 outline-none bg-transparent rounded-r-3xl"
@@ -319,6 +323,7 @@ function CreateProjectModal({ setModal, setResults }: CreateModalType) {
                 name="description"
                 id="description"
                 className="rounded-lg resize-none outline-none p-3"
+                placeholder="Ajouter une description ..."
               />
               <HookFormError
                 error={errors.description}

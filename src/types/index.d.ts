@@ -60,6 +60,7 @@ export interface ProjectType {
   user_slug: string;
   pseudo: string;
   techno: TechnologieType[];
+  created_at: string;
 }
 
 export interface ProjectsAndTechnosType {

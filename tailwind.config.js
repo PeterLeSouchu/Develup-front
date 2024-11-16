@@ -23,7 +23,7 @@ export default {
         8: '8vh',
         10: '10vh',
         80: '80vh',
-        99: '30rem',
+        99: '28rem',
       },
       width: {
         25: '25%',

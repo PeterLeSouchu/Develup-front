@@ -126,7 +126,7 @@ function HeaderMobile() {
                 className="font-extrabold text-3xl py-3 flex items-center"
               >
                 <GrProjects className="mr-2" />
-                Projets
+                Vos projets
               </Link>
             </li>
             <li className="py-2 flex justify-start items-center">

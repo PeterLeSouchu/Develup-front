@@ -3,6 +3,7 @@ import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
+import formatDate from '../../utils/date-timestamp';
 
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -78,6 +79,9 @@ function ProjectDetails() {
 
       <p className="mt-10 break-words whitespace-pre-wrap">
         {project.description}
+      </p>
+      <p className=" text-sm italic pt-10 underline underline-offset-8 ">
+        Le {formatDate(project.created_at)}
       </p>
     </div>
   );

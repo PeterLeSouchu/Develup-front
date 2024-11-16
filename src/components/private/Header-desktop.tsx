@@ -62,7 +62,7 @@ function HeaderDesktop() {
             }
           >
             <GrProjects className="mr-2" />
-            Projets
+            Vos projets
           </NavLink>
           <NavLink
             to="/dashboard/my-messages"
