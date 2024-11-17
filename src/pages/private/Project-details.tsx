@@ -25,10 +25,10 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
   return (
-    <div className="px-10">
+    <div className="sm:px-10 px-3">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
-          className=" md:mx-0  dark:bg-slate-200 p-1 rounded-2xl   mx-auto max-w-60 md:max-w-72 md:mb-0 mb-10"
+          className=" md:mx-0  dark:bg-slate-200  rounded-lg   mx-auto md:max-w-96 md:mb-0 mb-10 object-cover"
           src={project.image}
           alt={project.title}
         />
@@ -54,15 +54,12 @@ function ProjectDetails() {
           </div>
         </div>
       </div>
-      <h2 className="my-5">
-        {' '}
-        {project.techno.length === 1 ? 'Technologie :' : 'Technologies :'}{' '}
-      </h2>
+
       {project.techno.length > 0 ? (
         project.techno.map((techno) => (
           <span
             key={techno.id}
-            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-slate-300 hover:op mr-3"
+            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-white2 dark:bg-slate-200 hover:op mr-3"
           >
             {' '}
             <img

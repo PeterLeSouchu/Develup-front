@@ -41,9 +41,7 @@ function UserDetails() {
           </p>
         </div>
       </div>
-      <h2 className="my-5 text-lg">
-        {user.techno.length === 1 ? 'Sa technologie :' : 'Ses technologies :'}{' '}
-      </h2>
+
       {user.techno.length > 0 ? (
         user.techno.map((techno) => (
           <span

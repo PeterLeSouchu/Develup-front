@@ -78,7 +78,7 @@ export interface UserType {
   techno: TechnologieType[];
 }
 
-export interface DeleteModalType {
+export interface DeleteAndEditModalType {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   projectId: string;
   setProjectId: React.Dispatch<React.SetStateAction<string>>;

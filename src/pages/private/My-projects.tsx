@@ -10,6 +10,7 @@ import DeleteProjectModal from '../../components/private/modals/Delete-project-m
 import CreateProjectModal from '../../components/private/modals/Create-project-modal';
 import ProjectCard from '../../components/private/Project-card';
 import formatDate from '../../utils/date-timestamp';
+import EditProjectModal from '../../components/private/modals/Edit-project-modal';
 
 export const loadPersonalProjects = async () => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -33,6 +34,7 @@ function MyProjects() {
 
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [createModal, setCreateModal] = useState<boolean>(false);
+  const [editModal, setEditModal] = useState<boolean>(false);
   const [projectId, setProjectId] = useState<string>('');
 
   // we use this state for better ui, when user delete/add/update a project we reflecte the db
@@ -45,6 +47,11 @@ function MyProjects() {
   function handleDeleteModal(id: string) {
     setProjectId(id);
     setDeleteModal(true);
+  }
+
+  function handleEditModal(id: string) {
+    setProjectId(id);
+    setEditModal(true);
   }
 
   function handleCreateModal() {
@@ -62,6 +69,7 @@ function MyProjects() {
                   <button
                     type="button"
                     className="  p-2 rounded-full bg-gold dark:bg-darkgold dark:hover:bg-gold hover:scale-125 hover:bg-darkgold transition "
+                    onClick={() => handleEditModal(result.id)}
                   >
                     <FaEdit className="text-2xl  " />
                   </button>
@@ -103,6 +111,14 @@ function MyProjects() {
       )}
       {createModal && (
         <CreateProjectModal setModal={setCreateModal} setResults={setResults} />
+      )}
+      {editModal && (
+        <EditProjectModal
+          setModal={setEditModal}
+          projectId={projectId}
+          setProjectId={setProjectId}
+          setResults={setResults}
+        />
       )}
     </div>
   );
