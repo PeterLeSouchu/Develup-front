@@ -4,6 +4,7 @@ import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token'
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
 import formatDate from '../../utils/date-timestamp';
+import defaultImageProject from '../../assets/images/default-project-image.jpg';
 
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -29,7 +30,7 @@ function ProjectDetails() {
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
           className=" md:mx-0  dark:bg-slate-200  rounded-lg   mx-auto md:max-w-96 md:mb-0 mb-10 object-cover"
-          src={project.image}
+          src={project.image || defaultImageProject}
           alt={project.title}
         />
         <div className="flex flex-col md:w-1/2 md:items-center justify-center gap-3 md:gap-7   dark:text-white2  rounded-lg md:max-w-xl">
