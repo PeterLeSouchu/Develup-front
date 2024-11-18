@@ -12,14 +12,14 @@ function PrivateLayout() {
   const matches = useMediaQuery('(max-width: 1023px)');
   return (
     <div className={`${darkTheme && 'dark'}`}>
-      <div className="md:flex md:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
+      <div className="sm:flex sm:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
         {matches ? <HeaderMobile /> : <HeaderDesktop />}
 
         {globalErrorMessage ? (
           <GlobalError message={globalErrorMessage} />
         ) : (
           <main
-            className={`dark:text-white overflow-scroll w-full  md:px-10 px-4 max-w-8 mx-auto   py-6 lg:pt-6 pt-24 lg:pb-6    `}
+            className={`dark:text-white overflow-scroll w-full  md:px-10 px-4 max-w-8 mx-auto   py-6 lg:pt-6 pt-24 lg:pb-6  flex-grow   `}
           >
             <Outlet />
           </main>

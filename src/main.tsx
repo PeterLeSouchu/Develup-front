@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import {
@@ -28,7 +27,7 @@ import ProjectDetails, {
 } from './pages/private/Project-details';
 import UserDetails, { loadUserDetails } from './pages/private/User-details';
 import MyProjects, { loadPersonalProjects } from './pages/private/My-projects';
-import MyForm from './components/private/modals/test';
+import MyProfile from './pages/private/My-profile';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -76,11 +75,7 @@ const router = createBrowserRouter(
             element={<MyProjects />}
             loader={loadPersonalProjects}
           />
-          <Route
-            path="/dashboard/test"
-            element={<MyForm />}
-            loader={loadPersonalProjects}
-          />
+          <Route path="/dashboard/my-profile" element={<MyProfile />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
