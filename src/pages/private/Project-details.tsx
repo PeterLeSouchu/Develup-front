@@ -59,7 +59,7 @@ function ProjectDetails() {
         project.techno.map((techno) => (
           <span
             key={techno.id}
-            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-white2 dark:bg-slate-200 hover:op mr-3"
+            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-white2 dark:bg-slate-300 hover:op mr-3"
           >
             {' '}
             <img

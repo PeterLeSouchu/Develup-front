@@ -8,7 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSettingsStore } from '../../../store';
 import {
-  DeleteAndEditModalType,
+  EditModalType,
   FormProjectType,
   TechnologieType,
 } from '../../../types';
@@ -18,13 +18,14 @@ import BackError from '../../all/errors/Back-error';
 import HookFormError from '../../all/errors/Hook-form-error';
 import LoaderWrapper from '../../all/loader/Loader-wrapper';
 import defautlImageProject from '../../../assets/images/default-project-image.jpg';
+import arrayComparison from '../../../utils/array-comparison';
 
 function EditProjectModal({
   setModal,
   setResults,
-  projectId,
-  setProjectId,
-}: DeleteAndEditModalType) {
+  projectSlug,
+  setProjectSlug,
+}: EditModalType) {
   const { setGlobalErrorMessage, setLoading } = useSettingsStore();
   const {
     register,
@@ -41,12 +42,33 @@ function EditProjectModal({
   const [inputTechnoValue, setInputTechnoValue] = useState<string>('');
   const [technologies, setTechnologies] = useState<TechnologieType[]>([]);
 
+  // We use React Hook Form with title, rhythm, description and image, so we need initial technologie state to compare in roder to send to the back oly input edited
+  const [initialTechnologie, setInitialTechnologie] = useState<
+    TechnologieType[]
+  >([]);
+  const [initialProjectData, setInitialProjectData] =
+    useState<FormProjectType | null>(null);
+
   useEffect(() => {
     async function getTechnologies() {
       try {
         const { data } = await axiosWithCSRFtoken.get('/technologies');
-
+        const { data: projectData } = await axiosWithCSRFtoken.get(
+          `/project/${projectSlug}`
+        );
         const allTechnologies = data.result;
+        const detailsProject = projectData.result;
+        Object.keys(detailsProject).forEach((key) => {
+          if (key === 'image') {
+            setImagePreview(detailsProject[key]);
+          } else if (key === 'techno') {
+            setInitialTechnologie(detailsProject[key]);
+            setTechnoSelected(detailsProject[key]);
+          } else {
+            setValue(key as keyof FormProjectType, detailsProject[key]);
+          }
+        });
+        setInitialProjectData(detailsProject);
         return setTechnologies(allTechnologies);
       } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -63,7 +85,7 @@ function EditProjectModal({
     return () => {
       document.body.style.overflow = '';
     };
-  }, [setGlobalErrorMessage]);
+  }, [projectSlug, setGlobalErrorMessage, setValue]);
 
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
@@ -112,27 +134,38 @@ function EditProjectModal({
   };
 
   async function onSubmit(data: FormProjectType) {
+    if (!initialProjectData) {
+      return setErrorMessage('Erreur inattendue');
+    }
+
     const formData = new FormData();
+
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
+      if (
+        data[key as keyof FormProjectType] !==
+        initialProjectData[key as keyof FormProjectType]
+      ) {
+        formData.append(key, value);
+      }
     });
-    // Here we have to stringify technoSelected because formData can't have array type
-    formData.append('techno', JSON.stringify(technoSelected));
+
+    if (!arrayComparison(technoSelected, initialTechnologie)) {
+      formData.append('techno', JSON.stringify(technoSelected));
+    }
 
     try {
       setLoading(true);
-      const { data: dataProjectCreated } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/project`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          withCredentials: true,
-        }
+      const { data: dataProjectEdited } = await axiosWithCSRFtoken.patch(
+        `${import.meta.env.VITE_API_URL}/api/project/${projectSlug}`,
+        formData
       );
-      const project = dataProjectCreated.result;
-      setResults((prev) => [project, ...prev]);
+      const projectEdited = dataProjectEdited.result;
+      setResults((prev) =>
+        prev.map((project) =>
+          project.id === projectEdited.id ? projectEdited : project
+        )
+      );
+      setProjectSlug('');
       setLoading(false);
       return setModal(false);
     } catch (error) {
@@ -347,7 +380,7 @@ function EditProjectModal({
                 type="submit"
                 className="p-2 mt-5 bg-green-400  rounded-lg hover:bg-green-500 transition"
               >
-                Ajouter
+                Enregistrer
               </button>
             </div>
           </LoaderWrapper>

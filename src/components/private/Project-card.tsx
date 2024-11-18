@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ProjectType } from '../../types';
 import TechnoLogoDisplay from './Techno-logo-display';
+import defautlImage from '../../assets/images/default-project-image.jpg';
 
 function ProjectCard({ project }: { project: ProjectType }) {
   return (
@@ -12,7 +13,7 @@ function ProjectCard({ project }: { project: ProjectType }) {
 
         <img
           className="h-40 mx-auto w-full rounded-t-lg object-cover"
-          src={project.image}
+          src={project.image || defautlImage}
           alt={project.title}
         />
         <h3 className="text-2xl  my-3 line-clamp-2 break-words font-bold pl-3">

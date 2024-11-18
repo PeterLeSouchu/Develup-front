@@ -35,7 +35,10 @@ function MyProjects() {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [createModal, setCreateModal] = useState<boolean>(false);
   const [editModal, setEditModal] = useState<boolean>(false);
+  // use it to know which project to delete
   const [projectId, setProjectId] = useState<string>('');
+  // use it to knwo which project to edit (because in back we have a route that return all data from project by slug, so we use it to have all data form project hen we want to edit)
+  const [projectSlug, setProjectSlug] = useState<string>('');
 
   // we use this state for better ui, when user delete/add/update a project we reflecte the db
   const [results, setResults] = useState<ProjectType[]>([]);
@@ -49,8 +52,8 @@ function MyProjects() {
     setDeleteModal(true);
   }
 
-  function handleEditModal(id: string) {
-    setProjectId(id);
+  function handleEditModal(slug: string) {
+    setProjectSlug(slug);
     setEditModal(true);
   }
 
@@ -69,7 +72,7 @@ function MyProjects() {
                   <button
                     type="button"
                     className="  p-2 rounded-full bg-gold dark:bg-darkgold dark:hover:bg-gold hover:scale-125 hover:bg-darkgold transition "
-                    onClick={() => handleEditModal(result.id)}
+                    onClick={() => handleEditModal(result.slug)}
                   >
                     <FaEdit className="text-2xl  " />
                   </button>
@@ -115,8 +118,8 @@ function MyProjects() {
       {editModal && (
         <EditProjectModal
           setModal={setEditModal}
-          projectId={projectId}
-          setProjectId={setProjectId}
+          projectSlug={projectSlug}
+          setProjectSlug={setProjectSlug}
           setResults={setResults}
         />
       )}

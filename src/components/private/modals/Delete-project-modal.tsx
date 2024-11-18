@@ -6,14 +6,14 @@ import { useState } from 'react';
 import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../../store';
 import BackError from '../../all/errors/Back-error';
-import { DeleteAndEditModalType } from '../../../types';
+import { DeleteModalType } from '../../../types';
 
 function DeleteProjectModal({
   setModal,
   projectId,
   setProjectId,
   setResults,
-}: DeleteAndEditModalType) {
+}: DeleteModalType) {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { setGlobalErrorMessage } = useSettingsStore();
 
