@@ -28,7 +28,7 @@ function UserDetails() {
     <div className="px-10">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
-          className=" md:mx-0   dark:bg-white p-1 rounded-full   mx-auto w-64 h-64 md:mb-0 mb-10 object-cover"
+          className=" md:mx-0   dark:bg-slate-200 p-1 rounded-full   mx-auto w-64 h-64 md:mb-0 mb-10 object-cover"
           src={user.image}
           alt={user.pseudo}
         />
@@ -41,9 +41,7 @@ function UserDetails() {
           </p>
         </div>
       </div>
-      <h2 className="my-5 text-lg">
-        {user.techno.length === 1 ? 'Sa technologie :' : 'Ses technologies :'}{' '}
-      </h2>
+
       {user.techno.length > 0 ? (
         user.techno.map((techno) => (
           <span

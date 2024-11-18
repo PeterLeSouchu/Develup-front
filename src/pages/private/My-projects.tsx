@@ -2,12 +2,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import { Link, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { useSettingsStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { ProjectType } from '../../types';
-import TechnoLogoDisplay from '../../components/private/Techno-logo-display';
 import DeleteProjectModal from '../../components/private/modals/Delete-project-modal';
+import CreateProjectModal from '../../components/private/modals/Create-project-modal';
+import ProjectCard from '../../components/private/Project-card';
+import formatDate from '../../utils/date-timestamp';
+import EditProjectModal from '../../components/private/modals/Edit-project-modal';
 
 export const loadPersonalProjects = async () => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -30,7 +33,12 @@ function MyProjects() {
   const projects = useLoaderData() as ProjectType[];
 
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
+  const [createModal, setCreateModal] = useState<boolean>(false);
+  const [editModal, setEditModal] = useState<boolean>(false);
+  // use it to know which project to delete
   const [projectId, setProjectId] = useState<string>('');
+  // use it to knwo which project to edit (because in back we have a route that return all data from project by slug, so we use it to have all data form project hen we want to edit)
+  const [projectSlug, setProjectSlug] = useState<string>('');
 
   // we use this state for better ui, when user delete/add/update a project we reflecte the db
   const [results, setResults] = useState<ProjectType[]>([]);
@@ -39,59 +47,59 @@ function MyProjects() {
     setResults(projects);
   }, [projects]);
 
-  function handleDeleModal(id: string) {
+  function handleDeleteModal(id: string) {
     setProjectId(id);
     setDeleteModal(true);
   }
 
+  function handleEditModal(slug: string) {
+    setProjectSlug(slug);
+    setEditModal(true);
+  }
+
+  function handleCreateModal() {
+    setCreateModal(true);
+  }
+
   return (
-    <div className="flex items-center justify-center  flex-col gap-10 mx-auto dark:text-black">
-      <h1 className="text-3xl text-center dark:text-white">Vos projets</h1>
-      <section className="flex justify-start sm:flex-row flex-col gap-6 h-full overflow-x-auto w-full items-center py-7 px-2">
+    <div className="flex items-center justify-center h-full mx-auto dark:text-black">
+      <section className="flex sm:flex-row flex-col gap-20 md:gap-10 h-full sm:overflow-x-auto w-full items-center md:pl-10  px-2">
         {results?.length > 0 ? (
           results?.map((result) => (
-            <div
-              key={result.id}
-              className="bg-white2 dark:bg-slate-200 shadow-lg h-99 w-72 rounded-lg dark:border-white2 border-2 p-3 flex-shrink-0 flex flex-col relative"
-            >
-              <button
-                type="button"
-                className="absolute left-3 top-3 hover:scale-150 transition"
-              >
-                <FaEdit className="text-2xl" />
-              </button>
-              <button
-                type="button"
-                className="absolute left-12 top-3 hover:scale-150 transition"
-                onClick={() => handleDeleModal(result.id)}
-              >
-                <MdDelete className="text-2xl" />
-              </button>
-              <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl dark:text-white dark:bg-darkgold">
-                {result.rhythm}
-              </span>
-              <Link to={`/dashboard/project/${result.slug}`}>
-                <img
-                  className="h-40 mx-auto"
-                  src={result.image}
-                  alt={result.title}
-                />
-                <h3 className="text-2xl my-3 line-clamp-2 break-words">
-                  {result.title}
-                </h3>
-              </Link>
-              <p className="text-sm line-clamp-6 my-3 break-words">
-                {result.description}
-              </p>
-              {TechnoLogoDisplay(result.techno)}
+            <div key={result.id}>
+              <div className="mb-4">
+                <div className="flex justify-around items-center w-28 mx-auto mb-4">
+                  <button
+                    type="button"
+                    className="  p-2 rounded-full bg-gold dark:bg-darkgold dark:hover:bg-gold hover:scale-125 hover:bg-darkgold transition "
+                    onClick={() => handleEditModal(result.slug)}
+                  >
+                    <FaEdit className="text-2xl  " />
+                  </button>
+                  <button
+                    type="button"
+                    className="  p-2 rounded-full bg-gold dark:bg-darkgold dark:hover:bg-gold hover:scale-125 hover:bg-darkgold transition "
+                    onClick={() => handleDeleteModal(result.id)}
+                  >
+                    <MdDelete className="text-2xl  " />
+                  </button>
+                </div>
+                <p className=" text-xs italic  underline underline-offset-4 text-center dark:text-white2 ">
+                  Le {formatDate(result.created_at)}
+                </p>
+              </div>
+              <ProjectCard project={result} />
             </div>
           ))
         ) : (
-          <p>Vous n&apos;avez pas encore créé de projet</p>
+          <p className="dark:text-white2">
+            Vous n&apos;avez pas encore créé de projet
+          </p>
         )}
         <button
           type="button"
-          className="text-6xl text-white dark:text-darkTheme text-center rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center bg-darkgold2 dark:bg-gold hover:scale-110 hover:bg-gold dark:hover:bg-darkgold2 transition "
+          className="text-6xl  dark:text-darkTheme text-center rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center bg-gold dark:bg-darkgold hover:scale-110 hover:bg-darkgold dark:hover:bg-gold transition text-black "
+          onClick={handleCreateModal}
         >
           +
         </button>
@@ -101,6 +109,17 @@ function MyProjects() {
           setModal={setDeleteModal}
           projectId={projectId}
           setProjectId={setProjectId}
+          setResults={setResults}
+        />
+      )}
+      {createModal && (
+        <CreateProjectModal setModal={setCreateModal} setResults={setResults} />
+      )}
+      {editModal && (
+        <EditProjectModal
+          setModal={setEditModal}
+          projectSlug={projectSlug}
+          setProjectSlug={setProjectSlug}
           setResults={setResults}
         />
       )}

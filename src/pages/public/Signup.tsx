@@ -197,7 +197,7 @@ function Signup() {
                     className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full "
                     type={typeConfirmPassword}
                     id="confirm-password"
-                    placeholder="Confirmez votre mot de passe"
+                    placeholder="Entrez votre mot de passe"
                     {...register('passwordConfirm')}
                   />
                   <button

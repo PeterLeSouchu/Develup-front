@@ -3,6 +3,7 @@ import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
+import formatDate from '../../utils/date-timestamp';
 
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -24,15 +25,15 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
   return (
-    <div className="px-10">
+    <div className="sm:px-10 px-3">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
-          className=" md:mx-0  dark:bg-white p-1 rounded-2xl   mx-auto max-w-72 md:mb-0 mb-10"
+          className=" md:mx-0  dark:bg-slate-200  rounded-lg   mx-auto md:max-w-96 md:mb-0 mb-10 object-cover"
           src={project.image}
           alt={project.title}
         />
         <div className="flex flex-col md:w-1/2 md:items-center justify-center gap-3 md:gap-7   dark:text-white2  rounded-lg md:max-w-xl">
-          <h1 className=" md:text-center w-full md:text-5xl text-4xl font-bol break-words">
+          <h1 className=" md:text-center w-full md:text-4xl text-4xl font-bol break-words">
             {project.title}
           </h1>
           <p className="  rounded-xl  max-w-64 italic ">
@@ -53,15 +54,12 @@ function ProjectDetails() {
           </div>
         </div>
       </div>
-      <h2 className="my-5">
-        {' '}
-        {project.techno.length === 1 ? 'Technologie :' : 'Technologies :'}{' '}
-      </h2>
-      {project.techno.length < 0 ? (
+
+      {project.techno.length > 0 ? (
         project.techno.map((techno) => (
           <span
             key={techno.id}
-            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-slate-300 hover:op mr-3"
+            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-white2 dark:bg-slate-300 hover:op mr-3"
           >
             {' '}
             <img
@@ -76,7 +74,12 @@ function ProjectDetails() {
         <p className="text-sm">Aucune technologie</p>
       )}
 
-      <p className="mt-10 break-words">{project.description}</p>
+      <p className="mt-10 break-words whitespace-pre-wrap">
+        {project.description}
+      </p>
+      <p className=" text-sm italic pt-10 underline underline-offset-8 ">
+        Le {formatDate(project.created_at)}
+      </p>
     </div>
   );
 }

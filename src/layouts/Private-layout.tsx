@@ -18,7 +18,9 @@ function PrivateLayout() {
         {globalErrorMessage ? (
           <GlobalError message={globalErrorMessage} />
         ) : (
-          <main className="dark:text-white overflow-scroll w-full  md:px-10 px-4 max-w-8 mx-auto   py-6 lg:pt-6 pt-24 lg:pb-6  ">
+          <main
+            className={`dark:text-white overflow-scroll w-full  md:px-10 px-4 max-w-8 mx-auto   py-6 lg:pt-6 pt-24 lg:pb-6    `}
+          >
             <Outlet />
           </main>
         )}

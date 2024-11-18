@@ -28,6 +28,7 @@ import ProjectDetails, {
 } from './pages/private/Project-details';
 import UserDetails, { loadUserDetails } from './pages/private/User-details';
 import MyProjects, { loadPersonalProjects } from './pages/private/My-projects';
+import MyForm from './components/private/modals/test';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -75,6 +76,11 @@ const router = createBrowserRouter(
             element={<MyProjects />}
             loader={loadPersonalProjects}
           />
+          <Route
+            path="/dashboard/test"
+            element={<MyForm />}
+            loader={loadPersonalProjects}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
@@ -82,8 +88,4 @@ const router = createBrowserRouter(
   )
 );
 
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+root.render(<RouterProvider router={router} />);

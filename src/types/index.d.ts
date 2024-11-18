@@ -8,6 +8,13 @@ export interface FormSignupType {
   cgu: boolean;
 }
 
+export interface FormProjectType {
+  title: string;
+  rhythm: string;
+  image?: File | null;
+  description: string;
+}
+
 export interface ResetPasswordFormType {
   password: string;
   passwordConfirm: string;
@@ -53,6 +60,7 @@ export interface ProjectType {
   user_slug: string;
   pseudo: string;
   techno: TechnologieType[];
+  created_at: string;
 }
 
 export interface ProjectsAndTechnosType {
@@ -68,4 +76,23 @@ export interface UserType {
   type: string;
   description: string;
   techno: TechnologieType[];
+}
+
+export interface DeleteModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  projectId: string;
+  setProjectId: React.Dispatch<React.SetStateAction<string>>;
+  setResults: React.Dispatch<React.SetStateAction<ProjectType[]>>;
+}
+
+export interface EditModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  projectSlug: string;
+  setProjectSlug: React.Dispatch<React.SetStateAction<string>>;
+  setResults: React.Dispatch<React.SetStateAction<ProjectType[]>>;
+}
+
+export interface CreateModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setResults: React.Dispatch<React.SetStateAction<ProjectType[]>>;
 }

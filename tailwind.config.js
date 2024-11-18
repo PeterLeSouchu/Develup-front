@@ -23,7 +23,7 @@ export default {
         8: '8vh',
         10: '10vh',
         80: '80vh',
-        99: '30rem',
+        99: '28rem',
       },
       width: {
         25: '25%',
@@ -40,6 +40,9 @@ export default {
         35: '35rem',
         80: '80vh',
         100: '100vh',
+      },
+      maxHeight: {
+        35: '35rem',
       },
     },
   },

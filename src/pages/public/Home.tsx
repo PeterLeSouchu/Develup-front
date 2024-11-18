@@ -34,11 +34,11 @@ function Home() {
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 pb-20">
         <div className="flex flex-col items-center justify-center gap-10">
           <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl">
-            Develup est une plateforme innovante qui a pour objectif de faire
-            collaborer des développeurs sur des projets web. Que vous cherchiez
-            à rejoindre un groupe dynamique ou que vous souhaitiez trouver des
-            développeurs passionnés pour concrétiser votre propre projet,
-            Develup est là pour vous !
+            Develup est une plateforme innovante qui a pour objectif de mettre
+            en relation des développeurs pour la réalisation de projets web. Que
+            vous cherchiez à rejoindre un groupe dynamique ou que vous
+            souhaitiez trouver des développeurs passionnés pour concrétiser
+            votre propre projet, Develup est là pour vous !
           </p>
           <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl">
             Grâce à notre interface conviviale, vous pouvez explorer une

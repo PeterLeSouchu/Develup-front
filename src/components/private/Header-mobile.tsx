@@ -96,7 +96,7 @@ function HeaderMobile() {
       )}
       {/* Sidebar */}
       <div
-        className={`fixed rounded-r-xl top-0 left-0 h-full bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
+        className={`fixed rounded-r-xl top-0 left-0 h-full  overflow-scroll bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
           isNavbarOpen ? 'translate-x-0' : '-translate-x-full'
         } w-72  z-50`}
       >
@@ -107,7 +107,7 @@ function HeaderMobile() {
         >
           <RxCross1 />
         </button>
-        <nav className="p-4 relative h-full">
+        <nav className="p-4 relative h-full flex flex-col justify-between">
           <ul>
             <li className="py-2 flex justify-start items-center">
               <Link
@@ -126,7 +126,7 @@ function HeaderMobile() {
                 className="font-extrabold text-3xl py-3 flex items-center"
               >
                 <GrProjects className="mr-2" />
-                Projets
+                Vos projets
               </Link>
             </li>
             <li className="py-2 flex justify-start items-center">
@@ -150,8 +150,8 @@ function HeaderMobile() {
               </Link>
             </li>
           </ul>
-          <div className="absolute bottom-5 left-5">
-            <div className="pt-44 py-2 flex justify-start items-center">
+          <div>
+            <div className="py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
                 to="/dashboard/legal-notices"
