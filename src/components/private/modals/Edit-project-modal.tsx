@@ -42,6 +42,9 @@ function EditProjectModal({
   const [inputTechnoValue, setInputTechnoValue] = useState<string>('');
   const [technologies, setTechnologies] = useState<TechnologieType[]>([]);
 
+  // State to know if user has edit / delete image in order to send it if he did and only if he did that
+  const [imageChanged, setImageChanged] = useState<boolean>(false);
+
   // We use React Hook Form with title, rhythm, description and image, so we need initial technologie state to compare in roder to send to the back oly input edited
   const [initialTechnologie, setInitialTechnologie] = useState<
     TechnologieType[]
@@ -121,6 +124,7 @@ function EditProjectModal({
 
   // Here we use URL object to genere url for image preview
   const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setImageChanged(true);
     const file = event.target.files?.[0];
     if (file) {
       setValue('image', file);
@@ -129,6 +133,7 @@ function EditProjectModal({
   };
 
   const handleDeleteImage = () => {
+    setImageChanged(true);
     setImagePreview('');
     resetField('image');
   };
@@ -142,9 +147,14 @@ function EditProjectModal({
 
     Object.entries(data).forEach(([key, value]) => {
       if (
-        data[key as keyof FormProjectType] !==
-        initialProjectData[key as keyof FormProjectType]
+        key !== 'image' &&
+        value !== initialProjectData[key as keyof FormProjectType]
       ) {
+        formData.append(key, value);
+      }
+
+      // Here if user chenge or delete image, imageChanged is true, the value of image is reset and we send it to the form in order to inform back that user change or delete image
+      if (imageChanged && key === 'image') {
         formData.append(key, value);
       }
     });
