@@ -78,7 +78,7 @@ function ProjectDetails() {
       <p className="mt-10 break-words whitespace-pre-wrap">
         {project.description}
       </p>
-      <p className=" text-sm italic pt-10 underline underline-offset-8 ">
+      <p className=" text-sm italic text-slate-500 dark:text-white2 pt-10 underline underline-offset-8 ">
         Le {formatDate(project.created_at)}
       </p>
     </div>

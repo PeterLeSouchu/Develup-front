@@ -63,7 +63,7 @@ function MyProjects() {
 
   return (
     <div className="flex items-center justify-center h-full min-h-35 mx-auto dark:text-black">
-      <section className="flex sm:flex-row flex-col gap-10  h-full sm:overflow-x-auto w-full items-center md:pl-10  px-2">
+      <section className="flex sm:flex-row flex-col sm:gap-10 gap-24  h-full sm:overflow-x-auto w-full items-center md:pl-10  px-2">
         {results?.length > 0 ? (
           results?.map((result) => (
             <div key={result.id}>

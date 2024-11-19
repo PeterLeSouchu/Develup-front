@@ -155,7 +155,7 @@ function Search() {
   return (
     <div className="dark:text-black">
       <form
-        className="min-h-12   w-3/4 m-auto  sm:bg-white2 sm:dark:bg-slate-200 sm:border-2 rounded-3xl items-center  max-w-4xl min-w-80   "
+        className="min-h-12    w-3/4 m-auto  sm:bg-white2 sm:dark:bg-slate-200 sm:border-2 rounded-3xl items-center  max-w-4xl min-w-80   "
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className=" block sm:hidden mb-2 mt-4 dark:bg-slate-200 bg-white2 border-2 rounded-3xl p-1 ">
@@ -251,7 +251,7 @@ function Search() {
         <p className="text-red-400 mt-1 text-center">{errorMessage}</p>
       )}
       {technoSelected.length > 0 && (
-        <div className="mt-4 p-2 w-3/4 dark:border-white2  mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
+        <div className="mt-4  p-2 w-3/4 dark:border-white2  mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
           {technoSelected.map((tech) => (
             <span
               key={tech.id}
@@ -284,7 +284,7 @@ function Search() {
         </p>
       )}
       <LoaderWrapper>
-        <section className="flex justify-center gap-6 flex-wrap mt-5">
+        <section className="flex justify-center mt-12 gap-8 flex-wrap ">
           {results?.length > 0 &&
             results?.map((result) => (
               <ProjectCard key={result.id} project={result} />
