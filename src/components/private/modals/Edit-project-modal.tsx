@@ -166,7 +166,7 @@ function EditProjectModal({
     try {
       setLoading(true);
       const { data: dataProjectEdited } = await axiosWithCSRFtoken.patch(
-        `${import.meta.env.VITE_API_URL}/api/project/${projectSlug}`,
+        `/project/${projectSlug}`,
         formData
       );
       const projectEdited = dataProjectEdited.result;

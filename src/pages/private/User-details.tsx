@@ -3,6 +3,7 @@ import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { UserType } from '../../types';
+import defautUserImage from '../../assets/images/default-user-image.png';
 
 export const loadUserDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -29,7 +30,7 @@ function UserDetails() {
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
         <img
           className=" md:mx-0   dark:bg-slate-200 p-1 rounded-full   mx-auto w-64 h-64 md:mb-0 mb-10 object-cover"
-          src={user.image}
+          src={user.image || defautUserImage}
           alt={user.pseudo}
         />
         <div className="flex flex-col md:w-1/2 md:items-center justify-center gap-3 md:gap-7   dark:text-white2  rounded-lg md:max-w-xl">

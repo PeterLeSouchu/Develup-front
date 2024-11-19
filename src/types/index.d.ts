@@ -15,6 +15,14 @@ export interface FormProjectType {
   description: string;
 }
 
+export interface ProfileType {
+  email: string;
+  pseudo: string;
+  description: string;
+  type: string | undefined;
+  image: string | undefined;
+}
+
 export interface ResetPasswordFormType {
   password: string;
   passwordConfirm: string;
@@ -95,4 +103,19 @@ export interface EditModalType {
 export interface CreateModalType {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setResults: React.Dispatch<React.SetStateAction<ProjectType[]>>;
+}
+
+export interface EditImageProfileModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  image: string | undefined;
+  changeImage: React.Dispatch<React.SetStateAction<ProfileType | undefined>>;
+}
+
+export interface FormProfileImageType {
+  image?: File | null;
+}
+
+export interface ImageEditComponentType {
+  image: string | undefined;
+  changeImage: React.Dispatch<React.SetStateAction<ProfileType | undefined>>;
 }

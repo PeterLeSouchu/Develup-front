@@ -142,7 +142,7 @@ function HeaderMobile() {
             <li className="py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
-                to="/dashboard/search"
+                to="/dashboard/my-profile"
                 className="font-extrabold text-3xl py-3 pb-12 flex items-center"
               >
                 <CgProfile className="mr-2" />
