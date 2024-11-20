@@ -37,9 +37,7 @@ function UserDetails() {
           <h1 className=" md:text-center w-full md:text-5xl text-4xl font-bol break-words">
             {user.pseudo}
           </h1>
-          <p className=" text-xl  rounded-xl  max-w-64 italic ">
-            {user.type || 'Développeur'}
-          </p>
+          <p className=" text-xl  rounded-xl  max-w-64 italic ">{user.type}</p>
         </div>
       </div>
 

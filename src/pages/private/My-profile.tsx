@@ -42,7 +42,7 @@ function MyProfile() {
 
   return (
     <div className="flex w-full h-full md:flex-row flex-col overflow-y-scroll ">
-      <div className="md:w-64 flex-shrink-0 flex-grow w-full overflow-y-scroll  flex flex-col justify-between md:pr-7 ">
+      <div className="md:w-64 flex-shrink-0  w-full overflow-y-scroll  flex flex-col justify-between md:pr-7 ">
         <div className=" flex mx-auto flex-col   md:pt-0 pt-4 items-center justify-start gap-4 md:flex-col xss:flex-row ">
           <img
             src={profileData?.image || defaultUserImage}
@@ -103,13 +103,16 @@ function MyProfile() {
               </span>
             ))
           ) : (
-            <p>Vous n&apos;avez pas encore de technologie associée</p>
+            <p className="dark:text-black">
+              Vous n&apos;avez pas encore de technologie associée
+            </p>
           )}
         </div>
         <h2 className="text-xl">Description :</h2>
 
         <p className="  mb-8 mt-6 md:mb-0 break-words whitespace-pre-wrap">
-          {profileData?.description}
+          {profileData?.description ||
+            "Vous n'avez pas encore de description ..."}
         </p>
         <div className=" pt-8 pb-6 md:hidden dark:text-darkTheme border-t-2 flex flex-col items-center justify-center gap-5 border-slate-300">
           <p className="text-sm text-center dark:text-white2 text-slate-500 ">

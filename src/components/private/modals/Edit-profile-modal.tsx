@@ -270,7 +270,11 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
                     {...register('type')}
                     className="h-full w-full mb-2 px-1 outline-none bg-transparent rounded-r-3xl"
                   >
-                    <option value="">Choisissez un type de developpeur</option>
+                    <option value="">Choisissez un type</option>
+                    <option value="Développeur">Développeur</option>
+                    <option value="Développeur junior">
+                      Développeur junior
+                    </option>
                     <option value="Développeur Front-end">
                       Développeur Front-end
                     </option>
@@ -279,6 +283,11 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
                     </option>
                     <option value="Développeur Full-stack">
                       Développeur Full-stack
+                    </option>
+                    <option value="Intégrateur web">Intégrateur web</option>
+                    <option value="Graphiste">Graphiste</option>
+                    <option value="Administrateur système">
+                      Administrateur système
                     </option>
                   </select>
                   <HookFormError
