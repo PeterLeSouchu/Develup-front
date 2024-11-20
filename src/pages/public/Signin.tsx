@@ -7,7 +7,7 @@ import image from '../../assets/images/logo.png';
 import { useUserStore } from '../../store';
 import BackError from '../../components/all/errors/Back-error';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
-import hanldeChangeTypePassword from '../../utils/Password-visibility';
+import handleChangeTypePassword from '../../utils/password-visibility';
 
 function Signin() {
   const [type, setType] = useState('password');
@@ -81,7 +81,7 @@ function Signin() {
               />
               <button
                 type="button"
-                onClick={() => hanldeChangeTypePassword(setType)}
+                onClick={() => handleChangeTypePassword(setType)}
                 className="absolute right-2 top-1/2 -translate-y-1/2"
               >
                 {type === 'password' ? (

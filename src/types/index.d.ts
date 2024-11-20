@@ -133,3 +133,7 @@ export interface EditProfileModalType {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
   setResults: React.Dispatch<React.SetStateAction<ProfileType | undefined>>;
 }
+
+export interface DeleteAccountModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}

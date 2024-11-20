@@ -62,7 +62,7 @@ function UserDetails() {
         <p className="text-sm">Aucune technologie</p>
       )}
 
-      <p className="mt-10 break-words">
+      <p className="mt-10 break-words whitespace-pre-wrap">
         {user.description || `${user.pseudo} n'a pas encore de description ...`}
       </p>
     </div>

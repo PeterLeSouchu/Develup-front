@@ -6,14 +6,20 @@ import { useSettingsStore } from '../../store';
 import { ProfileType } from '../../types';
 import EditProfileModal from '../../components/private/modals/Edit-profile-modal';
 import defaultUserImage from '../../assets/images/default-user-image.png';
+import DeleteAccountModal from '../../components/private/modals/Delete-account-modal';
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileType>();
   const { setGlobalErrorMessage } = useSettingsStore();
   const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
+  const [deleAccountModal, setDeleAccountModal] = useState<boolean>(false);
 
   function handleEditProfile() {
     setEditProfileModal(true);
+  }
+
+  function handleDeleteAccount() {
+    setDeleAccountModal(true);
   }
 
   useEffect(() => {
@@ -73,6 +79,7 @@ function MyProfile() {
           <button
             type="button"
             className="p-2 w-full rounded-lg bg-red-400 hover:bg-red-500 transition  "
+            onClick={handleDeleteAccount}
           >
             Supprimer mon compte
           </button>
@@ -84,7 +91,7 @@ function MyProfile() {
           {profileData?.techno && profileData.techno.length > 0 ? (
             profileData.techno.map((techno) => (
               <span
-                key={techno.name} // Ajout d'une clé unique pour chaque élément (obligatoire dans React)
+                key={techno.name}
                 className="inline-flex items-center dark:text-darkTheme gap-1 p-2 rounded-3xl transition bg-slate-200 dark:bg-white2  mr-2"
               >
                 <img
@@ -134,6 +141,9 @@ function MyProfile() {
           setResults={setProfileData}
           setModal={setEditProfileModal}
         />
+      )}
+      {deleAccountModal && (
+        <DeleteAccountModal setModal={setDeleAccountModal} />
       )}
     </div>
   );
