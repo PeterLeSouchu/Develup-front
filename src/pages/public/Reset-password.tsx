@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import image from '../../assets/images/logo.png';
 import { ResetPasswordFormType } from '../../types';
-import hanldeChangeTypePassword from '../../utils/Password-visibility';
+import handleChangeTypePassword from '../../utils/password-visibility';
 import HookFormError from '../../components/all/errors/Hook-form-error';
 import resetPasswordSchema from '../../security/form-validation/reset-password-schema';
 import BackError from '../../components/all/errors/Back-error';
@@ -72,7 +72,7 @@ function ResetPassword() {
               />
               <button
                 type="button"
-                onClick={() => hanldeChangeTypePassword(setTypePassword)}
+                onClick={() => handleChangeTypePassword(setTypePassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2"
               >
                 {typePassword === 'password' ? (
@@ -101,7 +101,7 @@ function ResetPassword() {
               />
               <button
                 type="button"
-                onClick={() => hanldeChangeTypePassword(setTypeConfirmPassword)}
+                onClick={() => handleChangeTypePassword(setTypeConfirmPassword)}
                 className="absolute right-2 top-1/2 -translate-y-1/2"
               >
                 {typeConfirmPassword === 'password' ? (
