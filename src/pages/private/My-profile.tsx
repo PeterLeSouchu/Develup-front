@@ -7,12 +7,14 @@ import { ProfileType } from '../../types';
 import EditProfileModal from '../../components/private/modals/Edit-profile-modal';
 import defaultUserImage from '../../assets/images/default-user-image.png';
 import DeleteAccountModal from '../../components/private/modals/Delete-account-modal';
+import EditPasswordModal from '../../components/private/modals/Edit-password-modal';
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileType>();
   const { setGlobalErrorMessage } = useSettingsStore();
   const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
   const [deleAccountModal, setDeleAccountModal] = useState<boolean>(false);
+  const [editPasswordModal, setEditPasswordModal] = useState<boolean>(false);
 
   function handleEditProfile() {
     setEditProfileModal(true);
@@ -20,6 +22,10 @@ function MyProfile() {
 
   function handleDeleteAccount() {
     setDeleAccountModal(true);
+  }
+
+  function handleEditPassword() {
+    setEditPasswordModal(true);
   }
 
   useEffect(() => {
@@ -73,6 +79,7 @@ function MyProfile() {
           <button
             type="button"
             className="p-2 w-full rounded-lg bg-amber-200 hover:bg-amber-300 transition  "
+            onClick={handleEditPassword}
           >
             Modifier mon mot de passe
           </button>
@@ -147,6 +154,9 @@ function MyProfile() {
       )}
       {deleAccountModal && (
         <DeleteAccountModal setModal={setDeleAccountModal} />
+      )}
+      {editPasswordModal && (
+        <EditPasswordModal setModal={setEditPasswordModal} />
       )}
     </div>
   );

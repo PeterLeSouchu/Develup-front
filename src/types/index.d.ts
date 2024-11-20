@@ -137,3 +137,13 @@ export interface EditProfileModalType {
 export interface DeleteAccountModalType {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface EditPasswordModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface EditPasswordFormType {
+  password: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+}
