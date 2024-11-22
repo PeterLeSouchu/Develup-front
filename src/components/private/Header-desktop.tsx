@@ -65,7 +65,7 @@ function HeaderDesktop() {
             Vos projets
           </NavLink>
           <NavLink
-            to="/dashboard/my-messages"
+            to="/dashboard/conversation"
             className={({ isActive }) =>
               `relative font-extrabold py-5  text-xl pl-4 hover:bg-black transition hover:bg-opacity-20 flex items-center ${
                 isActive

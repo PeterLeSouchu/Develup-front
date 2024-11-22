@@ -28,6 +28,7 @@ import ProjectDetails, {
 import UserDetails, { loadUserDetails } from './pages/private/User-details';
 import MyProjects, { loadPersonalProjects } from './pages/private/My-projects';
 import MyProfile from './pages/private/My-profile';
+import Conversation from './pages/private/Conversation';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -76,6 +77,7 @@ const router = createBrowserRouter(
             loader={loadPersonalProjects}
           />
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
+          <Route path="/dashboard/conversation" element={<Conversation />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

@@ -33,14 +33,14 @@ function Home() {
       </section>
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 pb-20">
         <div className="flex flex-col items-center justify-center gap-10">
-          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl">
+          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl border-r-2 border-b-2 border-slate-400">
             Develup est une plateforme innovante qui a pour objectif de mettre
             en relation des développeurs pour la réalisation de projets web. Que
             vous cherchiez à rejoindre un groupe dynamique ou que vous
             souhaitiez trouver des développeurs passionnés pour concrétiser
             votre propre projet, Develup est là pour vous !
           </p>
-          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl">
+          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl border-r-2 border-b-2 border-slate-400">
             Grâce à notre interface conviviale, vous pouvez explorer une
             multitude de projets en cours, vous connecter avec des développeurs
             aux compétences variées et échanger des idées en temps réel. Develup
@@ -49,7 +49,7 @@ function Home() {
             assuré de trouver des partenaires qui partagent vos ambitions et
             votre passion pour le développement.
           </p>
-          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl">
+          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl border-r-2 border-b-2 border-slate-400">
             Rejoignez Develup et transformez vos visions en réalité avec le
             soutien d&apos;autres passionnés du développement web !
           </p>

@@ -132,7 +132,7 @@ function HeaderMobile() {
             <li className="py-2 flex justify-start items-center">
               <Link
                 onClick={() => setIsNavbarOpen(false)}
-                to="/dashboard/search"
+                to="/dashboard/conversation"
                 className="font-extrabold text-3xl py-3 flex items-center"
               >
                 <FaRegMessage className="mr-2" />

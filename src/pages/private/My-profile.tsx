@@ -47,13 +47,13 @@ function MyProfile() {
   }, [setGlobalErrorMessage]);
 
   return (
-    <div className="flex w-full h-full md:flex-row flex-col overflow-y-scroll ">
-      <div className="md:w-64 flex-shrink-0  w-full overflow-y-scroll  flex flex-col justify-between md:pr-7 ">
-        <div className=" flex mx-auto flex-col   md:pt-0 pt-4 items-center justify-start gap-4 md:flex-col xss:flex-row ">
+    <div className="flex w-full h-full md:flex-row flex-col overflow-y-scroll md:dark:text-black ">
+      <div className="md:w-64 flex-shrink-0  w-full overflow-y-scroll  flex flex-col justify-between  ">
+        <div className=" flex mx-auto flex-col w-full   md:pt-0 pt-4 items-center justify-start gap-4 md:flex-col xss:flex-row md:bg-white2 md:dark:bg-slate-200 md:rounded-lg md:p-4 ">
           <img
             src={profileData?.image || defaultUserImage}
             alt="lol"
-            className="rounded-full  mb-5  w-36 h-36 object-cover "
+            className="rounded-full md:mt-3   w-36 h-36 object-cover "
           />
 
           <Link to={`/dashboard/user/${profileData?.slug}`}>
@@ -65,8 +65,8 @@ function MyProfile() {
             {profileData?.type}
           </h3>
         </div>
-        <div className=" hidden dark:text-darkTheme mt-4 md:flex flex-col items-center justify-end gap-5 border-slate-300">
-          <p className="text-sm text-center dark:text-white2  text-slate-500">
+        <div className=" hidden  mt-4 md:flex flex-col items-center justify-end gap-5 border-slate-300 md:bg-white2 md:dark:bg-slate-200 md:rounded-lg p-4 ">
+          <p className="text-sm text-center  text-slate-500">
             Connecté avec : {profileData?.email}
           </p>
           <button
@@ -92,35 +92,38 @@ function MyProfile() {
           </button>
         </div>
       </div>
-      <div className="md:px-8 px-2 flex-grow pt-6 md:pt-2  md:border-l-4 border-slate-300 md:overflow-scroll ">
-        <h2 className="text-xl">Technologies : </h2>
-        <div className="mt-4 p-2 md:py-4  py-3 w-full  dark:border-white2  mx-auto mb-10   rounded-3xl border-2 bg-white2 dark:bg-slate-200 flex flex-row items-center flex-wrap gap-3">
-          {profileData?.techno && profileData.techno.length > 0 ? (
-            profileData.techno.map((techno) => (
-              <span
-                key={techno.name}
-                className="inline-flex items-center dark:text-darkTheme gap-1 p-2 rounded-3xl transition bg-slate-200 dark:bg-white2  mr-2"
-              >
-                <img
-                  src={techno.image}
-                  alt={techno.name}
-                  className="w-7 h-7 p-1 bg-white2 rounded-lg"
-                />
-                <p>{techno.name}</p>
-              </span>
-            ))
-          ) : (
-            <p className="dark:text-black">
-              Vous n&apos;avez pas encore de technologie associée
-            </p>
-          )}
+      <div className="md:px-8 px-2 flex-grow pt-6 md:pt-0   md:overflow-scroll ">
+        <div className="md:bg-white2  md:dark:bg-slate-200 md:rounded-lg p-4 mb-6">
+          <h2 className="text-xl">Technologies : </h2>
+          <div className="mt-4 p-2 md:py-4  py-3 w-full  dark:border-white2 md:border-none  mx-auto    rounded-3xl border-2 bg-white2 dark:bg-slate-200 flex flex-row items-center flex-wrap gap-3">
+            {profileData?.techno && profileData.techno.length > 0 ? (
+              profileData.techno.map((techno) => (
+                <span
+                  key={techno.name}
+                  className="inline-flex items-center dark:text-darkTheme gap-1 p-2 rounded-3xl transition bg-slate-200 dark:bg-white2  mr-2"
+                >
+                  <img
+                    src={techno.image}
+                    alt={techno.name}
+                    className="w-7 h-7 p-1 bg-white2 rounded-lg"
+                  />
+                  <p>{techno.name}</p>
+                </span>
+              ))
+            ) : (
+              <p className="dark:text-black">
+                Vous n&apos;avez pas encore de technologie associée
+              </p>
+            )}
+          </div>
         </div>
-        <h2 className="text-xl">Description :</h2>
-
-        <p className="  mb-8 mt-6 md:mb-0 break-words whitespace-pre-wrap">
-          {profileData?.description ||
-            "Vous n'avez pas encore de description ..."}
-        </p>
+        <div className="md:bg-white2 md:dark:bg-slate-200 md:rounded-lg p-4">
+          <h2 className="text-xl">Description :</h2>
+          <p className="  mb-8 mt-6 md:mb-0 break-words whitespace-pre-wrap">
+            {profileData?.description ||
+              "Vous n'avez pas encore de description ..."}
+          </p>
+        </div>
         <div className=" pt-8 pb-6 md:hidden dark:text-darkTheme border-t-2 flex flex-col items-center justify-center gap-5 border-slate-300">
           <p className="text-sm text-center dark:text-white2 text-slate-500 ">
             Connecté avec : peter22510@gmail.com

@@ -252,7 +252,7 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
               </div>
               <div className="flex flex-col gap-6">
                 <div className="flex  flex-col  gap-2">
-                  <label htmlFor="title">Titre</label>
+                  <label htmlFor="title">Pseudo</label>
                   <input
                     {...register('pseudo')}
                     type="text"

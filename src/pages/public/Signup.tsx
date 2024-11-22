@@ -230,7 +230,7 @@ function Signup() {
               </div>
               <HookFormError error={errors.cgu} message={errors.cgu?.message} />
               <button
-                className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
+                className="p-2 rounded-3xl bg-gold hover:bg-darkgold  transition"
                 type="submit"
               >
                 S&apos;inscrire
