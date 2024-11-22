@@ -59,7 +59,7 @@ function EditPasswordModal({ setModal }: DeleteAccountModalType) {
       onClick={() => setModal(false)}
     >
       <div
-        className="p-3 z-50 bg-white rounded-lg max-w-80 flex justify-center dark:text-black items-center flex-col"
+        className="p-3 z-50 bg-white rounded-lg max-w-80 flex justify-center dark:text-black items-center flex-col shadow-2xl"
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => event.stopPropagation()}
       >

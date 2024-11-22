@@ -37,8 +37,7 @@ function SendMessageModal({
       setErrorMessageFront('');
       setErrorMessageBack('');
 
-      setModal(false);
-      return console.log('is ok');
+      return setModal(false);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message;
@@ -63,7 +62,7 @@ function SendMessageModal({
       onClick={() => setModal(false)}
     >
       <div
-        className="p-3 z-50 bg-white rounded-lg max-w-80 flex dark:text-black justify-center items-center flex-col"
+        className="p-3 z-50 bg-white rounded-lg max-w-80 flex dark:text-black justify-center items-center flex-col shadow-2xl"
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => event.stopPropagation()}
       >

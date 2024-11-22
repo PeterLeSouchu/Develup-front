@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import {
+  Link,
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+} from 'react-router-dom';
 import { useState } from 'react';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
@@ -28,9 +33,29 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
   const [messageModal, setMessageModal] = useState<boolean>(false);
+  const { setGlobalErrorMessage } = useSettingsStore();
+  const navigate = useNavigate();
 
   function handleDisplayModal() {
-    setMessageModal(true);
+    try {
+      if (project.isAlreadyConversation) {
+        return navigate(
+          `/dashboard/conversation/${project.isAlreadyConversation}`
+        );
+      }
+      return setMessageModal(true);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message;
+        if (message === 'Votre session a expiré, veuillez vous reconnecter') {
+          return setGlobalErrorMessage(message);
+        }
+        return setGlobalErrorMessage(message);
+      }
+      return setGlobalErrorMessage(
+        'Erreur innatendu, essayez de vous reconnecter'
+      );
+    }
   }
   return (
     <div className="sm:px-10 px-3">

@@ -79,6 +79,7 @@ export interface ProjectType {
   techno: TechnologieType[];
   created_at: string;
   ownProject: boolean;
+  isAlreadyConversation: string;
 }
 
 export interface ProjectsAndTechnosType {

@@ -195,7 +195,7 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
       onClick={() => setModal(false)}
     >
       <div
-        className="p-4 z-50 overflow-y-scroll bg-white rounded-lg w-4/5 max-w-3xl  flex justify-center items-center flex-col h-4/5 max-h-35 dark:text-black "
+        className="p-4 z-50 overflow-y-scroll bg-white rounded-lg w-4/5 max-w-3xl  flex justify-center items-center flex-col h-4/5 max-h-35 dark:text-black shadow-2xl "
         onClick={(event) => event.stopPropagation()}
         onKeyDown={(event) => event.stopPropagation()}
       >

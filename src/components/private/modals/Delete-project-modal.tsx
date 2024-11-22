@@ -48,7 +48,7 @@ function DeleteProjectModal({
       onClick={() => setModal(false)}
     >
       <div
-        className="p-3 z-50 bg-white rounded-lg max-w-80 flex justify-center items-center flex-col"
+        className="p-3 z-50 bg-white rounded-lg max-w-80 flex justify-center items-center flex-col shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
         <p className="text-center">
