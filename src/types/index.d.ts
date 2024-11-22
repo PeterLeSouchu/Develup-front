@@ -139,6 +139,12 @@ export interface DeleteAccountModalType {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export interface SendMessageModalType {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  projectId: string;
+  userId: string;
+}
+
 export interface EditPasswordModalType {
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 }

@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+import { useState } from 'react';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
 import formatDate from '../../utils/date-timestamp';
 import defaultImageProject from '../../assets/images/default-project-image.jpg';
+import SendMessageModal from '../../components/private/modals/Send-message-modal';
 
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -25,6 +27,11 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
+  const [messageModal, setMessageModal] = useState<boolean>(false);
+
+  function handleDisplayModal() {
+    setMessageModal(true);
+  }
   return (
     <div className="sm:px-10 px-3">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
@@ -52,6 +59,7 @@ function ProjectDetails() {
               <button
                 type="button"
                 className="rounded-lg p-2 bg-gold dark:bg-darkgold transition hover:bg-darkgold dark:hover:bg-gold dark:hover:text-black "
+                onClick={handleDisplayModal}
               >
                 Contacter l&apos;auteur
               </button>
@@ -85,6 +93,13 @@ function ProjectDetails() {
       <p className=" text-sm italic text-slate-500 dark:text-white2 pt-10 underline underline-offset-8 ">
         Le {formatDate(project.created_at)}
       </p>
+      {messageModal && (
+        <SendMessageModal
+          setModal={setMessageModal}
+          projectId={project.id}
+          userId={project.user_id}
+        />
+      )}
     </div>
   );
 }
