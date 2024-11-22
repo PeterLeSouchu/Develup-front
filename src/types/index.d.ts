@@ -78,6 +78,7 @@ export interface ProjectType {
   pseudo: string;
   techno: TechnologieType[];
   created_at: string;
+  ownProject: boolean;
 }
 
 export interface ProjectsAndTechnosType {

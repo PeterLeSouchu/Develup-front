@@ -43,15 +43,19 @@ function ProjectDetails() {
           <div className="flex items-center md:justify-center">
             <h2 className=" underline underline-offset-4 mr-4 transition hover:text-darkgold2 dark:hover:text-gold ">
               <Link to={`/dashboard/user/${project.user_slug}`}>
-                Par {project.pseudo}
+                Par {project.ownProject ? 'vous' : project.pseudo}
               </Link>
             </h2>
-            <button
-              type="button"
-              className="rounded-lg p-2 bg-gold dark:bg-darkgold transition hover:bg-darkgold dark:hover:bg-gold dark:hover:text-black "
-            >
-              Contacter l&apos;auteur
-            </button>
+            {project.ownProject ? (
+              ''
+            ) : (
+              <button
+                type="button"
+                className="rounded-lg p-2 bg-gold dark:bg-darkgold transition hover:bg-darkgold dark:hover:bg-gold dark:hover:text-black "
+              >
+                Contacter l&apos;auteur
+              </button>
+            )}
           </div>
         </div>
       </div>
