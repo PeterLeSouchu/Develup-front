@@ -28,6 +28,9 @@ import ProjectDetails, {
 import UserDetails, { loadUserDetails } from './pages/private/User-details';
 import MyProjects, { loadPersonalProjects } from './pages/private/My-projects';
 import MyProfile from './pages/private/My-profile';
+import ConversationsList, {
+  loadConversations,
+} from './pages/private/Conversations-list';
 import Conversation from './pages/private/Conversation';
 
 const root = ReactDOM.createRoot(
@@ -77,7 +80,15 @@ const router = createBrowserRouter(
             loader={loadPersonalProjects}
           />
           <Route path="/dashboard/my-profile" element={<MyProfile />} />
-          <Route path="/dashboard/conversation" element={<Conversation />} />
+          <Route
+            path="/dashboard/conversation"
+            element={<ConversationsList />}
+            loader={loadConversations}
+          />
+          <Route
+            path="/dashboard/conversation/:id"
+            element={<Conversation />}
+          />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />

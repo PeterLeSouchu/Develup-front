@@ -154,3 +154,12 @@ export interface EditPasswordFormType {
   newPassword: string;
   newPasswordConfirm: string;
 }
+
+export interface ConversationType {
+  id: string;
+  title: string;
+  image: string;
+  message: string;
+  author_message_pseudo: string;
+  user_project_pseudo: sring;
+}

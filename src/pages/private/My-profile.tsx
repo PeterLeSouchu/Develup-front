@@ -138,12 +138,14 @@ function MyProfile() {
           <button
             type="button"
             className="p-2 w-full rounded-lg bg-amber-200 hover:bg-amber-300 transition  "
+            onClick={handleEditPassword}
           >
             Modifier son mot de passe
           </button>
           <button
             type="button"
             className="p-2 w-full rounded-lg bg-red-400 hover:bg-red-500 transition  "
+            onClick={handleDeleteAccount}
           >
             Supprimer son compte
           </button>

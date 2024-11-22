@@ -136,7 +136,7 @@ function HeaderMobile() {
                 className="font-extrabold text-3xl py-3 flex items-center"
               >
                 <FaRegMessage className="mr-2" />
-                Message
+                Conversation
               </Link>
             </li>
             <li className="py-2 flex justify-start items-center">

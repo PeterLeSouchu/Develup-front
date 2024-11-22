@@ -6,7 +6,7 @@ import defautlImage from '../../assets/images/default-project-image.jpg';
 function ProjectCard({ project }: { project: ProjectType }) {
   return (
     <Link className="cursor-pointer" to={`/dashboard/project/${project.slug}`}>
-      <article className="bg-white2 dark:bg-slate-200 shadow-md dark:shadow-stone-900  h-99 w-72 dark:shadow-none rounded-lg flex flex-col relative hover:scale-105 hover:shadow-xl transition ">
+      <article className="bg-white2 dark:shadow-none dark:bg-slate-200 shadow-md h-99 w-72 rounded-lg flex flex-col relative hover:shadow-xl hover:shadow-shadowGold  hover:translate-y-[-5px] transition duration-300 ease-in-out ">
         <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl  dark:bg-darkgold ">
           {project.rhythm}
         </span>

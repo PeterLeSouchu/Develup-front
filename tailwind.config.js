@@ -15,6 +15,7 @@ export default {
         darkgold: '#B79178',
         darkgold2: '#9d7154',
         gold: '#D7C392',
+        shadowGold: '#F3EAD2',
         lightgold: '#e9ddbf',
         lightgold2: '#dfd4a7',
         black: '#303030',
@@ -36,6 +37,7 @@ export default {
       },
       maxWidth: {
         8: '90rem',
+        55: '70rem',
       },
       minHeight: {
         8: '8vh',
