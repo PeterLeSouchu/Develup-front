@@ -37,7 +37,7 @@ export default {
       },
       maxWidth: {
         8: '90rem',
-        55: '70rem',
+        55: '40rem',
       },
       minHeight: {
         8: '8vh',

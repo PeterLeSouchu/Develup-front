@@ -27,28 +27,26 @@ function ConversationsList() {
   const conversations = useLoaderData() as ConversationType[];
 
   return (
-    <section className="flex flex-col gap-3 dark:text-black">
+    <section className="flex flex-col items-center gap-3 dark:text-black">
       {conversations.map((conversation) => (
         <Link
           key={conversation.id}
           to={`/dashboard/conversation/${conversation.id}`}
+          className="w-full"
         >
-          <div className=" relative rounded-r-full border-2 p-2 px-20 max-w-55 md:w-2/3 w-full md:mx-auto bg-white2 dark:bg-slate-200 dark:hover:bg-slate-300/80 hover:bg-gray-500/20 transition-all duration-200 ">
-            <IoIosArrowForward className="text-4xl absolute right-6 top-1/2 -translate-y-1/2" />
-            <div className="flex justify-center items-center  ">
+          <div className=" relative rounded-r-full border-2 p-2 overflow-hidden  max-w-55 md:w-2/3 w-full mx-auto bg-white2 dark:bg-slate-200 dark:hover:bg-slate-300/80 hover:bg-gray-500/20 transition-all duration-200 ">
+            <IoIosArrowForward className="text-4xl absolute right-2 top-1/2 -translate-y-1/2" />
+            <div className="flex justify-start items-center  ">
               <img
                 src={conversation.image}
                 alt={conversation.title}
-                className="w-32 rounded-lg mr-4 "
+                className="w-20 rounded-lg mr-4 "
               />
               <div>
                 <h2 className="md:text-4xl text-2xl">{conversation.title}</h2>
-                <h3 className="md:text-xl underline underline-offset-2">
-                  {conversation.user_project_pseudo}
-                </h3>
               </div>
             </div>
-            <p className="text-center mt-2 truncate">
+            <p className="text-xs mt-2 truncate w-full">
               {conversation.author_message_pseudo} : {conversation.message}
             </p>
           </div>

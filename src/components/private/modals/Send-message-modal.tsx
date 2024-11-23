@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../../store';
@@ -17,6 +18,7 @@ function SendMessageModal({
   const [errorMessageFront, setErrorMessageFront] = useState<string>('');
   const { setGlobalErrorMessage } = useSettingsStore();
   const [messageInput, setMessageInput] = useState('');
+  const navigate = useNavigate();
 
   function handlerChangeMessage(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setMessageInput(e.target.value);
@@ -29,15 +31,16 @@ function SendMessageModal({
       return setErrorMessageFront('Veuillez saisir au moins 1 caractère');
     }
     try {
-      await axiosWithCSRFtoken.post('/open-conversation', {
+      const { data } = await axiosWithCSRFtoken.post('/open-conversation', {
         message: messageInput,
         projectId,
         userIdCreated: userId,
       });
       setErrorMessageFront('');
       setErrorMessageBack('');
-
-      return setModal(false);
+      setModal(false);
+      const conversationId = data.result;
+      return navigate(`/dashboard/conversation/${conversationId}`);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data.message;
