@@ -34,24 +34,24 @@ function ConversationsList() {
           to={`/dashboard/conversation/${conversation.id}`}
           className="w-full"
         >
-          <div className=" relative rounded-r-full border-2 p-2 overflow-hidden  max-w-55 md:w-2/3 w-full mx-auto bg-white2 dark:bg-slate-200 hover:shadow-md hover:translate-x-[10px] transition duration-300 ease-in-out ">
+          <div className=" relative rounded-r-full border-2 p-2 overflow-hidden  max-w-55 md:w-2/3 w-full mx-auto bg-white2 dark:bg-slate-200 hover:shadow-md hover:translate-x-[10px] transition duration-300 ease-in-out pr-10 ">
             <IoIosArrowForward className="text-4xl absolute right-2 top-1/2 -translate-y-1/2" />
-            <div className="flex justify-start items-center  ">
-              <img
-                src={conversation.image}
-                alt={conversation.title}
-                className="w-20 h-14 object-cover rounded-lg mr-4 "
-              />
-              <div>
-                <h2 className="md:text-3xl text-2xl">{conversation.title}</h2>
+            <div>
+              <div className="flex justify-start items-center  ">
+                <img
+                  src={conversation.image}
+                  alt={conversation.title}
+                  className="w-20 h-14 object-cover rounded-lg mr-4 "
+                />
+                <h2 className="text-2xl truncate">{conversation.title}</h2>
               </div>
+              <p className="text-sm mt-2 truncate w-full">
+                <span className="font-extrabold underline underline-offset-2">
+                  {conversation.author_message_pseudo}
+                </span>{' '}
+                : {conversation.message}
+              </p>
             </div>
-            <p className="text-sm mt-2 truncate w-full">
-              <span className="font-extrabold underline underline-offset-2">
-                {conversation.author_message_pseudo}
-              </span>{' '}
-              : {conversation.message}
-            </p>
           </div>
         </Link>
       ))}

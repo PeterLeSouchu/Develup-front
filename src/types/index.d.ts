@@ -164,3 +164,19 @@ export interface ConversationType {
   author_message_pseudo: string;
   user_project_pseudo: sring;
 }
+
+export interface ConversationWithMessagesType {
+  title: string;
+  image: string;
+  pseudo: string;
+  messages: MessageType[];
+  project_slug: string;
+  user_slug: string;
+}
+
+export interface MessageType {
+  id: string;
+  date: string;
+  content: string;
+  isMe: boolean;
+}

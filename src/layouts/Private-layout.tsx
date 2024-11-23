@@ -12,7 +12,7 @@ function PrivateLayout() {
   const matches = useMediaQuery('(max-width: 1023px)');
   return (
     <div className={`${darkTheme && 'dark'}`}>
-      <div className="sm:flex sm:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
+      <div className="flex sm:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
         {matches ? <HeaderMobile /> : <HeaderDesktop />}
 
         {globalErrorMessage ? (

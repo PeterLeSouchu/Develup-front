@@ -31,7 +31,7 @@ import MyProfile from './pages/private/My-profile';
 import ConversationsList, {
   loadConversations,
 } from './pages/private/Conversations-list';
-import Conversation from './pages/private/Conversation';
+import Conversation, { loadMessages } from './pages/private/Conversation';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -88,6 +88,7 @@ const router = createBrowserRouter(
           <Route
             path="/dashboard/conversation/:id"
             element={<Conversation />}
+            loader={loadMessages}
           />
         </Route>
       </Route>
