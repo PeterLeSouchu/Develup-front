@@ -47,7 +47,10 @@ function ConversationsList() {
               </div>
             </div>
             <p className="text-xs mt-2 truncate w-full">
-              {conversation.author_message_pseudo} : {conversation.message}
+              <span className="font-extrabold underline underline-offset-2">
+                {conversation.author_message_pseudo}
+              </span>{' '}
+              : {conversation.message}
             </p>
           </div>
         </Link>
