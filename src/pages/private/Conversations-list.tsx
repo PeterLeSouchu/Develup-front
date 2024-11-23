@@ -34,19 +34,19 @@ function ConversationsList() {
           to={`/dashboard/conversation/${conversation.id}`}
           className="w-full"
         >
-          <div className=" relative rounded-r-full border-2 p-2 overflow-hidden  max-w-55 md:w-2/3 w-full mx-auto bg-white2 dark:bg-slate-200 dark:hover:bg-slate-300/80 hover:bg-gray-500/20 transition-all duration-200 ">
+          <div className=" relative rounded-r-full border-2 p-2 overflow-hidden  max-w-55 md:w-2/3 w-full mx-auto bg-white2 dark:bg-slate-200 hover:shadow-md hover:translate-x-[10px] transition duration-300 ease-in-out ">
             <IoIosArrowForward className="text-4xl absolute right-2 top-1/2 -translate-y-1/2" />
             <div className="flex justify-start items-center  ">
               <img
                 src={conversation.image}
                 alt={conversation.title}
-                className="w-20 rounded-lg mr-4 "
+                className="w-20 h-14 object-cover rounded-lg mr-4 "
               />
               <div>
-                <h2 className="md:text-4xl text-2xl">{conversation.title}</h2>
+                <h2 className="md:text-3xl text-2xl">{conversation.title}</h2>
               </div>
             </div>
-            <p className="text-xs mt-2 truncate w-full">
+            <p className="text-sm mt-2 truncate w-full">
               <span className="font-extrabold underline underline-offset-2">
                 {conversation.author_message_pseudo}
               </span>{' '}
