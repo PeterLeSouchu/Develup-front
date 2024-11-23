@@ -2,7 +2,6 @@ import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { BiSolidSend } from 'react-icons/bi';
 import axios from 'axios';
-import image from '../../assets/images/default-user-image.png';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ConversationWithMessagesType } from '../../types';
@@ -53,19 +52,23 @@ function Conversation() {
             alt="Profil"
             className="w-20 h-14 object-cover rounded-lg mr-4"
           />
-          <div className="truncate">
-            <Link
-              to={`/dashboard/project/${conversation.project_slug}`}
-              className="hover:text-darkgold transition dark:hover:text-gold"
-            >
-              <h2 className="text-2xl truncate">{conversation.title}</h2>
-            </Link>
-            <Link
-              to={`/dashboard/user/${conversation.user_slug}`}
-              className="hover:text-darkgold transition dark:hover:text-gold"
-            >
-              <h3 className="text-md truncate">{conversation.pseudo}</h3>
-            </Link>
+          <div className="truncate flex flex-col">
+            <h2 className="inline-block">
+              <Link
+                to={`/dashboard/project/${conversation.project_slug}`}
+                className="text-2xl truncate max-w-full hover:text-darkgold transition dark:hover:text-gold "
+              >
+                {conversation.title}
+              </Link>
+            </h2>
+            <h3 className="inline-block">
+              <Link
+                to={`/dashboard/user/${conversation.user_slug}`}
+                className="text-md truncate max-w-full hover:text-darkgold transition dark:hover:text-gold "
+              >
+                {conversation.pseudo}
+              </Link>
+            </h3>
           </div>
         </div>
 
