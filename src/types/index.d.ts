@@ -181,3 +181,10 @@ export interface MessageType {
   content: string;
   isMe: boolean;
 }
+
+export interface MessageWebSocketType {
+  id: string;
+  date: string;
+  content: string;
+  user_id: string;
+}

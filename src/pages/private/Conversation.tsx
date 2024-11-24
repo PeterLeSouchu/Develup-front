@@ -1,4 +1,4 @@
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import {
   Link,
   LoaderFunctionArgs,
@@ -10,7 +10,11 @@ import { BiSolidSend } from 'react-icons/bi';
 import axios from 'axios';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../store';
-import { ConversationWithMessagesType, MessageType } from '../../types';
+import {
+  ConversationWithMessagesType,
+  MessageType,
+  MessageWebSocketType,
+} from '../../types';
 
 export const loadMessages = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -30,55 +34,72 @@ export const loadMessages = async ({ params }: LoaderFunctionArgs) => {
 };
 
 function Conversation() {
-  const socket = io('http://localhost:3000', { withCredentials: true });
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const conversation = useLoaderData() as ConversationWithMessagesType;
   const [messages, setMessages] = useState<MessageType[]>([]);
   const { setGlobalErrorMessage } = useSettingsStore();
   const [inputValue, setinputValue] = useState<string>('');
   const { id: conversationId } = useParams();
-
-  const scrollToBottom = () => {
-    messagesContainerRef.current?.scrollTo({
-      top: messagesContainerRef.current.scrollHeight,
-      behavior: 'smooth',
-    });
-  };
+  const [socket, setSocket] = useState<Socket>();
 
   async function handleSendMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!inputValue) {
       return;
     }
-    socket.emit('newMessage', { message: inputValue, conversationId });
+    socket!.emit('newMessage', { message: inputValue, conversationId });
     setinputValue('');
   }
 
   useEffect(() => {
-    const handleNewMessage = (incomingMessage: MessageType) => {
-      setMessages((prevMessages) => [...prevMessages, incomingMessage]);
+    const socketInstance = io(`${import.meta.env.VITE_API_URL}`, {
+      withCredentials: true,
+    });
+    setSocket(socketInstance);
+    let userId: string;
+
+    async function getUserId() {
+      const { data } = await axiosWithCSRFtoken.get('/get-user-id');
+      userId = data.userId;
+    }
+
+    const handleNewMessage = (incomingMessage: MessageWebSocketType) => {
+      const isMe = incomingMessage.user_id === userId;
+
+      const { user_id: authorId, ...restOfMessage } = incomingMessage;
+
+      const newMessage: MessageType = { ...restOfMessage, isMe };
+
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
     };
-    socket.on('connect', () => {
-      console.log('connected');
-      socket.emit('joinConversation', conversation.id);
+
+    socketInstance.on('connect', () => {
+      socketInstance.emit('joinConversation', conversation.id);
     });
 
-    socket.on('newMessage', handleNewMessage);
+    socketInstance.on('newMessage', handleNewMessage);
 
-    socket.on('error', (errorMessage: string) => {
+    socketInstance.on('error', (errorMessage: string) => {
       setGlobalErrorMessage(errorMessage);
     });
 
     setMessages(conversation.messages);
+    getUserId();
     return () => {
-      socket.off('newMessage', handleNewMessage);
-      socket.off('error');
-      socket.disconnect();
+      socketInstance.off('newMessage', handleNewMessage);
+      socketInstance.off('error');
+      socketInstance.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    const scrollToBottom = () => {
+      messagesContainerRef.current?.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    };
     scrollToBottom();
   }, [messages]);
 

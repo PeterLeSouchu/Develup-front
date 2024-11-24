@@ -265,12 +265,13 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
                     message={errors.pseudo?.message}
                   />
                 </div>
-                <div className=" mt-4  bg-white2 border-2 rounded-lg ">
+                <div>
+                  <label htmlFor="type">Choisissez un type</label>
                   <select
+                    id="type"
                     {...register('type')}
-                    className="h-full w-full mb-2 px-1 outline-none bg-transparent rounded-r-3xl"
+                    className=" h-9 w-full mt-1  px-1 outline-none bg-transparent rounded-lg  bg-white2  "
                   >
-                    <option value="">Choisissez un type</option>
                     <option value="Développeur">Développeur</option>
                     <option value="Développeur junior">
                       Développeur junior
