@@ -140,9 +140,9 @@ function Conversation() {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex  my-8 flex-col ${message.isMe ? 'items-end' : 'item-start'} `}
+              className={`flex  my-8 flex-col  ${message.isMe ? 'items-end' : 'item-start'}  animate-fadeInSlideUp `}
             >
-              <p className="sm:max-w-72 max-w-36 flex-shrink-0  break-words md:text-base text-sm rounded-xl p-3 bg-lightgold dark:bg-shadowGold dark:text-black">
+              <p className="sm:max-w-72 max-w-36 w-fit flex-shrink-0  break-words md:text-base text-sm rounded-xl p-3 bg-lightgold dark:bg-shadowGold dark:text-black">
                 {message.content}
               </p>
               <span className="text-xs mt-2 pl-3">{message.date}</span>
