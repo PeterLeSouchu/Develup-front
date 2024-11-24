@@ -1,17 +1,22 @@
-import { Link, LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import io from 'socket.io-client';
+import {
+  Link,
+  LoaderFunctionArgs,
+  useLoaderData,
+  useParams,
+} from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { BiSolidSend } from 'react-icons/bi';
 import axios from 'axios';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../store';
-import { ConversationWithMessagesType } from '../../types';
+import { ConversationWithMessagesType, MessageType } from '../../types';
 
 export const loadMessages = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
   try {
     const { data } = await axiosWithCSRFtoken.get(`/conversation/${params.id}`);
     const conversation = data.result;
-    console.log(conversation);
     return conversation;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -25,8 +30,13 @@ export const loadMessages = async ({ params }: LoaderFunctionArgs) => {
 };
 
 function Conversation() {
+  const socket = io('http://localhost:3000', { withCredentials: true });
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const conversation = useLoaderData() as ConversationWithMessagesType;
+  const [messages, setMessages] = useState<MessageType[]>([]);
+  const { setGlobalErrorMessage } = useSettingsStore();
+  const [inputValue, setinputValue] = useState<string>('');
+  const { id: conversationId } = useParams();
 
   const scrollToBottom = () => {
     messagesContainerRef.current?.scrollTo({
@@ -37,11 +47,40 @@ function Conversation() {
 
   async function handleSendMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!inputValue) {
+      return;
+    }
+    socket.emit('newMessage', { message: inputValue, conversationId });
+    setinputValue('');
   }
 
   useEffect(() => {
-    scrollToBottom();
+    const handleNewMessage = (incomingMessage: MessageType) => {
+      setMessages((prevMessages) => [...prevMessages, incomingMessage]);
+    };
+    socket.on('connect', () => {
+      console.log('connected');
+      socket.emit('joinConversation', conversation.id);
+    });
+
+    socket.on('newMessage', handleNewMessage);
+
+    socket.on('error', (errorMessage: string) => {
+      setGlobalErrorMessage(errorMessage);
+    });
+
+    setMessages(conversation.messages);
+    return () => {
+      socket.off('newMessage', handleNewMessage);
+      socket.off('error');
+      socket.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div className="h-full flex flex-col">
@@ -76,12 +115,12 @@ function Conversation() {
           ref={messagesContainerRef}
           className="lol overflow-y-auto flex-grow px-4 pt-4"
         >
-          {conversation.messages.map((message) => (
+          {messages.map((message) => (
             <div
               key={message.id}
               className={`flex  my-8 flex-col ${message.isMe ? 'items-end' : 'item-start'} `}
             >
-              <p className="sm:max-w-72 max-w-36 break-words md:text-base text-sm rounded-xl p-3 bg-lightgold dark:bg-shadowGold dark:text-black">
+              <p className="sm:max-w-72 max-w-36 flex-shrink-0  break-words md:text-base text-sm rounded-xl p-3 bg-lightgold dark:bg-shadowGold dark:text-black">
                 {message.content}
               </p>
               <span className="text-xs mt-2 pl-3">{message.date}</span>
@@ -92,8 +131,10 @@ function Conversation() {
       <form className="relative" onSubmit={(e) => handleSendMessage(e)}>
         <input
           type="text"
-          className="w-full rounded-lg h-14 p-2 outline-none"
+          className="w-full rounded-lg h-14 p-2 pr-10 dark:text-black outline-none"
           placeholder="Envoyez un message ..."
+          value={inputValue}
+          onChange={(e) => setinputValue(e.target.value)}
         />
         <button
           type="submit"

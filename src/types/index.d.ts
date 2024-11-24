@@ -166,6 +166,7 @@ export interface ConversationType {
 }
 
 export interface ConversationWithMessagesType {
+  id: string;
   title: string;
   image: string;
   pseudo: string;
