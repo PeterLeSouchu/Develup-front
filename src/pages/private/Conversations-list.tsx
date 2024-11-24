@@ -4,6 +4,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 import { useSettingsStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { ConversationType } from '../../types';
+import imageDefaultProject from '../../assets/images/default-project-image.jpg';
 
 export const loadConversations = async () => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -39,7 +40,7 @@ function ConversationsList() {
             <div>
               <div className="flex justify-start items-center  ">
                 <img
-                  src={conversation.image}
+                  src={conversation.image || imageDefaultProject}
                   alt={conversation.title}
                   className="w-20 h-14 object-cover rounded-lg mr-4 "
                 />

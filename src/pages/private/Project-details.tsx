@@ -37,6 +37,7 @@ function ProjectDetails() {
   const navigate = useNavigate();
 
   function handleDisplayModal() {
+    console.log(project.isAlreadyConversation);
     try {
       if (project.isAlreadyConversation) {
         return navigate(

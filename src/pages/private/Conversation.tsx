@@ -15,6 +15,7 @@ import {
   MessageType,
   MessageWebSocketType,
 } from '../../types';
+import imageDefaultProject from '../../assets/images/default-project-image.jpg';
 
 export const loadMessages = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
@@ -108,7 +109,7 @@ function Conversation() {
       <div className="flex-grow flex flex-col h-0">
         <div className="flex justify-center items-center border-b-2 border-slate-300 pb-5">
           <img
-            src={conversation.image}
+            src={conversation.image || imageDefaultProject}
             alt="Profil"
             className="w-20 h-14 object-cover rounded-lg mr-4"
           />
