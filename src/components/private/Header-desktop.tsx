@@ -75,7 +75,7 @@ function HeaderDesktop() {
             }
           >
             <FaRegMessage className="mr-2" />
-            Conversation
+            Conversations
           </NavLink>
           <NavLink
             to="/dashboard/my-profile"

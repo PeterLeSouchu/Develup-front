@@ -5,6 +5,10 @@ import { SiPhp } from 'react-icons/si';
 import { LuMessagesSquare } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import image from '../../assets/images/logo.png';
+import homeImage from '../../assets/images/home-image.png';
+import conversationImage from '../../assets/images/conversation-image.png';
+import conversationMobileImage from '../../assets/images/conversationMobile-image.png';
+import homeMobileImage from '../../assets/images/homeMobile-image.png';
 
 function Home() {
   return (
@@ -26,39 +30,62 @@ function Home() {
 
         <Link
           to="/signup"
-          className="link-comet p-3 rounded-lg bg-gold text-black my-10 transition shadow-xl"
+          className="link-comet p-3 rounded-lg bg-gold text-black my-10 transition shadow-xl "
         >
           Rejoindre la communauté
         </Link>
       </section>
       <section className="flex flex-col items-center justify-evenly text-center min-h-100 pb-20">
-        <div className="flex flex-col items-center justify-center gap-10">
-          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl border-r-2 border-b-2 border-slate-400">
-            Develup est une plateforme innovante qui a pour objectif de mettre
-            en relation des développeurs pour la réalisation de projets web. Que
-            vous cherchiez à rejoindre un groupe dynamique ou que vous
-            souhaitiez trouver des développeurs passionnés pour concrétiser
-            votre propre projet, Develup est là pour vous !
-          </p>
-          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl border-r-2 border-b-2 border-slate-400">
-            Grâce à notre interface conviviale, vous pouvez explorer une
-            multitude de projets en cours, vous connecter avec des développeurs
-            aux compétences variées et échanger des idées en temps réel. Develup
-            favorise un environnement collaboratif où chacun peut contribuer et
-            apprendre. Avec le soutien d&apos;une communauté active, vous êtes
-            assuré de trouver des partenaires qui partagent vos ambitions et
-            votre passion pour le développement.
-          </p>
-          <p className="md:text-xl w-3/4 mx-auto  bg-slate-200 rounded-xl p-6 shadow-md drop-shadow-xl border-r-2 border-b-2 border-slate-400">
-            Rejoignez Develup et transformez vos visions en réalité avec le
-            soutien d&apos;autres passionnés du développement web !
-          </p>
+        <div className="flex flex-col items-center justify-center gap-10 mt-20 mb-24 ">
+          <article className=" flex flex-col sm:gap-10 gap-5 items-center">
+            <p
+              className="sm:text-base text-sm
+             w-2/3 mx-auto  bg-slate-200 rounded-3xl p-6 shadow-md drop-shadow-md border-r-2 border-slate-300 "
+            >
+              Develup est une plateforme novatrice conçue pour connecter des
+              développeurs et faciliter la réalisation de projets web. Grâce à
+              notre interface intuitive, explorez une variété de projets en
+              cours. Que vous aspiriez à rejoindre une équipe motivée ou à
+              rassembler des développeurs passionnés pour concrétiser votre
+              projet, Develup est votre allié idéal !
+            </p>
+            <img
+              src={homeImage}
+              alt="homePage screenshot"
+              className="w-3/4 p-1 sm:block hidden bg-shadowGold rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+            <img
+              src={homeMobileImage}
+              alt="homePage screenshot"
+              className="w-3/5 p-1 sm:hidden block bg-shadowGold rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+          </article>
+          <article className="flex flex-col sm:gap-10 gap-5 items-center mt-28 ">
+            <p className="sm:text-base text-sm w-2/3 mx-auto  bg-slate-200 rounded-3xl p-6 shadow-md drop-shadow-md border-r-2 border-slate-300  ">
+              Interagissez en temps réel avec des développeurs aux compétences
+              variées et partagez vos idées instantanément. Develup crée un
+              espace collaboratif dynamique où chacun peut échanger afin de
+              contribuer à la réussite des projets. Soutenu par une communauté
+              engagée, vous trouverez facilement des partenaires qui partagent
+              votre passion et vos ambitions dans le domaine du développement.
+            </p>
+            <img
+              src={conversationImage}
+              alt="homePage screenshot"
+              className=" w-3/4 p-1 sm:block hidden bg-shadowGold rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+            <img
+              src={conversationMobileImage}
+              alt="homePage screenshot"
+              className=" w-3/5 p-1 sm:hidden block bg-shadowGold  rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+          </article>
         </div>
         <p className="text-6xl  m-20  text-transparent bg-clip-text bg-gradient-to-r from-[#D7C392] to-[#B79178] drop-shadow-sm ">
           EN BREF
         </p>
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap">
-          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl">
+          <div className="bg-diagonal-gradient border-2 w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl">
             <p className="text-2xl font-semibold">
               Collaborez sur des projets web qui vous donne envie
             </p>
@@ -66,7 +93,7 @@ function Home() {
               <LuMessagesSquare />
             </span>
           </div>
-          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl">
+          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border-2 ">
             <p className="text-2xl font-semibold">
               Travaillez ensemble, à votre rythme et selon vos Technologies
             </p>
@@ -84,7 +111,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl ">
+          <div className="bg-diagonal-gradient border-2 w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl ">
             <p className="text-2xl font-semibold">
               Progressez, gagnez en expérience et enrichissez votre portfolio
             </p>
