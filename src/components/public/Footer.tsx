@@ -1,16 +1,28 @@
 import { Link } from 'react-router-dom';
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
   return (
-    <footer className="flex justify-evenly  gap-3 items-center md:h-8 p-5 backdrop-blur-mini text-center flex-col lg:flex-row text-sm lg:text-base">
-      <p>Copyright © {currentYear} - Develup - Tous droits réservés</p>
-      <Link to="*" className="underline underline-offset-3">
-        Contact
-      </Link>
-      <Link to="/legal-notices" className="underline underline-offset-3">
-        Mentions légales
-      </Link>
+    <footer className="  min-h-14 md:h-10 md:py-0 py-8">
+      <div className="flex justify-evenly gap-3 items-center min-h-8  text-center flex-col md:flex-row text-sm md:text-base">
+        <Link
+          to="mailto:develup33@gmail.com"
+          className="underline hover:text-darkgold underline-offset-3"
+        >
+          Contactez-nous : develup33@gmail.com
+        </Link>
+        <Link
+          to="/legal-notices"
+          className="underline hover:text-darkgold underline-offset-3 "
+        >
+          Mentions légales
+        </Link>
+        <Link
+          to="/general-conditions-of-use"
+          className="underline hover:text-darkgold underline-offset-3 "
+        >
+          Conditions générales d&apos;utilisation
+        </Link>
+      </div>
     </footer>
   );
 }

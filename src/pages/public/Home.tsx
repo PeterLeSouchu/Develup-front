@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react';
 import { FaArrowTrendUp, FaJava, FaPython } from 'react-icons/fa6';
 import { MdLaptopMac } from 'react-icons/md';
 import { FaReact } from 'react-icons/fa';
@@ -6,86 +5,87 @@ import { SiPhp } from 'react-icons/si';
 import { LuMessagesSquare } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import image from '../../assets/images/logo.png';
+import homeImage from '../../assets/images/home-image.png';
+import conversationImage from '../../assets/images/conversation-image.png';
+import conversationMobileImage from '../../assets/images/conversationMobile-image.png';
+import homeMobileImage from '../../assets/images/homeMobile-image.png';
 
 function Home() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Deconnect once section is visible
-        }
-      },
-      { threshold: 0.1 } // Start observation when 70% of section is visible
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <>
-      <section className="h-92 flex flex-col items-center justify-evenly ">
+      <section className=" min-h-80 flex flex-col items-center justify-evenly my-12 ">
         <img
           src={image}
           alt="Logo-entier-Develup"
-          className=" w-1/2 min-w-96 max-w-4xl "
+          className=" w-1/2 min-w-96 max-w-2xl  "
         />
-        <section className="flex flex-col justify-center items-center text-2xl lg:text-5xl md:text-3xl  ">
-          <p className="mb-3">Développez ensemble,</p>
-          <p>Progressez ensemble</p>
+        <section className="flex flex-col justify-center items-center text-3xl lg:text-4xl  text-center font-semibold text-gray-800">
+          <p className="font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#D7C392] to-[#B79178] drop-shadow-sm ">
+            Développez ensemble
+          </p>
+          <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#D7C392] to-[#B79178] drop-shadow-sm ">
+            Progressez ensemble
+          </p>
         </section>
 
         <Link
           to="/signup"
-          className=" p-3 rounded-lg bg-gold text-black hover:bg-darkgold hover:scale-105 mb-10 hover:text-white transition shadow-xl"
+          className="link-comet p-3 rounded-lg bg-gold text-black my-10 transition shadow-xl "
         >
           Rejoindre la communauté
         </Link>
       </section>
-      <section className="flex flex-col items-center justify-evenly text-center min-h-100 mb-28">
-        <div className="flex flex-col items-center justify-center gap-10">
-          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
-            Develup est une plateforme innovante qui a pour objectif de faire
-            collaborer des développeurs sur des projets web. Que vous cherchiez
-            à rejoindre un groupe dynamique ou que vous souhaitiez trouver des
-            développeurs passionnés pour concrétiser votre propre projet,
-            Develup est là pour vous !
-          </p>
-          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
-            Grâce à notre interface conviviale, vous pouvez explorer une
-            multitude de projets en cours, vous connecter avec des développeurs
-            aux compétences variées et échanger des idées en temps réel. Develup
-            favorise un environnement collaboratif où chacun peut contribuer et
-            apprendre. Avec le soutien d&apos;une communauté active, vous êtes
-            assuré de trouver des partenaires qui partagent vos ambitions et
-            votre passion pour le développement.
-          </p>
-          <p className="md:text-xl w-3/4 mx-auto backdrop-blur-mini bg-slate-100 rounded-xl p-6 shadow-md">
-            Rejoignez Develup et transformez vos visions en réalité avec le
-            soutien d&apos;autres passionnés du développement web !
-          </p>
+      <section className="flex flex-col items-center justify-evenly text-center min-h-100 pb-20">
+        <div className="flex flex-col items-center justify-center gap-10 mt-20 mb-24 ">
+          <article className=" flex flex-col sm:gap-10 gap-5 items-center">
+            <p
+              className="sm:text-base text-sm
+             w-2/3 mx-auto  bg-slate-200 rounded-3xl p-6 shadow-md drop-shadow-md border-r-2 border-slate-300 "
+            >
+              Develup est une plateforme novatrice conçue pour connecter des
+              développeurs et faciliter la réalisation de projets web. Grâce à
+              notre interface intuitive, explorez une variété de projets en
+              cours. Que vous aspiriez à rejoindre une équipe motivée ou à
+              rassembler des développeurs passionnés pour concrétiser votre
+              projet, Develup est votre allié idéal !
+            </p>
+            <img
+              src={homeImage}
+              alt="homePage screenshot"
+              className="w-3/4 p-1 sm:block hidden bg-shadowGold rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+            <img
+              src={homeMobileImage}
+              alt="homePage screenshot"
+              className="w-3/5 p-1 sm:hidden block bg-shadowGold rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+          </article>
+          <article className="flex flex-col sm:gap-10 gap-5 items-center mt-28 ">
+            <p className="sm:text-base text-sm w-2/3 mx-auto  bg-slate-200 rounded-3xl p-6 shadow-md drop-shadow-md border-r-2 border-slate-300  ">
+              Interagissez en temps réel avec des développeurs aux compétences
+              variées et partagez vos idées instantanément. Develup crée un
+              espace collaboratif dynamique où chacun peut échanger afin de
+              contribuer à la réussite des projets. Soutenu par une communauté
+              engagée, vous trouverez facilement des partenaires qui partagent
+              votre passion et vos ambitions dans le domaine du développement.
+            </p>
+            <img
+              src={conversationImage}
+              alt="homePage screenshot"
+              className=" w-3/4 p-1 sm:block hidden bg-shadowGold rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+            <img
+              src={conversationMobileImage}
+              alt="homePage screenshot"
+              className=" w-3/5 p-1 sm:hidden block bg-shadowGold  rounded-xl shadow-2xl drop-shadow-2xl"
+            />
+          </article>
         </div>
-        <p className="text-6xl backdrop-blur-mini m-20 text-darkgold">
-          En bref
+        <p className="text-6xl  m-20  text-transparent bg-clip-text bg-gradient-to-r from-[#D7C392] to-[#B79178] drop-shadow-sm ">
+          EN BREF
         </p>
-        <div
-          ref={sectionRef}
-          className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap"
-        >
-          <div
-            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+        <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap">
+          <div className="bg-diagonal-gradient border-2 w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl">
             <p className="text-2xl font-semibold">
               Collaborez sur des projets web qui vous donne envie
             </p>
@@ -93,13 +93,9 @@ function Home() {
               <LuMessagesSquare />
             </span>
           </div>
-          <div
-            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+          <div className="bg-diagonal-gradient w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border-2 ">
             <p className="text-2xl font-semibold">
-              Travaillez ensemble, à votre rythme et selon vos technologies
+              Travaillez ensemble, à votre rythme et selon vos Technologies
             </p>
             <div className="flex justify-evenly items-center">
               <div className="flex flex-col md:flex-row justify-center items-center mr-5">
@@ -115,13 +111,9 @@ function Home() {
               </div>
             </div>
           </div>
-          <div
-            className={`bg-diagonal-gradient w-25 h-80 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl border transition-opacity duration-1000 ease-in-out ${
-              isVisible ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
+          <div className="bg-diagonal-gradient border-2 w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl ">
             <p className="text-2xl font-semibold">
-              Progressez, gagnez en expérience et améliorer votre portfolio
+              Progressez, gagnez en expérience et enrichissez votre portfolio
             </p>
             <span className="text-8xl">
               <FaArrowTrendUp />

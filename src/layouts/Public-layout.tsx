@@ -6,9 +6,11 @@ function PublicLayout() {
   return (
     <div className="bg-grid-pattern">
       <Header />
-      <main className="min-h-84">
+
+      <main className="min-h-8">
         <Outlet />
       </main>
+
       <Footer />
     </div>
   );
