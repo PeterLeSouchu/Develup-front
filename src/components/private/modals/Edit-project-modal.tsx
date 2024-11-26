@@ -273,7 +273,7 @@ function EditProjectModal({
                     message={errors.title?.message}
                   />
                 </div>
-                <div className=" mt-4  bg-white2 border-2 rounded-lg ">
+                <div className=" mt-4 flex justify-start items-center  bg-white2 border-2 rounded-lg ">
                   <select
                     {...register('rhythm')}
                     className="h-full w-full mb-2 px-1 outline-none bg-transparent rounded-r-3xl"
@@ -291,11 +291,11 @@ function EditProjectModal({
                     <option value="30 à 35h/semaine">30 à 35h/semaine</option>
                     <option value="+ 35h/semaine">+ 35h/semaine</option>
                   </select>
-                  <HookFormError
-                    error={errors.rhythm}
-                    message={errors.rhythm?.message}
-                  />
                 </div>
+                <HookFormError
+                  error={errors.rhythm}
+                  message={errors.rhythm?.message}
+                />
               </div>
             </div>
             <div className="relative flex-grow rounded-3xl my-8">
