@@ -11,7 +11,6 @@ export const loadConversations = async () => {
   try {
     const { data } = await axiosWithoutCSRFtoken.get('/conversations');
     const conversations = data.result;
-    console.log(conversations);
     return conversations;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -26,7 +25,6 @@ export const loadConversations = async () => {
 
 function ConversationsList() {
   const conversations = useLoaderData() as ConversationType[];
-  console.log(conversations);
 
   return (
     <section className="flex flex-col items-center gap-3 dark:text-black">

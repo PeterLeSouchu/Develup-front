@@ -98,7 +98,7 @@ function HeaderMobile() {
       <div
         className={`fixed rounded-r-xl top-0 left-0 h-full  overflow-scroll bg-gradient-to-b from-lightgold2 to-lightgold dark:from-darkgold2 dark:to-darkgold transition-transform duration-300 ${
           isNavbarOpen ? 'translate-x-0' : '-translate-x-full'
-        } w-72  z-50`}
+        } w-80  z-50`}
       >
         <button
           type="button"

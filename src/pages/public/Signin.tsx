@@ -19,15 +19,25 @@ function Signin() {
   async function handlerSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      console.log(
+        'on est dans le repos front , juste avant la requete en post /signin'
+      );
       await axiosWithoutCSRFtoken.post('/signin', {
         email: emailInput,
         password: passwordInput,
       });
+      console.log(
+        'on est dans le repos front , juste apres la requete en post /signin'
+      );
       const { data } = await axiosWithoutCSRFtoken.get('/csrf-token');
       const { csrfToken } = data;
       localStorage.setItem('csrfToken', csrfToken);
       return setLogged(true);
     } catch (error) {
+      console.log(
+        "on est dans le repos front , dans le catch de l'erreur et voici l'erreur :"
+      );
+      console.log(error);
       if (axios.isAxiosError(error)) {
         const errorAPImessage = error.response?.data?.message;
         return setErrorMessage(errorAPImessage);
