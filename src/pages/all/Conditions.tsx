@@ -1,7 +1,15 @@
+import { useNavigation } from 'react-router-dom';
 import { useUserStore } from '../../store';
+import Loader from '../../components/all/loader/Loader';
 
 function Conditions() {
   const { logged } = useUserStore();
+
+  const { state } = useNavigation();
+
+  if (state === 'loading') {
+    return <Loader />;
+  }
   return (
     <div
       className={`${logged ? 'flex justify-center px-12 items-center  m-auto' : 'max-w-3xl px-10 min-h-80  py-14 flex justify-center items-center  m-auto'}`}

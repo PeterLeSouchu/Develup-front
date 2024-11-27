@@ -27,7 +27,7 @@ import ProjectDetails, {
 } from './pages/private/Project-details';
 import UserDetails, { loadUserDetails } from './pages/private/User-details';
 import MyProjects, { loadPersonalProjects } from './pages/private/My-projects';
-import MyProfile from './pages/private/My-profile';
+import MyProfile, { loadProfileData } from './pages/private/My-profile';
 import ConversationsList, {
   loadConversations,
 } from './pages/private/Conversations-list';
@@ -79,7 +79,11 @@ const router = createBrowserRouter(
             element={<MyProjects />}
             loader={loadPersonalProjects}
           />
-          <Route path="/dashboard/my-profile" element={<MyProfile />} />
+          <Route
+            path="/dashboard/my-profile"
+            element={<MyProfile />}
+            loader={loadProfileData}
+          />
           <Route
             path="/dashboard/conversation"
             element={<ConversationsList />}

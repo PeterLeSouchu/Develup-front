@@ -54,4 +54,4 @@
 
 #### 🚨 Avertissement
 
-L'application utilise des loaders en majorité à la place des useEfect, ce qui fait qu'en production, à cause la la base de données gratuite et peu performante, les données mettent du temps à arriver, et sachant que le loader a pour but de récupérer toutes les données avant d'afficher la page, cela peut causer une légère latence.
+L'application n'a pas encore de "spinner" et utilise des loaders en majorité à la place des useEfect, ce qui fait qu'en production, à cause la la base de données gratuite et peu performante, les données mettent du temps à arriver, et sachant que le loader a pour but de récupérer toutes les données avant d'afficher la page, cela peut causer une légère latence.

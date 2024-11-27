@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -9,9 +9,9 @@ import {
   ProjectsAndTechnosType,
 } from '../../types';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
-import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 import { useSettingsStore } from '../../store';
 import ProjectCard from '../../components/private/Project-card';
+import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -22,6 +22,7 @@ export const loadProjectsAndTechnos = async () => {
       await axiosWithoutCSRFtoken.get('/technologies');
     const projects = dataProject.result;
     const technologies = dataTechno.result;
+
     return { projects, technologies };
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -38,9 +39,8 @@ export const loadProjectsAndTechnos = async () => {
 };
 
 function Search() {
-  const { setGlobalErrorMessage } = useSettingsStore();
   // Function to display loader component (using during request for search Project)
-  const { setLoading } = useSettingsStore();
+  const { setLoading, setGlobalErrorMessage } = useSettingsStore();
   // State for the suggest techno (list display below the input)
   const [suggestTechno, setSuggestTechno] = useState<TechnologieType[]>([]);
 
@@ -65,6 +65,8 @@ function Search() {
   // Data that contains Projects (for launch) and all Technologie from db for suggestion
   const { projects, technologies } = useLoaderData() as ProjectsAndTechnosType;
 
+  const { state } = useNavigation();
+
   // For initialize page with most recent Project
   useEffect(() => {
     setResults(projects);
@@ -74,7 +76,6 @@ function Search() {
       setTechnoSelected([]);
       setInputRhythmValue('');
       setErrorMessage('');
-      window.scrollTo(0, 0);
     };
   }, [projects]);
 
@@ -151,6 +152,10 @@ function Search() {
         'Erreur innatendu, essayez de vous reconnecter'
       );
     }
+  }
+
+  if (state === 'loading') {
+    return <Loader />;
   }
 
   return (
@@ -284,14 +289,13 @@ function Search() {
             : 'Aucun résultat'}
         </p>
       )}
-      <LoaderWrapper>
-        <section className="flex justify-center mt-12 gap-8 flex-wrap ">
-          {results?.length > 0 &&
-            results?.map((result) => (
-              <ProjectCard key={result.id} project={result} />
-            ))}
-        </section>
-      </LoaderWrapper>
+
+      <section className="flex justify-center mt-12 gap-8 flex-wrap ">
+        {results?.length > 0 &&
+          results?.map((result) => (
+            <ProjectCard key={result.id} project={result} />
+          ))}
+      </section>
     </div>
   );
 }

@@ -4,20 +4,24 @@ import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigate,
+  useNavigation,
 } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
 import formatDate from '../../utils/date-timestamp';
 import defaultImageProject from '../../assets/images/default-project-image.jpg';
 import SendMessageModal from '../../components/private/modals/Send-message-modal';
+import Loader from '../../components/all/loader/Loader';
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
   const { setGlobalErrorMessage } = useSettingsStore.getState();
   try {
     const { data } = await axiosWithoutCSRFtoken.get(`/project/${params.slug}`);
     const project = data.result;
+
     return project;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -32,6 +36,7 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
+  const { state } = useNavigation();
   const [messageModal, setMessageModal] = useState<boolean>(false);
   const { setGlobalErrorMessage } = useSettingsStore();
   const navigate = useNavigate();
@@ -59,9 +64,10 @@ function ProjectDetails() {
     }
   }
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  if (state === 'loading') {
+    return <Loader />;
+  }
+
   return (
     <div className="sm:px-10 px-3">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">

@@ -4,7 +4,6 @@ import HeaderDesktop from '../components/private/Header-desktop';
 import HeaderMobile from '../components/private/Header-mobile';
 import { useSettingsStore, useUserStore } from '../store';
 import GlobalError from '../components/all/errors/Global-error';
-import 'react-toastify/dist/ReactToastify.css';
 
 function PrivateLayout() {
   const { darkTheme } = useUserStore();

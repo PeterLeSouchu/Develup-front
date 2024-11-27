@@ -1,20 +1,36 @@
-import { Link } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProfileType } from '../../types';
 import EditProfileModal from '../../components/private/modals/Edit-profile-modal';
 import defaultUserImage from '../../assets/images/default-user-image.png';
 import DeleteAccountModal from '../../components/private/modals/Delete-account-modal';
 import EditPasswordModal from '../../components/private/modals/Edit-password-modal';
+import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const loadProfileData = async () => {
+  const { setGlobalErrorMessage } = useSettingsStore.getState();
+  try {
+    const { data } = await axiosWithoutCSRFtoken.get('/personal-profile');
+    return data.result;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data.message;
+      return setGlobalErrorMessage(message);
+    }
+    setGlobalErrorMessage('Erreur innatendu, essayez de vous reconnecter');
+    return 'erreur inattendu';
+  }
+};
 
 function MyProfile() {
   const [profileData, setProfileData] = useState<ProfileType>();
-  const { setGlobalErrorMessage } = useSettingsStore();
   const [editProfileModal, setEditProfileModal] = useState<boolean>(false);
   const [deleAccountModal, setDeleAccountModal] = useState<boolean>(false);
   const [editPasswordModal, setEditPasswordModal] = useState<boolean>(false);
+  const profileDataFromLoader = useLoaderData() as ProfileType;
 
   function handleEditProfile() {
     setEditProfileModal(true);
@@ -29,22 +45,8 @@ function MyProfile() {
   }
 
   useEffect(() => {
-    async function getPersonalDataProfile() {
-      try {
-        const { data } = await axiosWithCSRFtoken.get('/personal-profile');
-        return setProfileData(data.result);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          const message = error.response?.data.message;
-          setGlobalErrorMessage(message);
-          return 'erreur inattendu';
-        }
-        setGlobalErrorMessage('Erreur innatendu, essayez de vous reconnecter');
-        return 'erreur inattendu';
-      }
-    }
-    getPersonalDataProfile();
-  }, [setGlobalErrorMessage]);
+    setProfileData(profileDataFromLoader);
+  }, [profileDataFromLoader]);
 
   return (
     <div className="flex w-full h-full md:flex-row flex-col overflow-y-scroll md:dark:text-black ">
@@ -126,7 +128,7 @@ function MyProfile() {
         </div>
         <div className=" pt-8 pb-6 md:hidden dark:text-darkTheme border-t-2 flex flex-col items-center justify-center gap-5 border-slate-300 ">
           <p className="text-sm text-center dark:text-white2 text-slate-500 ">
-            Connecté avec : peter22510@gmail.com
+            Connecté avec : {profileData?.email}
           </p>
           <button
             type="button"

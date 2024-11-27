@@ -276,7 +276,7 @@ function EditProjectModal({
                 <div className=" mt-4 flex justify-start items-center  bg-white2 border-2 rounded-lg ">
                   <select
                     {...register('rhythm')}
-                    className="h-full w-full mb-2 px-1 outline-none bg-transparent rounded-r-3xl"
+                    className="h-full w-full  px-1 outline-none bg-transparent rounded-r-3xl"
                   >
                     <option value="">Choisir un rythme</option>
                     <option value="1 à 2h/semaine">1 à 2h/semaine</option>
