@@ -19,8 +19,8 @@ import Signin from './pages/public/Signin';
 import Signup from './pages/public/Signup';
 import ForgotPassword from './pages/public/Forgot-password';
 import Conditions from './pages/all/Conditions';
-import PrivateRoute from './security/routes/Private-route';
-import PublicRoute from './security/routes/Public-route';
+import PrivateRoute from './security/Routes/Private-route';
+import PublicRoute from './security/Routes/Public-route';
 import ResetPassword from './pages/public/Reset-password';
 import ProjectDetails, {
   loadProjectDetails,
