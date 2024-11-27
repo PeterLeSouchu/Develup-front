@@ -5,7 +5,7 @@ import {
   useLoaderData,
   useNavigate,
 } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
@@ -58,6 +58,10 @@ function ProjectDetails() {
       );
     }
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="sm:px-10 px-3">
       <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">

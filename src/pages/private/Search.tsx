@@ -74,6 +74,7 @@ function Search() {
       setTechnoSelected([]);
       setInputRhythmValue('');
       setErrorMessage('');
+      window.scrollTo(0, 0);
     };
   }, [projects]);
 
