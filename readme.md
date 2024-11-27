@@ -33,7 +33,12 @@
 - Dans les requêtes API, utilisation d'un try/catch, qui, en cas d'erreur vient regarder si l'erreur vient de la session afin de passer le state error du store à true et ainsi afficher le composant message avec le message d 'erreur pour inciter l'utilisateur à se re-connecter. Sinon le message d'erreur est passé à un state local d'un composant et ce dernier, s'il est true, affiche un composant erreur avec le message d'erreur provenant du back.
 - Pour les erreurs provenant du front, donc des erreurs de validation de schéma de formulaire avec ZOD, on utilise React Hook Form qui, en complément d'un schéma ZOD déclenche automatiquement l'erreur, erreur que l'on passe en props d'un composant erreur front pour afficher le message d'erreur.
 
-### ⚙️ 5. Technologies utilisées
+
+### ⏳ 5. Gestion du chargement (requêtes API)
+- Utilisation d'un composant parent wrapper sur certains composants, qui permet d'afficher un spinner/loader pendant une requête asynchrone en fonction de l'état "loading" du store.
+- Utilisation du hook "useNavigation" de react-router afin d'afficher le spinner/loader en fonction du state du hook. Lorsqu'un utilisateur change de page, les données de la page sont fetchées grâce à un loader, ce qui permet de récupéerer toutes les données du back avant d'afficher ces dernières et c'est là qu'intervient ce hook qui me permet de regarder si le state === 'loading', et si c'est le cas d'afficher le spinner/loader. 
+
+### ⚙️ 6. Technologies utilisées
 
 - React avec TypeScript
 - [Axios](https://www.npmjs.com/package/axios) pour les requêtes API
@@ -43,7 +48,7 @@
 - [Zustand](https://www.npmjs.com/package/zustand) pour gérer les states partagés dans mon app
 - [socket.io-client](https://socket.io/docs/v4/client-initialization/) pour la communication en temps réel.
 
-### ⬇️ 6. Points à ajouter ou améliorer
+### ⬇️ 7. Points à ajouter ou améliorer
 
 - Se prémunir des attaques par force brute avec un captcha pour la connnexion.
 - Mettre en place une FAQ sur la page d'accueil pour expliquer plus en détail l'application.
