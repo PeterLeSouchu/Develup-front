@@ -51,10 +51,11 @@
 ### ⬇️ 7. Points à ajouter ou améliorer
 
 - Se prémunir des attaques par force brute avec un captcha pour la connnexion.
+- Mettre en place une pagination sur la page d'accueil pour gagner en rapidité et ainsi améliorer l'expérience utilisateur.
+- Mettre en place des notifications en cas d'ajout / modification / suppression de projet ou de profil.
+-  Mettre en place une "pillule rouge" afin de voir quand on a un nouveau message.
 - Mettre en place une FAQ sur la page d'accueil pour expliquer plus en détail l'application.
 - Factoriser le code pour diminuer le nombre de composants nécessaires.
 - Trouver un moyen de faire une fonction permettant de faire une requete api avec axios et un try catch inclu, afin de ne pas se répeter dans le code, et permettre une meilleure lisibilité.
 - Améliorer le style et le rendre plus moderne.
-- Mettre en place des notifications en cas d'ajout / modification / suppression de projet ou de profil.
 -  Améliorer l'accessibilité, surtout au niveau des formulaires.
--  Mettre en place une "pillule rouge" afin de voir quand on a un nouveau message.
