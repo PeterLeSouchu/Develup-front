@@ -33,13 +33,24 @@
 - Dans les requêtes API, utilisation d'un try/catch, qui, en cas d'erreur vient regarder si l'erreur vient de la session afin de passer le state error du store à true et ainsi afficher le composant message avec le message d 'erreur pour inciter l'utilisateur à se re-connecter. Sinon le message d'erreur est passé à un state local d'un composant et ce dernier, s'il est true, affiche un composant erreur avec le message d'erreur provenant du back.
 - Pour les erreurs provenant du front, donc des erreurs de validation de schéma de formulaire avec ZOD, on utilise React Hook Form qui, en complément d'un schéma ZOD déclenche automatiquement l'erreur, erreur que l'on passe en props d'un composant erreur front pour afficher le message d'erreur.
 
-### ⬇️ 5. Points à ajouter ou améliorer
+### ⚙️ 5. Technologies utilisées
+
+- React avec TypeScript
+- [Axios](https://www.npmjs.com/package/axios) pour les requêtes API
+- [React Hook Form](https://www.npmjs.com/package/react-hook-form) pour la gestion des formulaires
+- [React icon](https://react-icons.github.io/react-icons/) for icons
+- [ZOD](https://www.npmjs.com/package/zod) Pour valider les données de formulaire
+- [Zustand](https://www.npmjs.com/package/zustand) pour gérer les states partagés dans mon app
+- [socket.io-client](https://socket.io/docs/v4/client-initialization/) pour la communication en temps réel.
+
+### ⬇️ 6. Points à ajouter ou améliorer
 
 - Se prémunir des attaques par force brute avec un captcha pour la connnexion.
 - Mettre en place une FAQ sur la page d'accueil pour expliquer plus en détail l'application.
 - Factoriser le code pour diminuer le nombre de composants nécessaires.
 - Trouver un moyen de faire une fonction permettant de faire une requete api avec axios et un try catch inclu, afin de ne pas se répeter dans le code, et permettre une meilleure lisibilité.
 - Améliorer le style et le rendre plus moderne.
+- Mettre en place des notifications en cas d'ajout / modification / suppression de projet ou de profil
 
 #### 🚨 Avertissement
 
