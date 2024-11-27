@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useNavigation } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSettingsStore } from '../../store';
@@ -8,7 +8,6 @@ import defaultUserImage from '../../assets/images/default-user-image.png';
 import DeleteAccountModal from '../../components/private/modals/Delete-account-modal';
 import EditPasswordModal from '../../components/private/modals/Edit-password-modal';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProfileData = async () => {
@@ -32,7 +31,6 @@ function MyProfile() {
   const [deleAccountModal, setDeleAccountModal] = useState<boolean>(false);
   const [editPasswordModal, setEditPasswordModal] = useState<boolean>(false);
   const profileDataFromLoader = useLoaderData() as ProfileType;
-  const { state } = useNavigation();
 
   function handleEditProfile() {
     setEditProfileModal(true);
@@ -49,10 +47,6 @@ function MyProfile() {
   useEffect(() => {
     setProfileData(profileDataFromLoader);
   }, [profileDataFromLoader]);
-
-  if (state === 'loading') {
-    return <Loader />;
-  }
 
   return (
     <div className="flex w-full h-full md:flex-row flex-col overflow-y-scroll md:dark:text-black ">

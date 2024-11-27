@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { IoIosArrowForward } from 'react-icons/io';
-import { Link, useLoaderData, useNavigation } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { useSettingsStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { ConversationType } from '../../types';
 import imageDefaultProject from '../../assets/images/default-project-image.jpg';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadConversations = async () => {
@@ -28,11 +27,7 @@ export const loadConversations = async () => {
 
 function ConversationsList() {
   const conversations = useLoaderData() as ConversationType[];
-  const { state } = useNavigation();
 
-  if (state === 'loading') {
-    return <Loader />;
-  }
   return (
     <section className="flex flex-col items-center gap-3 dark:text-black">
       {conversations.length > 0 ? (

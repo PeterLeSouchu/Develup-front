@@ -4,7 +4,6 @@ import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigate,
-  useNavigation,
 } from 'react-router-dom';
 import { useState } from 'react';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
@@ -13,7 +12,6 @@ import { ProjectType } from '../../types';
 import formatDate from '../../utils/date-timestamp';
 import defaultImageProject from '../../assets/images/default-project-image.jpg';
 import SendMessageModal from '../../components/private/modals/Send-message-modal';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
@@ -36,7 +34,7 @@ export const loadProjectDetails = async ({ params }: LoaderFunctionArgs) => {
 
 function ProjectDetails() {
   const project = useLoaderData() as ProjectType;
-  const { state } = useNavigation();
+
   const [messageModal, setMessageModal] = useState<boolean>(false);
   const { setGlobalErrorMessage } = useSettingsStore();
   const navigate = useNavigate();
@@ -62,10 +60,6 @@ function ProjectDetails() {
         'Erreur innatendu, essayez de vous reconnecter'
       );
     }
-  }
-
-  if (state === 'loading') {
-    return <Loader />;
   }
 
   return (

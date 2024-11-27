@@ -1,14 +1,9 @@
 import axios from 'axios';
-import {
-  LoaderFunctionArgs,
-  useLoaderData,
-  useNavigation,
-} from 'react-router-dom';
+import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { UserType } from '../../types';
 import defautUserImage from '../../assets/images/default-user-image.png';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadUserDetails = async ({ params }: LoaderFunctionArgs) => {
@@ -31,12 +26,6 @@ export const loadUserDetails = async ({ params }: LoaderFunctionArgs) => {
 
 function UserDetails() {
   const user = useLoaderData() as UserType;
-
-  const { state } = useNavigation();
-
-  if (state === 'loading') {
-    return <Loader />;
-  }
 
   return (
     <div className="px-10">

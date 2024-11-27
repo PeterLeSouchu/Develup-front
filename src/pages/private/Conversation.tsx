@@ -3,7 +3,6 @@ import {
   Link,
   LoaderFunctionArgs,
   useLoaderData,
-  useNavigation,
   useParams,
 } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
@@ -17,7 +16,6 @@ import {
   MessageWebSocketType,
 } from '../../types';
 import imageDefaultProject from '../../assets/images/default-project-image.jpg';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadMessages = async ({ params }: LoaderFunctionArgs) => {
@@ -46,8 +44,6 @@ function Conversation() {
   const [inputValue, setinputValue] = useState<string>('');
   const { id: conversationId } = useParams();
   const [socket, setSocket] = useState<Socket>();
-
-  const { state } = useNavigation();
 
   async function handleSendMessage(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -109,10 +105,6 @@ function Conversation() {
     };
     scrollToBottom();
   }, [messages]);
-
-  if (state === 'loading') {
-    return <Loader />;
-  }
 
   return (
     <div className="h-full flex flex-col">

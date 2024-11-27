@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { useSettingsStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { ProjectType } from '../../types';
@@ -11,7 +11,6 @@ import CreateProjectModal from '../../components/private/modals/Create-project-m
 import ProjectCard from '../../components/private/Project-card';
 import formatDate from '../../utils/date-timestamp';
 import EditProjectModal from '../../components/private/modals/Edit-project-modal';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadPersonalProjects = async () => {
@@ -34,8 +33,6 @@ export const loadPersonalProjects = async () => {
 
 function MyProjects() {
   const projects = useLoaderData() as ProjectType[];
-
-  const { state } = useNavigation();
 
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [createModal, setCreateModal] = useState<boolean>(false);
@@ -64,10 +61,6 @@ function MyProjects() {
 
   function handleCreateModal() {
     setCreateModal(true);
-  }
-
-  if (state === 'loading') {
-    return <Loader />;
   }
 
   return (

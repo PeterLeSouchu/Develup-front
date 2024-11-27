@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useLoaderData, useNavigation } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { RxCross2 } from 'react-icons/rx';
@@ -11,7 +11,6 @@ import {
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import ProjectCard from '../../components/private/Project-card';
-import Loader from '../../components/all/loader/Loader';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -64,8 +63,6 @@ function Search() {
 
   // Data that contains Projects (for launch) and all Technologie from db for suggestion
   const { projects, technologies } = useLoaderData() as ProjectsAndTechnosType;
-
-  const { state } = useNavigation();
 
   // For initialize page with most recent Project
   useEffect(() => {
@@ -152,10 +149,6 @@ function Search() {
         'Erreur innatendu, essayez de vous reconnecter'
       );
     }
-  }
-
-  if (state === 'loading') {
-    return <Loader />;
   }
 
   return (
