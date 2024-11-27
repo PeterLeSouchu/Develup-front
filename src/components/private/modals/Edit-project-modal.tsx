@@ -55,6 +55,7 @@ function EditProjectModal({
   useEffect(() => {
     async function getTechnologies() {
       try {
+        setLoading(true);
         const { data } = await axiosWithCSRFtoken.get('/technologies');
         const { data: projectData } = await axiosWithCSRFtoken.get(
           `/project/${projectSlug}`
@@ -72,8 +73,10 @@ function EditProjectModal({
           }
         });
         setInitialProjectData(detailsProject);
+        setLoading(false);
         return setTechnologies(allTechnologies);
       } catch (error) {
+        setLoading(false);
         if (axios.isAxiosError(error)) {
           const message = error.response?.data.message;
           setGlobalErrorMessage(message);
