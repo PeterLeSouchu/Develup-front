@@ -11,6 +11,7 @@ import {
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import ProjectCard from '../../components/private/Project-card';
+import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -283,12 +284,14 @@ function Search() {
         </p>
       )}
 
-      <section className="flex justify-center mt-12 gap-8 flex-wrap ">
-        {results?.length > 0 &&
-          results?.map((result) => (
-            <ProjectCard key={result.id} project={result} />
-          ))}
-      </section>
+      <LoaderWrapper>
+        <section className="flex justify-center mt-12 gap-8 flex-wrap ">
+          {results?.length > 0 &&
+            results?.map((result) => (
+              <ProjectCard key={result.id} project={result} />
+            ))}
+        </section>
+      </LoaderWrapper>
     </div>
   );
 }

@@ -51,6 +51,9 @@ export default {
       maxHeight: {
         35: '35rem',
       },
+      scale: {
+        101: '1.01',
+      },
     },
   },
   plugins: [],
