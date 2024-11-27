@@ -38,7 +38,7 @@
 - Utilisation d'un composant parent wrapper sur certains composants, qui permet d'afficher un spinner/loader pendant une requête asynchrone en fonction de l'état "loading" du store.
 - Utilisation du hook "useNavigation" de react-router afin d'afficher le spinner/loader en fonction du state du hook. Lorsqu'un utilisateur change de page, les données de la page sont fetchées grâce à un loader, ce qui permet de récupéerer toutes les données du back avant d'afficher ces dernières et c'est là qu'intervient ce hook qui me permet de regarder si le state === 'loading', et si c'est le cas d'afficher le spinner/loader. 
 
-### ⚙️ 6. Technologies utilisées
+### 💻 6. Technologies utilisées
 
 - React avec TypeScript
 - [Axios](https://www.npmjs.com/package/axios) pour les requêtes API
