@@ -38,7 +38,7 @@
 - React avec TypeScript
 - [Axios](https://www.npmjs.com/package/axios) pour les requêtes API
 - [React Hook Form](https://www.npmjs.com/package/react-hook-form) pour la gestion des formulaires
-- [React icon](https://react-icons.github.io/react-icons/) for icons
+- [React icon](https://react-icons.github.io/react-icons/) pour les icones
 - [ZOD](https://www.npmjs.com/package/zod) Pour valider les données de formulaire
 - [Zustand](https://www.npmjs.com/package/zustand) pour gérer les states partagés dans mon app
 - [socket.io-client](https://socket.io/docs/v4/client-initialization/) pour la communication en temps réel.
