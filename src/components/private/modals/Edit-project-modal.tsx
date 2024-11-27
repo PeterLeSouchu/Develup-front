@@ -91,7 +91,7 @@ function EditProjectModal({
     return () => {
       document.body.style.overflow = '';
     };
-  }, [projectSlug, setGlobalErrorMessage, setValue]);
+  }, [projectSlug, setGlobalErrorMessage, setLoading, setValue]);
 
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value.toLowerCase();
