@@ -50,8 +50,6 @@
 - Factoriser le code pour diminuer le nombre de composants nécessaires.
 - Trouver un moyen de faire une fonction permettant de faire une requete api avec axios et un try catch inclu, afin de ne pas se répeter dans le code, et permettre une meilleure lisibilité.
 - Améliorer le style et le rendre plus moderne.
-- Mettre en place des notifications en cas d'ajout / modification / suppression de projet ou de profil
-
-#### 🚨 Avertissement
-
-L'application n'a pas encore de "spinner" et utilise des loaders en majorité à la place des useEfect, ce qui fait qu'en production, à cause la la base de données gratuite et peu performante, les données mettent du temps à arriver, et sachant que le loader a pour but de récupérer toutes les données avant d'afficher la page, cela peut causer une légère latence.
+- Mettre en place des notifications en cas d'ajout / modification / suppression de projet ou de profil.
+-  Améliorer l'accessibilité, surtout au niveau des formulaires.
+-  Mettre en place une "pillule rouge" afin de voir quand on a un nouveau message.
