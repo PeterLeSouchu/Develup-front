@@ -58,6 +58,7 @@
 ### 💻 6. Technologies utilisées
 
 - React avec TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) pour le style
 - [Axios](https://www.npmjs.com/package/axios) pour les requêtes API
 - [React Hook Form](https://www.npmjs.com/package/react-hook-form) pour la gestion des formulaires
 - [React icon](https://react-icons.github.io/react-icons/) pour les icones
