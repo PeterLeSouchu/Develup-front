@@ -43,7 +43,7 @@
 
 ### ❌ 4. Gestion d'erreur
 
-- Dans les requêtes API, utilisation d'un try/catch, qui, en cas d'erreur vient regarder si l'erreur vient de la session afin de passer sa valeur au state error du store et ainsi afficher le composant erreur avec le message d 'erreur pour inciter l'utilisateur à se re-connecter. Sinon le message d'erreur est passé à un state local d'un composant et ce dernier, s'il est true, affiche un composant erreur avec le message d'erreur provenant du back.
+- Dans les requêtes API, utilisation d'un try/catch, qui, en cas d'erreur vient regarder si l'erreur vient de la session(expiration, pas de token, mauvais token) afin de passer sa valeur au state "globalErrorMessage" du store et ainsi afficher le composant erreur avec le message d 'erreur pour inciter l'utilisateur à se re-connecter. Sinon le message d'erreur est passé à un state local d'un composant et ce dernier, s'il est true, affiche un composant erreur avec le message d'erreur provenant du back.
 - Pour les erreurs provenant du front, donc des erreurs de validation de schéma de formulaire avec ZOD, on utilise React Hook Form qui, en complément d'un schéma ZOD déclenche automatiquement l'erreur, erreur que l'on passe en props d'un composant erreur front pour afficher le message d'erreur.
 
 
