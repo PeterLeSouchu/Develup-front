@@ -1,10 +1,23 @@
-# 🌟 Projet Develup
+# 🌟 [Projet Develup](https://develup.up.railway.app)
 
-**Develup est une application web réalisée dans le cadre de mon portfolio, qui permet de faire collaborer des développeurs sur des projets web. Les utilisateur pourront poster des projets, rechercher des projets selon des technologies et un rythme de travail, et communiquer en temps réel.**
+**Develup est une application web réalisée dans le cadre de mon portfolio, qui permet de faire collaborer des développeurs, ou toute personne intéressée par le monde du dev, sur des projets web. Les utilisateurs pourront poster des projets, rechercher des projets selon des technologies et un rythme de travail, et communiquer en temps réel. L’objectif de Develup est de vous aider à progresser, et quoi de mieux que de le faire en équipe.**
 
-**Ce repo contient le code front-end de Develup et est dédié à la partie technique de ses fonctionnalités, si vous souhaitez voir la partie technique back-end [cliquez-ici](https://github.com/PeterLeSouchu/Develup-back)**
+## ⭐ Fonctionnalitées de l'application :
 
-**Si vous souhaitez en savoir plus sur le projet, connaitre les fonctionnalités générales, voir à quoi il ressemble ou bien le tester [cliquez-ici](https://github.com/PeterLeSouchu/Develup-front) LIEN À VENIR**
+- Créer un compte utilisateur
+- Se connecter
+- Demander à réinitialiser son mot de passe (mot de passe oublié)
+- Rechercher un projet selon ses technologies et son rythme de travail
+- Accéder à la page détail d'un projet
+- Accéder à la page détail d'un utilisateur
+- Ajouter / Supprimer / modifier un projet
+- Modifier son profil
+- Modifier son mot de passe
+- Supprimer son compte
+- Communiquer en temps réel avec un utilisateur
+- Changer de thème (clair / sombre)
+
+**Ce repo contient le code front-end de Develup et est dédié à la partie technique de ses fonctionnalités, si vous souhaitez voir la partie technique du back-end [cliquez-ici](https://github.com/PeterLeSouchu/Develup-back)**
 
 ## 🛠️ Fonctionnement du front-end :
 
@@ -27,10 +40,12 @@
 - Mise en place d'une route protégée, englobant toutes celle nécessitant une authentification et qui utilise le state "logged" du store afin d'afficher un layout privé, ou de redirigé vers le layout public selon le state "logged".
 - Utilisation de ZOD avec React Hook Form pour valider les données avant de les envoyer au back.
 - Prémunition des attaques XSS avec React.
+- Stockage d'un JWT et d'un CSRF token dans les cookies en HTTP-Only
+- Stockage d'un deuxième CSRF token dans le local storage que l'on passe au headers de certaines requêtes sensibles afin de s'assurer que l'action provient bien de l'utilisateur ( en complément du CSRF token des cookies, donc double vérification du token CSRF )
 
 ### ❌ 4. Gestion d'erreur
 
-- Dans les requêtes API, utilisation d'un try/catch, qui, en cas d'erreur vient regarder si l'erreur vient de la session afin de passer le state error du store à true et ainsi afficher le composant message avec le message d 'erreur pour inciter l'utilisateur à se re-connecter. Sinon le message d'erreur est passé à un state local d'un composant et ce dernier, s'il est true, affiche un composant erreur avec le message d'erreur provenant du back.
+- Dans les requêtes API, utilisation d'un try/catch, qui, en cas d'erreur vient regarder si l'erreur vient de la session(expiration, pas de token, mauvais token) afin de passer sa valeur au state "globalErrorMessage" du store et ainsi afficher le composant erreur avec le message d 'erreur pour inciter l'utilisateur à se re-connecter. Sinon le message d'erreur est passé à un state local d'un composant et ce dernier, s'il est true, affiche un composant erreur avec le message d'erreur provenant du back.
 - Pour les erreurs provenant du front, donc des erreurs de validation de schéma de formulaire avec ZOD, on utilise React Hook Form qui, en complément d'un schéma ZOD déclenche automatiquement l'erreur, erreur que l'on passe en props d'un composant erreur front pour afficher le message d'erreur.
 
 
