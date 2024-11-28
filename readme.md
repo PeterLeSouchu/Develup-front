@@ -40,6 +40,8 @@
 - Mise en place d'une route protégée, englobant toutes celle nécessitant une authentification et qui utilise le state "logged" du store afin d'afficher un layout privé, ou de redirigé vers le layout public selon le state "logged".
 - Utilisation de ZOD avec React Hook Form pour valider les données avant de les envoyer au back.
 - Prémunition des attaques XSS avec React.
+- Stockage d'un JWT et du'un CSRF token dans les cookie en HTTP-Only
+- Stockage d'un deuxième CSRF token dans le local storage que l'on passe au headers de certaines requêtes sensibles afin de s'assurer que l'action provient bien de l'utilisateur
 
 ### ❌ 4. Gestion d'erreur
 
