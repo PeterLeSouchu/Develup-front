@@ -17,7 +17,7 @@
 - Communiquer en temps réel avec un utilisateur
 - Changer de thème (clair / sombre)
 
-**Ce repo contient le code front-end de Develup et est dédié à la partie technique de ses fonctionnalités, si vous souhaitez voir la partie technique back-end [cliquez-ici](https://github.com/PeterLeSouchu/Develup-back)**
+**Ce repo contient le code front-end de Develup et est dédié à la partie technique de ses fonctionnalités, si vous souhaitez voir la partie technique du back-end [cliquez-ici](https://github.com/PeterLeSouchu/Develup-back)**
 
 ## 🛠️ Fonctionnement du front-end :
 
