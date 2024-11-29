@@ -2,6 +2,8 @@
 
 **Develup est une application web réalisée dans le cadre de mon portfolio, qui permet de faire collaborer des développeurs, ou toute personne intéressée par le monde du dev, sur des projets web. Les utilisateurs pourront poster des projets, rechercher des projets selon des technologies et un rythme de travail, et communiquer en temps réel. L’objectif de Develup est de vous aider à progresser tout en enrichissant votre portfolio, et quoi de mieux que de le faire en équipe.**
 
+L'application est accessible à l'adresse suivante: https://develup.up.railway.app/
+
 ![Screenshot de l'application](public/screenshot-home.png)
 
 ## ⭐ Fonctionnalitées de l'application :
