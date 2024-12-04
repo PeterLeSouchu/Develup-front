@@ -1,6 +1,10 @@
 # 🌟 [Projet Develup](https://develup.up.railway.app)
 
-**Develup est une application web réalisée dans le cadre de mon portfolio, qui permet de faire collaborer des développeurs, ou toute personne intéressée par le monde du dev, sur des projets web. Les utilisateurs pourront poster des projets, rechercher des projets selon des technologies et un rythme de travail, et communiquer en temps réel. L’objectif de Develup est de vous aider à progresser, et quoi de mieux que de le faire en équipe.**
+**Develup est une application web réalisée dans le cadre de mon portfolio, qui permet de faire collaborer des développeurs, ou toute personne intéressée par le monde du dev, sur des projets web. Les utilisateurs pourront poster des projets, rechercher des projets selon des technologies et un rythme de travail, et communiquer en temps réel. L’objectif de Develup est de vous aider à progresser tout en enrichissant votre portfolio, et quoi de mieux que de le faire en équipe.**
+
+L'application est accessible à l'adresse suivante: https://develup.up.railway.app/
+
+![Screenshot de l'application](public/screenshot-home.png)
 
 ## ⭐ Fonctionnalitées de l'application :
 
@@ -56,6 +60,7 @@
 ### 💻 6. Technologies utilisées
 
 - React avec TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) pour le style
 - [Axios](https://www.npmjs.com/package/axios) pour les requêtes API
 - [React Hook Form](https://www.npmjs.com/package/react-hook-form) pour la gestion des formulaires
 - [React icon](https://react-icons.github.io/react-icons/) pour les icones
