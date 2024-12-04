@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
+        nunito: ['Nunito', 'sans-serif'],
       },
       colors: {
         darkgold: '#B79178',

@@ -323,7 +323,7 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
                       className="fixed inset-0 z-20   cursor-default"
                       onClick={() => setSuggestTechno([])}
                     />
-                    <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md max-h-56  overflow-scroll ">
+                    <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md max-h-72  overflow-scroll ">
                       {suggestTechno.map((suggestion: TechnologieType) => (
                         <button
                           onClick={() => handleAddTechno(suggestion)}
@@ -332,9 +332,9 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
                           key={suggestion.id}
                         >
                           <img
-                            src={suggestion.image}
+                            src={suggestion.image} 
                             alt={suggestion.name}
-                            className="h-9 p-1 bg-white2 rounded-xl"
+                            className="w-12 h-12 p-1 bg-white2 rounded-xl"
                           />
                           {suggestion.name}
                         </button>
