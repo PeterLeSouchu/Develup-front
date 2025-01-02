@@ -18,7 +18,8 @@ export const loadProfileData = async () => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const message = error.response?.data.message;
-      return setGlobalErrorMessage(message);
+      setGlobalErrorMessage(message);
+      return 'erreur inattendu';
     }
     setGlobalErrorMessage('Erreur innatendu, essayez de vous reconnecter');
     return 'erreur inattendu';

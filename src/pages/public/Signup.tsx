@@ -223,7 +223,11 @@ function Signup() {
                 <input type="checkbox" id="cgu" {...register('cgu')} />
                 <label htmlFor="cgu" className="ml-3 ">
                   J&apos;accepte les{' '}
-                  <Link to="/general-conditions-of-use" className="underline">
+                  <Link
+                    to="/general-conditions-of-use"
+                    target="blank"
+                    className="underline"
+                  >
                     conditions générales d&apos;utilisation
                   </Link>
                 </label>

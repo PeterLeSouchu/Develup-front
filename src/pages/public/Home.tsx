@@ -87,7 +87,7 @@ function Home() {
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-screen flex-wrap">
           <div className="bg-diagonal-gradient border-2 w-25 h-72 min-w-80 rounded-3xl flex flex-col justify-center items-center gap-6 p-5 shadow-xl">
             <p className="text-2xl font-semibold">
-              Collaborez sur des projets web qui vous donne envie
+              Collaborez sur des projets web qui vous donnent envie
             </p>
             <span className="text-8xl">
               <LuMessagesSquare />
