@@ -7,7 +7,7 @@ function PublicLayout() {
   return (
     <>
       <ScrollToTop />
-      <div className="bg-grid-pattern">
+      <div className="bg-grid-pattern overflow-hidden">
         <Header />
 
         <main className="min-h-8">
