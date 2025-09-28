@@ -13,7 +13,7 @@ import homeMobileImage from '../../assets/images/homeMobile-image.png';
 function Home() {
   return (
     <>
-      <section className=" min-h-80 flex flex-col items-center justify-evenly my-12 ">
+      <section className=" min-h-80  flex flex-col items-center justify-evenly my-12 ">
         <img
           src={image}
           alt="Logo-entier-Develup"

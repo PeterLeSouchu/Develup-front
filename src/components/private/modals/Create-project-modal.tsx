@@ -116,6 +116,7 @@ function CreateProjectModal({ setModal, setResults }: CreateModalType) {
 
     try {
       setLoading(true);
+
       const { data: dataProjectCreated } = await axiosWithCSRFtoken.post(
         `${import.meta.env.VITE_API_URL}/api/project`,
         formData

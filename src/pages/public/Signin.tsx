@@ -15,6 +15,7 @@ function Signin() {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
   const { setLogged } = useUserStore();
   const { setLoading } = useSettingsStore();
 
@@ -48,6 +49,15 @@ function Signin() {
 
   function handlerChangePassword(e: React.ChangeEvent<HTMLInputElement>) {
     setPasswordInput(e.target.value);
+  }
+
+  function handleForgotPasswordClick(e: React.MouseEvent) {
+    e.preventDefault();
+    setShowPopup(true);
+  }
+
+  function closePopup() {
+    setShowPopup(false);
   }
 
   return (
@@ -103,12 +113,14 @@ function Signin() {
                 </button>
               </div>
             </div>
-            <Link
-              to="/forgot-password"
+
+            <button
+              onClick={handleForgotPasswordClick}
               className="underline underline-offset-2 mb-6"
             >
               Mot de passe oublié ?
-            </Link>
+            </button>
+
             <button
               className="p-2 rounded-3xl bg-gold hover:bg-darkgold  transition"
               type="submit"
@@ -117,6 +129,29 @@ function Signin() {
             </button>
           </form>
         </div>
+
+        {/* Popup pour "Plus disponible" */}
+        {showPopup && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-sm mx-4 shadow-xl">
+              <h3 className="text-lg font-semibold mb-4 text-center">
+                Fonctionnalité indisponible
+              </h3>
+              <p className="text-gray-600 mb-6 text-center">
+                En tant que projet de portfolio gratuit, l'envoi d'emails n'est
+                plus disponible en production. Cette fonctionnalité
+                nécessiterait un nom de domaine personnalisé et donc payant.
+                Elle reste cependant fonctionnelle en développement local.
+              </p>
+              <button
+                onClick={closePopup}
+                className="w-full p-2 rounded-3xl bg-gold hover:bg-darkgold transition"
+              >
+                Fermer
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </LoaderWrapper>
   );
