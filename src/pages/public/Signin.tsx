@@ -115,6 +115,7 @@ function Signin() {
             </div>
 
             <button
+              type="button"
               onClick={handleForgotPasswordClick}
               className="underline underline-offset-2 mb-6"
             >
