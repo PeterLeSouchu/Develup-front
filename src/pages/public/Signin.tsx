@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { IoEyeOffOutline } from 'react-icons/io5';
-import image from '../../assets/images/logo.png';
 import { useSettingsStore, useUserStore } from '../../store';
 import BackError from '../../components/all/errors/Back-error';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import handleChangeTypePassword from '../../utils/password-visibility';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
+import AuthShell from '../../components/public/Auth-shell';
 
 function Signin() {
   const [type, setType] = useState('password');
@@ -62,98 +62,117 @@ function Signin() {
 
   return (
     <LoaderWrapper>
-      <div className="flex items-center justify-center p-10 min-h-80">
-        <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-10 flex flex-col items-center">
-          <img
-            className="w-1/4 min-w-36"
-            src={image}
-            alt="Logo-entier-Develup"
-          />
-          <form
-            onSubmit={(e) => handlerSubmit(e)}
-            className="w-full flex flex-col items-center"
-          >
-            <BackError message={errorMessage} />
-            <div className="flex flex-col gap-2 my-3 w-18">
-              <label className="text-md" htmlFor="e-mail">
-                E-mail
-              </label>
-              <input
-                className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
-                type="text"
-                id="e-mail"
-                placeholder="Entrez votre adresse mail"
-                onChange={(e) => handlerChangeEmail(e)}
-                value={emailInput}
-              />
-            </div>
-            <div className="flex flex-col gap-2 mb-3 w-18">
-              <label className="text-md" htmlFor="password">
+      <AuthShell
+        title="Connexion"
+        subtitle="Retrouvez vos projets et vos conversations."
+        footer={
+          <>
+            Pas encore de compte ?{' '}
+            <Link to="/signup" className="dv-link">
+              S&apos;inscrire
+            </Link>
+          </>
+        }
+      >
+        <form
+          onSubmit={(e) => handlerSubmit(e)}
+          className="flex flex-col gap-5"
+        >
+          <BackError message={errorMessage} />
+          <div>
+            <label className="dv-label" htmlFor="e-mail">
+              E-mail
+            </label>
+            <input
+              className="dv-input"
+              type="text"
+              id="e-mail"
+              autoComplete="email"
+              placeholder="vous@exemple.com"
+              onChange={(e) => handlerChangeEmail(e)}
+              value={emailInput}
+            />
+          </div>
+          <div>
+            <div className="mb-1.5 flex items-center justify-between">
+              <label className="dv-label mb-0" htmlFor="password">
                 Mot de passe
               </label>
-              <div className="relative">
-                <input
-                  className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 w-full"
-                  type={type}
-                  id="password"
-                  placeholder="Entrez votre mot de passe"
-                  onChange={(e) => handlerChangePassword(e)}
-                  value={passwordInput}
-                />
-                <button
-                  type="button"
-                  onClick={() => handleChangeTypePassword(setType)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
-                >
-                  {type === 'password' ? (
-                    <MdOutlineRemoveRedEye className="h-5 w-5 text-gray-500" />
-                  ) : (
-                    <IoEyeOffOutline className="h-5 w-5 text-gray-500" />
-                  )}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleForgotPasswordClick}
-              className="underline underline-offset-2 mb-6"
-            >
-              Mot de passe oublié ?
-            </button>
-
-            <button
-              className="p-2 rounded-3xl bg-gold hover:bg-darkgold  transition"
-              type="submit"
-            >
-              Se connecter
-            </button>
-          </form>
-        </div>
-
-        {/* Popup pour "Plus disponible" */}
-        {showPopup && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-sm mx-4 shadow-xl">
-              <h3 className="text-lg font-semibold mb-4 text-center">
-                Fonctionnalité indisponible
-              </h3>
-              <p className="text-gray-600 mb-6 text-center">
-                En tant que projet de portfolio gratuit, l'envoi d'emails n'est
-                plus disponible en production. Cette fonctionnalité
-                nécessiterait un nom de domaine personnalisé et donc payant.
-                Elle reste cependant fonctionnelle en développement local.
-              </p>
               <button
-                onClick={closePopup}
-                className="w-full p-2 rounded-3xl bg-gold hover:bg-darkgold transition"
+                type="button"
+                onClick={handleForgotPasswordClick}
+                className="text-sm font-medium text-muted underline-offset-4 hover:text-ink hover:underline"
               >
-                Fermer
+                Mot de passe oublié ?
+              </button>
+            </div>
+            <div className="relative">
+              <input
+                className="dv-input pr-12"
+                type={type}
+                id="password"
+                autoComplete="current-password"
+                placeholder="Votre mot de passe"
+                onChange={(e) => handlerChangePassword(e)}
+                value={passwordInput}
+              />
+              <button
+                type="button"
+                aria-label={
+                  type === 'password'
+                    ? 'Afficher le mot de passe'
+                    : 'Masquer le mot de passe'
+                }
+                onClick={() => handleChangeTypePassword(setType)}
+                className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-muted hover:bg-ink/5 hover:text-ink"
+              >
+                {type === 'password' ? (
+                  <MdOutlineRemoveRedEye className="h-5 w-5" />
+                ) : (
+                  <IoEyeOffOutline className="h-5 w-5" />
+                )}
               </button>
             </div>
           </div>
-        )}
-      </div>
+
+          <button className="dv-btn-primary mt-2 w-full" type="submit">
+            Se connecter
+          </button>
+        </form>
+      </AuthShell>
+
+      {/* Popup pour "Plus disponible" */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-sm">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="unavailable-title"
+            className="w-full max-w-sm rounded-3xl bg-white2 p-7 font-body shadow-2xl"
+          >
+            <h3
+              id="unavailable-title"
+              className="font-display text-xl font-bold text-ink"
+            >
+              Fonctionnalité indisponible
+            </h3>
+            <p className="mb-6 mt-3 text-sm leading-relaxed text-muted">
+              En tant que projet de portfolio gratuit, l&apos;envoi
+              d&apos;emails n&apos;est plus disponible en production. Cette
+              fonctionnalité nécessiterait un nom de domaine personnalisé et
+              donc payant. Elle reste cependant fonctionnelle en développement
+              local.
+            </p>
+            <button
+              type="button"
+              onClick={closePopup}
+              className="dv-btn-dark w-full"
+            >
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </LoaderWrapper>
   );
 }

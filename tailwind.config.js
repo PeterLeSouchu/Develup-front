@@ -8,11 +8,22 @@ export default {
         xss: '500px',
       },
       fontFamily: {
+        display: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+        body: ['"Instrument Sans"', 'system-ui', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
         nunito: ['Nunito', 'sans-serif'],
       },
       colors: {
+        pollen: {
+          DEFAULT: '#FFCC33',
+          soft: '#FFF4CC',
+          deep: '#7A5A00',
+        },
+        ink: '#1E1D1B',
+        paper: '#F5F5F2',
+        line: '#E3E2DC',
+        muted: '#66635C',
         darkgold: '#B79178',
         darkgold2: '#9d7154',
         gold: '#D7C392',

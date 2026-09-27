@@ -32,15 +32,75 @@
   }
 }
 
+/* Public pages (2026 redesign) */
+@layer components {
+  .dv-dots {
+    background-color: #f5f5f2;
+    background-image: radial-gradient(#d9d7cf 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .dv-btn {
+    @apply inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full font-body font-semibold text-[15px] transition duration-150 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-pollen/60 disabled:opacity-60;
+  }
+
+  .dv-btn-primary {
+    @apply dv-btn bg-pollen text-ink shadow-[inset_0_-2px_0_rgba(0,0,0,0.12)] hover:bg-[#FFC21A] active:translate-y-px;
+  }
+
+  .dv-btn-dark {
+    @apply dv-btn bg-ink text-white2 hover:bg-[#3a3833] active:translate-y-px;
+  }
+
+  .dv-btn-ghost {
+    @apply dv-btn text-ink hover:bg-[#EAE9E3];
+  }
+
+  .dv-label {
+    @apply block text-sm font-semibold text-ink mb-1.5;
+  }
+
+  .dv-input {
+    @apply w-full h-12 px-4 rounded-xl bg-paper border border-line text-ink placeholder:text-muted/70 outline-none transition focus:bg-white2 focus:border-ink focus:ring-4 focus:ring-pollen/40;
+  }
+
+  .dv-link {
+    @apply font-semibold text-pollen-deep underline decoration-pollen decoration-2 underline-offset-4 hover:decoration-pollen-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pollen rounded-sm;
+  }
+
+  @keyframes dvFanIn {
+    from {
+      opacity: 0;
+      transform: translateY(40px) rotate(0deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(var(--dv-rotate, 0deg));
+    }
+  }
+
+  .dv-fan-card {
+    transform: rotate(var(--dv-rotate, 0deg));
+    animation: dvFanIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--dv-delay, 0ms);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dv-fan-card {
+      animation: none;
+    }
+  }
+}
+
 @layer utilities {
   .bg-grid-pattern {
     background-color: #f4f4f4; /* Fond gris clair */
     background-image: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.1) 1px,
+        rgba(0, 0, 0, 0.06) 1px,
         /* Quadrillage noir léger */ transparent 1px
       ),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
