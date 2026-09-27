@@ -1,10 +1,14 @@
 export default function Loader() {
   return (
-    <div className="flex justify-center items-center min-h-80 w-full">
-      <div className="flex space-x-3">
-        <div className="w-10 h-10 bg-darkgold rounded-full animate-bubble" />
-        <div className="w-10 h-10 bg-lightgold rounded-full animate-bubble200" />
-        <div className="w-10 h-10 bg-darkgold rounded-full animate-bubble400" />
+    <div
+      className="flex min-h-80 w-full items-center justify-center"
+      role="status"
+      aria-label="Chargement"
+    >
+      <div className="flex space-x-2">
+        <div className="h-3.5 w-3.5 rounded-full bg-pollen animate-bubble" />
+        <div className="h-3.5 w-3.5 rounded-full bg-pollen animate-bubble200" />
+        <div className="h-3.5 w-3.5 rounded-full bg-pollen animate-bubble400" />
       </div>
     </div>
   );

@@ -60,11 +60,6 @@ const router = createBrowserRouter(
             element={<Search />}
           />
           <Route
-            path="/dashboard/general-conditions-of-use"
-            element={<Conditions />}
-          />
-          <Route path="/dashboard/legal-notices" element={<LegalNotices />} />
-          <Route
             path="/dashboard/project/:slug"
             loader={loadProjectDetails}
             element={<ProjectDetails />}

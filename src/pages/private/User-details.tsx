@@ -28,43 +28,45 @@ function UserDetails() {
   const user = useLoaderData() as UserType;
 
   return (
-    <div className="px-10">
-      <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
+    <div>
+      <section className="dv-surface flex flex-col items-center gap-6 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
         <img
-          className=" md:mx-0   rounded-full   mx-auto w-64 h-64 md:mb-0 mb-10 object-cover"
+          className="h-32 w-32 shrink-0 rounded-full object-cover ring-4 ring-pollen"
           src={user.image || defautUserImage}
           alt={user.pseudo}
         />
-        <div className="flex flex-col md:w-1/2 md:items-center justify-center gap-3 md:gap-7   dark:text-white2  rounded-lg md:max-w-xl">
-          <h1 className=" md:text-center w-full md:text-5xl text-4xl font-bol break-words">
+        <div className="min-w-0">
+          <h1 className="break-words font-display text-3xl font-extrabold tracking-[-0.02em] sm:text-4xl">
             {user.pseudo}
           </h1>
-          <p className=" text-xl  rounded-xl  max-w-64 italic ">{user.type}</p>
+          <p className="dv-muted mt-1 text-lg">{user.type}</p>
         </div>
+      </section>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_20rem]">
+        <section className="dv-surface p-6 sm:p-8">
+          <h2 className="font-display text-lg font-bold">À propos</h2>
+          <p className="mt-3 whitespace-pre-wrap break-words leading-relaxed">
+            {user.description ||
+              `${user.pseudo} n'a pas encore de description ...`}
+          </p>
+        </section>
+        <section className="dv-surface self-start p-6">
+          <h2 className="font-display text-lg font-bold">Technologies</h2>
+          {user.techno.length > 0 ? (
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {user.techno.map((techno) => (
+                <li key={techno.id} className="dv-chip">
+                  <img src={techno.image} alt="" className="dv-chip-logo" />
+                  {techno.name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="dv-muted mt-3 text-sm">Aucune technologie</p>
+          )}
+        </section>
       </div>
-
-      {user.techno.length > 0 ? (
-        user.techno.map((techno) => (
-          <span
-            key={techno.id}
-            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-slate-300 hover:op mr-3"
-          >
-            {' '}
-            <img
-              src={techno.image}
-              alt="nextjs"
-              className="w-9 h-9 p-1 bg-white2 rounded-lg "
-            />{' '}
-            <p>{techno.name}</p>
-          </span>
-        ))
-      ) : (
-        <p className="text-sm">Aucune technologie</p>
-      )}
-
-      <p className="mt-10 break-words whitespace-pre-wrap">
-        {user.description || `${user.pseudo} n'a pas encore de description ...`}
-      </p>
     </div>
   );
 }

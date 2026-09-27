@@ -1,14 +1,11 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import axios from 'axios';
 import { useState } from 'react';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { IoEyeOffOutline } from 'react-icons/io5';
 import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
 import { useSettingsStore, useUserStore } from '../../../store';
 import BackError from '../../all/errors/Back-error';
+import ModalShell from '../ui/Modal-shell';
+import PasswordField from '../ui/Password-field';
 import { DeleteAccountModalType } from '../../../types';
 import handleChangeTypePassword from '../../../utils/password-visibility';
 
@@ -51,66 +48,41 @@ function DeleteAccountModal({ setModal }: DeleteAccountModalType) {
   }
 
   return (
-    <div
-      aria-label="close modal"
-      onKeyDown={() => setModal(false)}
-      role="button"
-      tabIndex={0}
-      className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center cursor-default"
-      onClick={() => setModal(false)}
+    <ModalShell
+      title="Supprimer mon compte"
+      onClose={() => setModal(false)}
+      size="sm"
     >
-      <div
-        className="p-3 z-50 bg-white rounded-lg max-w-80 flex dark:text-black justify-center items-center flex-col shadow-2xl"
-        onClick={(event) => event.stopPropagation()}
-        onKeyDown={(event) => event.stopPropagation()}
-      >
-        <form className="p-4" onSubmit={(e) => handleDeleteAccount(e)}>
-          <BackError message={errorMessage} />
-          <div className="flex flex-col gap-2 mb-3 w-18">
-            <label className="text-center text-md mb-6" htmlFor="password">
-              Entrez votre mot de passe pour supprimer définitivement votre
-              compte
-            </label>
-            <div className="relative">
-              <input
-                className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 w-full"
-                type={type}
-                id="password"
-                placeholder="Entrez votre mot de passe"
-                onChange={(e) => handlerChangePassword(e)}
-                value={passwordInput}
-              />
-              <button
-                type="button"
-                onClick={() => handleChangeTypePassword(setType)}
-                className="absolute right-2 top-1/2 -translate-y-1/2"
-              >
-                {type === 'password' ? (
-                  <MdOutlineRemoveRedEye className="h-5 w-5 text-gray-500" />
-                ) : (
-                  <IoEyeOffOutline className="h-5 w-5 text-gray-500" />
-                )}
-              </button>
-            </div>
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              type="button"
-              className="p-2 mt-5 bg-red-400  rounded-lg hover:bg-red-500 transition"
-              onClick={() => setModal(false)}
-            >
-              annuler
-            </button>
-            <button
-              type="submit"
-              className="p-2 mt-5 bg-green-400  rounded-lg hover:bg-green-500 transition"
-            >
-              Supprimer
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <form onSubmit={(e) => handleDeleteAccount(e)}>
+        <BackError message={errorMessage} />
+        <p className="dv-muted mb-5 leading-relaxed">
+          Cette action est définitive. Entrez votre mot de passe pour confirmer
+          la suppression de votre compte.
+        </p>
+        <PasswordField
+          id="password"
+          label="Mot de passe"
+          type={type}
+          onToggle={() => handleChangeTypePassword(setType)}
+          inputProps={{
+            onChange: (e) => handlerChangePassword(e),
+            value: passwordInput,
+          }}
+        />
+        <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button
+            type="button"
+            className="dv-btn-ghost"
+            onClick={() => setModal(false)}
+          >
+            Annuler
+          </button>
+          <button type="submit" className="dv-btn-danger">
+            Supprimer mon compte
+          </button>
+        </div>
+      </form>
+    </ModalShell>
   );
 }
 

@@ -15,19 +15,17 @@ function LegalPage({ title, intro, children }: LegalPageProps) {
     <div
       className={
         logged
-          ? 'mx-auto max-w-3xl py-4'
+          ? 'mx-auto max-w-3xl'
           : 'mx-auto max-w-3xl px-4 py-14 sm:px-6 md:py-20'
       }
     >
-      <div
-        className={`rounded-[1.75rem] ${logged ? '' : 'border border-line bg-white2 p-6 sm:p-12'}`}
-      >
-        <h1 className="font-display text-4xl font-extrabold tracking-[-0.02em] text-ink dark:text-white sm:text-5xl">
+      <div className="rounded-[1.75rem] border border-line bg-white2 p-6 dark:border-night-line dark:bg-night-surface sm:p-12">
+        <h1 className="font-display text-4xl font-extrabold tracking-[-0.02em] text-ink dark:text-paper sm:text-5xl">
           {title}
         </h1>
-        <p className="mt-3 text-muted dark:text-white/70">{intro}</p>
+        <p className="mt-3 text-muted dark:text-night-muted">{intro}</p>
         <div className="mt-6 h-1.5 w-14 rounded-full bg-pollen" />
-        <div className="mt-10 flex flex-col gap-9 leading-relaxed text-ink/85 dark:text-white/85">
+        <div className="mt-10 flex flex-col gap-9 leading-relaxed text-ink/85 dark:text-paper/85">
           {children}
         </div>
       </div>
@@ -44,7 +42,7 @@ export function LegalSection({
 }) {
   return (
     <section>
-      <h2 className="mb-2 font-display text-xl font-bold text-ink dark:text-white">
+      <h2 className="mb-2 font-display text-xl font-bold text-ink dark:text-paper">
         {title}
       </h2>
       {children}

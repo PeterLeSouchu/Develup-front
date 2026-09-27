@@ -21,6 +21,12 @@ export default {
           deep: '#7A5A00',
         },
         ink: '#1E1D1B',
+        night: {
+          DEFAULT: '#1A1917',
+          surface: '#24221F',
+          line: '#393631',
+          muted: '#A9A59C',
+        },
         paper: '#F5F5F2',
         line: '#E3E2DC',
         muted: '#66635C',

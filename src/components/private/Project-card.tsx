@@ -5,26 +5,31 @@ import defautlImage from '../../assets/images/default-project-image.jpg';
 
 function ProjectCard({ project }: { project: ProjectType }) {
   return (
-    <Link className="cursor-pointer" to={`/dashboard/project/${project.slug}`}>
-      <article className="bg-white2 dark:shadow-none dark:bg-slate-200 shadow-md h-99 w-72 rounded-lg flex flex-col relative hover:shadow-2xl hover:shadow-shadowGold hover:scale-101  hover:translate-y-[-7px] duration-200 ease-in-out ">
-        <span className="text-sm absolute right-2 top-2 p-1 bg-gold rounded-xl  dark:bg-darkgold ">
-          {project.rhythm}
-        </span>
-
-        <img
-          className="h-40 mx-auto w-full rounded-t-lg object-cover"
-          src={project.image || defautlImage}
-          alt={project.title}
-        />
-        <h3 className="text-2xl  my-3 line-clamp-2 break-words font-bold pl-3">
-          {project.title}
-        </h3>
-
-        <div className="p-3">
-          <p className=" text-sm line-clamp-6  my-3 break-words whitespace-pre-wrap ">
+    <Link
+      className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-pollen/60"
+      to={`/dashboard/project/${project.slug}`}
+    >
+      <article className="dv-surface flex h-full flex-col overflow-hidden transition duration-200 group-hover:-translate-y-1 group-hover:border-ink/20 group-hover:shadow-[0_24px_50px_-30px_rgba(30,29,27,0.45)] dark:group-hover:border-night-muted/40">
+        <div className="relative">
+          <img
+            className="aspect-[16/9] w-full object-cover"
+            src={project.image || defautlImage}
+            alt={project.title}
+          />
+          <span className="dv-rhythm absolute right-3 top-3 shadow-sm">
+            {project.rhythm}
+          </span>
+        </div>
+        <div className="flex flex-1 flex-col p-5">
+          <h3 className="line-clamp-2 break-words font-display text-xl font-bold leading-tight">
+            {project.title}
+          </h3>
+          <p className="dv-muted mt-2 line-clamp-3 whitespace-pre-wrap break-words text-sm leading-relaxed">
             {project.description}
           </p>
-          {TechnoLogoDisplay(project.techno)}
+          <div className="mt-auto pt-5">
+            {TechnoLogoDisplay(project.techno)}
+          </div>
         </div>
       </article>
     </Link>

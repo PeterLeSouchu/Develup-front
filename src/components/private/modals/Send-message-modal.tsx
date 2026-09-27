@@ -1,12 +1,10 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../../store';
 import BackError from '../../all/errors/Back-error';
+import ModalShell from '../ui/Modal-shell';
 import { SendMessageModalType } from '../../../types';
 
 function SendMessageModal({
@@ -56,55 +54,41 @@ function SendMessageModal({
   }
 
   return (
-    <div
-      aria-label="close modal"
-      onKeyDown={() => setModal(false)}
-      role="button"
-      tabIndex={0}
-      className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center cursor-default"
-      onClick={() => setModal(false)}
+    <ModalShell
+      title="Contacter l'auteur"
+      onClose={() => setModal(false)}
+      size="sm"
     >
-      <div
-        className="p-3 z-50 bg-white rounded-lg max-w-80 flex dark:text-black justify-center items-center flex-col shadow-2xl"
-        onClick={(event) => event.stopPropagation()}
-        onKeyDown={(event) => event.stopPropagation()}
-      >
-        <form className="p-4" onSubmit={(e) => handleSendMessage(e)}>
-          <BackError message={errorMessageBack} />
-          <div className="flex flex-col gap-2 mb-3 w-18">
-            <label className="text-center text-md mb-6" htmlFor="password">
-              Message :
-            </label>
-
-            <textarea
-              className="border-2 rounded-md border-none bg-slate-200  outline-none p-2 pr-10 resize-none w-full"
-              id="message"
-              placeholder="Envoyez-lui un message ..."
-              onChange={(e) => handlerChangeMessage(e)}
-              value={messageInput}
-            />
-            {errorMessageFront && (
-              <p className=" text-red-500 text-sm">{errorMessageFront}</p>
-            )}
-          </div>
-          <div className="flex items-center justify-center gap-4">
-            <button
-              type="button"
-              className="p-2 mt-5 bg-red-400  rounded-lg hover:bg-red-500 transition"
-              onClick={() => setModal(false)}
-            >
-              annuler
-            </button>
-            <button
-              type="submit"
-              className="p-2 mt-5 bg-green-400  rounded-lg hover:bg-green-500 transition"
-            >
-              envoyer
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+      <form onSubmit={(e) => handleSendMessage(e)}>
+        <BackError message={errorMessageBack} />
+        <label className="dv-label" htmlFor="message">
+          Votre message
+        </label>
+        <textarea
+          className="dv-input h-auto resize-none py-3 leading-relaxed"
+          id="message"
+          rows={5}
+          placeholder="Présentez-vous et dites ce qui vous intéresse dans ce projet"
+          onChange={(e) => handlerChangeMessage(e)}
+          value={messageInput}
+        />
+        {errorMessageFront && (
+          <p className="mt-1 text-sm text-red-600">{errorMessageFront}</p>
+        )}
+        <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+          <button
+            type="button"
+            className="dv-btn-ghost"
+            onClick={() => setModal(false)}
+          >
+            Annuler
+          </button>
+          <button type="submit" className="dv-btn-primary">
+            Envoyer
+          </button>
+        </div>
+      </form>
+    </ModalShell>
   );
 }
 
