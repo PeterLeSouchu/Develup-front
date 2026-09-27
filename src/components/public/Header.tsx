@@ -1,30 +1,19 @@
-import { FaHome } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 function Header() {
   return (
-    <header className=" md:text-lg flex items-center justify-center pt-6 h-10 min-h-14">
-      <nav className=" flex items-center rounded-2xl  bg-gradient-to-b  from-lightgold2 to-lightgold lg:w-headerLg md:w-headerMd border-r-2 border-b-2 border-shadowGold  ">
-        <Link to="/" className="  pl-4  flex-1 ">
-          <p className="text-black font-semibold  flex justify-center text-center items-center gap-2   rounded-l-full transition link-underline py-2  ">
-            <FaHome />
-            Accueil
-          </p>
-        </Link>
-
-        <Link
-          to="/login"
-          className="link-underline transition flex-1 min-w-36 text-center py-2"
-        >
-          Se connecter
-        </Link>
-
-        <Link
-          to="/signup"
-          className=" pr-4 flex-1 rounded-r-full text-center transition"
-        >
-          <p className="link-underline py-2">S&apos;inscrire</p>
-        </Link>
+    <header className="sticky top-0 z-30 border-b border-line/70 bg-paper/80 backdrop-blur-md">
+      <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+        <Logo to="/" />
+        <div className="flex items-center gap-1 sm:gap-2">
+          <Link to="/login" className="dv-btn-ghost h-[2.5rem] px-4">
+            Se connecter
+          </Link>
+          <Link to="/signup" className="dv-btn-primary h-[2.5rem] px-5">
+            S&apos;inscrire
+          </Link>
+        </div>
       </nav>
     </header>
   );

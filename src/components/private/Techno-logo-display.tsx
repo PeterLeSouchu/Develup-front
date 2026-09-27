@@ -7,9 +7,9 @@ function TechnoLogoDisplay(array: TechnologieType[]) {
   const extraImagesCount = array.length - displayLimit;
 
   return (
-    <div className="flex gap-2 items-center whitespace-nowrap absolute left-3 bottom-2 ">
+    <div className="flex items-center gap-1.5 whitespace-nowrap">
       {array.length === 0 ? (
-        <p className="text-sm">Aucune techno</p>
+        <p className="dv-muted text-sm">Aucune techno</p>
       ) : (
         array
           .slice(0, displayLimit)
@@ -18,12 +18,13 @@ function TechnoLogoDisplay(array: TechnologieType[]) {
               key={logo.id}
               src={logo.image}
               alt={logo.name}
-              className="w-9 h-9 my-2  rounded-xl object-contain bg-white2 p-1"
+              title={logo.name}
+              className="h-9 w-9 rounded-xl border border-line bg-white2 object-contain p-1.5 dark:border-night-line"
             />
           ))
       )}
       {extraImagesCount > 0 && (
-        <div className="w-6 h-6 my-2 bg-gray-200 dark:bg-gray-400 dark:text-white rounded-xl flex items-center justify-center text-xs text-gray-700">
+        <div className="grid h-9 min-w-9 place-items-center rounded-xl bg-paper px-2 text-xs font-semibold text-ink dark:bg-night-line dark:text-paper">
           +{extraImagesCount}
         </div>
       )}

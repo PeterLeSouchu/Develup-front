@@ -1,7 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { FaEdit } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
+import {
+  LuCalendar,
+  LuFolderKanban,
+  LuPencil,
+  LuPlus,
+  LuTrash2,
+} from 'react-icons/lu';
 import { useLoaderData } from 'react-router-dom';
 import { useSettingsStore } from '../../store';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
@@ -11,6 +16,7 @@ import CreateProjectModal from '../../components/private/modals/Create-project-m
 import ProjectCard from '../../components/private/Project-card';
 import formatDate from '../../utils/date-timestamp';
 import EditProjectModal from '../../components/private/modals/Edit-project-modal';
+import PageHeader from '../../components/private/ui/Page-header';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadPersonalProjects = async () => {
@@ -64,48 +70,75 @@ function MyProjects() {
   }
 
   return (
-    <div className="flex items-center justify-center h-full min-h-35 mx-auto dark:text-black">
-      <section className="flex sm:flex-row flex-col sm:gap-10 gap-24  h-full sm:overflow-x-auto w-full items-center md:pl-10  px-2">
-        {results?.length > 0 ? (
-          results?.map((result) => (
-            <div key={result.id}>
-              <div className="mb-4">
-                <div className="flex justify-around items-center w-28 mx-auto mb-4">
-                  <button
-                    type="button"
-                    className="  p-2 rounded-full bg-gold dark:bg-darkgold dark:hover:bg-gold hover:scale-125 hover:bg-darkgold transition "
-                    onClick={() => handleEditModal(result.slug)}
-                  >
-                    <FaEdit className="text-2xl  " />
-                  </button>
-                  <button
-                    type="button"
-                    className="  p-2 rounded-full bg-gold dark:bg-darkgold dark:hover:bg-gold hover:scale-125 hover:bg-darkgold transition "
-                    onClick={() => handleDeleteModal(result.id)}
-                  >
-                    <MdDelete className="text-2xl  " />
-                  </button>
-                </div>
-                <p className=" text-xs italic  underline underline-offset-4 text-center dark:text-white2 ">
+    <div>
+      <PageHeader
+        title="Vos projets"
+        subtitle="Les projets que vous avez publiés sur Develup."
+        action={
+          <button
+            type="button"
+            className="dv-btn-primary"
+            onClick={handleCreateModal}
+          >
+            <LuPlus aria-hidden className="text-lg" />
+            Nouveau projet
+          </button>
+        }
+      />
+      {results?.length > 0 ? (
+        <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          {results?.map((result) => (
+            <div key={result.id} className="flex flex-col gap-2">
+              <ProjectCard project={result} />
+              <div className="flex items-center justify-between px-1">
+                <p className="dv-muted flex items-center gap-1.5 text-xs">
+                  <LuCalendar aria-hidden />
                   Le {formatDate(result.created_at)}
                 </p>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    className="dv-icon-btn"
+                    aria-label={`Modifier ${result.title}`}
+                    onClick={() => handleEditModal(result.slug)}
+                  >
+                    <LuPencil />
+                  </button>
+                  <button
+                    type="button"
+                    className="dv-icon-btn hover:!bg-[#FDF1EE] hover:!text-[#B23A26] dark:hover:!bg-[#3A241F] dark:hover:!text-[#F08E7C]"
+                    aria-label={`Supprimer ${result.title}`}
+                    onClick={() => handleDeleteModal(result.id)}
+                  >
+                    <LuTrash2 />
+                  </button>
+                </div>
               </div>
-              <ProjectCard project={result} />
             </div>
-          ))
-        ) : (
-          <p className="dark:text-white2">
+          ))}
+        </section>
+      ) : (
+        <div className="dv-surface flex flex-col items-center px-6 py-16 text-center">
+          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-pollen text-2xl text-ink">
+            <LuFolderKanban aria-hidden />
+          </span>
+          <p className="mt-5 font-display text-xl font-bold">
             Vous n&apos;avez pas encore créé de projet
           </p>
-        )}
-        <button
-          type="button"
-          className="text-6xl  dark:text-darkTheme text-center rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center bg-gold dark:bg-darkgold hover:scale-110 hover:bg-darkgold dark:hover:bg-gold transition text-black "
-          onClick={handleCreateModal}
-        >
-          +
-        </button>
-      </section>
+          <p className="dv-muted mt-1 max-w-sm">
+            Publiez votre idée pour trouver des développeurs prêts à la
+            construire avec vous.
+          </p>
+          <button
+            type="button"
+            className="dv-btn-primary mt-6"
+            onClick={handleCreateModal}
+          >
+            <LuPlus aria-hidden className="text-lg" />
+            Créer mon premier projet
+          </button>
+        </div>
+      )}
       {deleteModal && (
         <DeleteProjectModal
           setModal={setDeleteModal}

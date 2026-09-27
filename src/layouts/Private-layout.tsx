@@ -13,15 +13,13 @@ function PrivateLayout() {
   const { state } = useNavigation();
   return (
     <div className={`${darkTheme && 'dark'}`}>
-      <div className="flex sm:h-screen min-h-screen transition-colors duration-500 bg-white  dark:bg-darkTheme">
+      <div className="flex min-h-screen bg-paper font-body text-ink antialiased transition-colors duration-300 dark:bg-night dark:text-paper">
         {matches ? <HeaderMobile /> : <HeaderDesktop />}
 
         {globalErrorMessage ? (
           <GlobalError message={globalErrorMessage} />
         ) : (
-          <main
-            className={`dark:text-white overflow-scroll w-full  md:px-10 px-4 max-w-8 mx-auto   py-6 lg:pt-6 sm:pt-20 pt-24 lg:pb-6  flex-grow   `}
-          >
+          <main className="mx-auto w-full max-w-6xl flex-grow px-4 pb-10 pt-24 md:px-8 lg:pt-10">
             {state === 'loading' ? <Loader /> : <Outlet />}
           </main>
         )}

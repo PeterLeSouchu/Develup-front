@@ -6,7 +6,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import { BiSolidSend } from 'react-icons/bi';
+import { LuArrowLeft, LuSend } from 'react-icons/lu';
 import axios from 'axios';
 import axiosWithCSRFtoken from '../../utils/request/axios-with-csrf-token';
 import { useSettingsStore } from '../../store';
@@ -107,27 +107,34 @@ function Conversation() {
   }, [messages]);
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex-grow flex flex-col h-0">
-        <div className="flex justify-center items-center border-b-2 border-slate-300 pb-5">
+    <div className="dv-surface flex h-[calc(100dvh-8.5rem)] flex-col overflow-hidden lg:h-[calc(100dvh-5rem)]">
+      <div className="flex h-0 flex-grow flex-col">
+        <div className="flex items-center gap-3 border-b border-line px-4 py-3 dark:border-night-line sm:px-6">
+          <Link
+            to="/dashboard/conversation"
+            className="dv-icon-btn -ml-2 shrink-0"
+            aria-label="Retour aux conversations"
+          >
+            <LuArrowLeft />
+          </Link>
           <img
             src={conversation.image || imageDefaultProject}
-            alt="Profil"
-            className="w-20 h-14 object-cover rounded-lg mr-4"
+            alt=""
+            className="h-11 w-11 shrink-0 rounded-xl object-cover"
           />
-          <div className="truncate flex flex-col">
-            <h2 className="inline-block">
+          <div className="flex min-w-0 flex-col">
+            <h2 className="truncate">
               <Link
                 to={`/dashboard/project/${conversation.project_slug}`}
-                className="text-2xl truncate max-w-full hover:text-darkgold transition dark:hover:text-gold "
+                className="font-display text-lg font-bold underline-offset-4 hover:underline"
               >
                 {conversation.title}
               </Link>
             </h2>
-            <h3 className="inline-block">
+            <h3 className="truncate">
               <Link
                 to={`/dashboard/user/${conversation.user_slug}`}
-                className="text-md truncate max-w-full hover:text-darkgold transition dark:hover:text-gold "
+                className="dv-muted text-sm underline-offset-4 hover:underline"
               >
                 {conversation.pseudo}
               </Link>
@@ -137,34 +144,47 @@ function Conversation() {
 
         <div
           ref={messagesContainerRef}
-          className="lol overflow-y-auto flex-grow px-4 pt-4"
+          className="flex-grow overflow-y-auto bg-paper px-4 py-6 dark:bg-night sm:px-6"
         >
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex  my-8 flex-col  ${message.isMe ? 'items-end' : 'item-start'}  animate-fadeInSlideUp `}
+              className={`mb-5 flex flex-col ${message.isMe ? 'items-end' : 'items-start'} animate-fadeInSlideUp`}
             >
-              <p className="sm:max-w-72 max-w-36 w-fit flex-shrink-0  break-words md:text-base text-sm rounded-xl p-3 bg-lightgold dark:bg-shadowGold dark:text-black">
+              <p
+                className={`w-fit max-w-[80%] whitespace-pre-wrap break-words rounded-2xl px-4 py-2.5 text-[15px] leading-relaxed sm:max-w-md ${
+                  message.isMe
+                    ? 'rounded-br-md bg-pollen text-ink'
+                    : 'rounded-bl-md border border-line bg-white2 dark:border-night-line dark:bg-night-surface'
+                }`}
+              >
                 {message.content}
               </p>
-              <span className="text-xs mt-2 pl-3">{message.date}</span>
+              <span className="dv-muted mt-1.5 px-1 text-xs">
+                {message.date}
+              </span>
             </div>
           ))}
         </div>
       </div>
-      <form className="relative" onSubmit={(e) => handleSendMessage(e)}>
+      <form
+        className="flex items-center gap-2 border-t border-line p-3 dark:border-night-line"
+        onSubmit={(e) => handleSendMessage(e)}
+      >
         <input
           type="text"
-          className="w-full rounded-lg h-14 p-2 pr-10 dark:text-black outline-none"
-          placeholder="Envoyez un message ..."
+          className="dv-input rounded-full"
+          placeholder="Écrire un message"
+          aria-label="Message"
           value={inputValue}
           onChange={(e) => setinputValue(e.target.value)}
         />
         <button
           type="submit"
-          className="absolute right-0 top-1/2 -translate-y-1/2 p-3 dark:text-black"
+          aria-label="Envoyer le message"
+          className="dv-btn-primary h-12 w-12 shrink-0 px-0"
         >
-          <BiSolidSend />
+          <LuSend />
         </button>
       </form>
     </div>

@@ -1,10 +1,7 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { MdDelete } from 'react-icons/md';
-import { RxCross2 } from 'react-icons/rx';
+import { LuImagePlus, LuTrash2 } from 'react-icons/lu';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSettingsStore } from '../../../store';
 import {
@@ -17,6 +14,8 @@ import axiosWithCSRFtoken from '../../../utils/request/axios-with-csrf-token';
 import BackError from '../../all/errors/Back-error';
 import HookFormError from '../../all/errors/Hook-form-error';
 import LoaderWrapper from '../../all/loader/Loader-wrapper';
+import ModalShell from '../ui/Modal-shell';
+import TechnoPicker from '../ui/Techno-picker';
 import defautlImageUser from '../../../assets/images/default-user-image.png';
 import arrayComparison from '../../../utils/array-comparison';
 import profileEditSchema from '../../../security/form-validation/profile-edit-schema';
@@ -189,219 +188,158 @@ function EditProfileModal({ setModal, setResults }: EditProfileModalType) {
   }
 
   return (
-    <div
-      aria-label="close modal"
-      onKeyDown={() => setModal(false)}
-      role="button"
-      tabIndex={0}
-      className="fixed inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center cursor-default"
-      onClick={() => setModal(false)}
+    <ModalShell
+      title="Modifier mon profil"
+      onClose={() => setModal(false)}
+      size="lg"
     >
-      <div
-        className="p-4 z-50 overflow-y-scroll bg-white rounded-lg w-4/5 max-w-3xl  flex justify-center items-center flex-col h-4/5 max-h-35 dark:text-black shadow-2xl "
-        onClick={(event) => event.stopPropagation()}
-        onKeyDown={(event) => event.stopPropagation()}
-      >
-        <BackError message={errorMessage} />
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full h-full overflow-auto"
-        >
-          <LoaderWrapper>
-            <div className="flex md:items-center justify-around md:flex-row flex-col w-full">
-              <div className="flex flex-col items-center mb-7 md:pb-0 ">
-                <div className=" relative w-40 h-40 rounded-full overflow-hidden border-2 border-gray-300 flex items-center justify-center bg-gray-100">
-                  {imagePreview ? (
-                    <>
-                      <img
-                        src={imagePreview}
-                        alt="Prévisualisation"
-                        className="w-full h-full object-cover"
-                      />
-                      <button
-                        type="button"
-                        onClick={handleDeleteImage}
-                        className="absolute top-4 right-7 "
-                      >
-                        <MdDelete className="w-6 bg-white2 p-1 rounded-2xl h-6 hover:scale-125 transition" />
-                      </button>
-                    </>
-                  ) : (
-                    <img
-                      src={defautlImageUser}
-                      alt="Prévisualisation"
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                </div>
-                <label
-                  htmlFor="image"
-                  className="mt-4 px-4 py-2 bg-gold hover:bg-darkgold transition rounded-xl cursor-pointer"
-                >
-                  Choisir une image
-                </label>
-                <HookFormError
-                  error={errors.image}
-                  message={errors.image?.message}
-                />
-                <input
-                  type="file"
-                  id="image"
-                  className="hidden"
-                  accept="image/*"
-                  {...register('image')}
-                  onChange={(e) => handleChangeImage(e)}
-                />
-              </div>
-              <div className="flex flex-col gap-6">
-                <div className="flex  flex-col  gap-2">
-                  <label htmlFor="title">Pseudo</label>
-                  <input
-                    {...register('pseudo')}
-                    type="text"
-                    id="title"
-                    className="rounded-lg p-2 outline-none"
-                    placeholder="Entrez un titre"
-                  />
-                  <HookFormError
-                    error={errors.pseudo}
-                    message={errors.pseudo?.message}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="type">Choisissez un type</label>
-                  <select
-                    id="type"
-                    {...register('type')}
-                    className=" h-9 w-full mt-1  px-1 outline-none bg-transparent rounded-lg  bg-white2  "
-                  >
-                    <option value="Développeur">Développeur</option>
-                    <option value="Développeur junior">
-                      Développeur junior
-                    </option>
-                    <option value="Développeur Front-end">
-                      Développeur Front-end
-                    </option>
-                    <option value="Développeur Back-end">
-                      Développeur Back-end
-                    </option>
-                    <option value="Développeur Full-stack">
-                      Développeur Full-stack
-                    </option>
-                    <option value="Intégrateur web">Intégrateur web</option>
-                    <option value="Graphiste">Graphiste</option>
-                    <option value="Administrateur système">
-                      Administrateur système
-                    </option>
-                  </select>
-                  <HookFormError
-                    error={errors.type}
-                    message={errors.type?.message}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="relative flex-grow rounded-3xl my-8">
-              <p className="mb-2">
-                Selectionnez les technologies que vous maitrisez :
-              </p>
-              <div className="relative">
-                <input
-                  onChange={(e) => handleChangeInput(e)}
-                  value={inputTechnoValue}
-                  type="text"
-                  placeholder="Rechercher une techno"
-                  className="w-full p-2   outline-none  pl-2 rounded-lg"
-                />
-                {suggestTechno.length > 0 && (
+      <BackError message={errorMessage} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <LoaderWrapper>
+          <div className="grid gap-6 md:grid-cols-[11rem_1fr] md:items-start">
+            <div className="flex flex-col items-center gap-3">
+              <div className="relative h-40 w-40 overflow-hidden border border-line bg-paper dark:border-night-line dark:bg-night $rounded-full">
+                {imagePreview ? (
                   <>
-                    <div
-                      aria-label="close suggest techno"
-                      onKeyDown={() => setSuggestTechno([])}
-                      role="button"
-                      tabIndex={0}
-                      className="fixed inset-0 z-20   cursor-default"
-                      onClick={() => setSuggestTechno([])}
+                    <img
+                      src={imagePreview}
+                      alt="Prévisualisation"
+                      className="h-full w-full object-cover"
                     />
-                    <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md max-h-72  overflow-scroll ">
-                      {suggestTechno.map((suggestion: TechnologieType) => (
-                        <button
-                          onClick={() => handleAddTechno(suggestion)}
-                          type="button"
-                          className="dark:hover:bg-slate-200 hover:bg-white2 transition w-full flex items-center justify-start gap-2 p-1"
-                          key={suggestion.id}
-                        >
-                          <img
-                            src={suggestion.image} 
-                            alt={suggestion.name}
-                            className="w-12 h-12 p-1 bg-white2 rounded-xl"
-                          />
-                          {suggestion.name}
-                        </button>
-                      ))}
-                    </div>
+                    <button
+                      type="button"
+                      onClick={handleDeleteImage}
+                      aria-label="Supprimer l'image"
+                      className="absolute right-2 top-2 grid h-[2rem] w-8 place-items-center rounded-full bg-white2 text-ink shadow transition hover:bg-[#FDF1EE] hover:text-[#B23A26]"
+                    >
+                      <LuTrash2 />
+                    </button>
                   </>
+                ) : (
+                  <img
+                    src={defautlImageUser}
+                    alt="Prévisualisation"
+                    className="h-full w-full object-cover"
+                  />
                 )}
               </div>
-              {technoSelected.length > 0 && (
-                <div className="mt-4 p-2 rounded-3xl border-2 bg-white2 flex flex-wrap gap-2 ">
-                  {technoSelected.map((tech) => (
-                    <span
-                      key={tech.id}
-                      className="inline-flex items-center gap-1 p-2 rounded-3xl transition bg-slate-200"
-                    >
-                      {' '}
-                      <img
-                        src={tech.image}
-                        alt={tech.name}
-                        className="w-7 h-7 p-1  bg-white2 rounded-lg "
-                      />{' '}
-                      <p className="">{tech.name}</p>
-                      <button
-                        onClick={() => handleDeleteTechno(tech)}
-                        type="button"
-                        className="hover:bg-slate-300 rounded-3xl p-1"
-                      >
-                        <RxCross2 />
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="description">Description</label>
-              <textarea
-                {...register('description')}
-                name="description"
-                id="description"
-                className="rounded-lg resize-none outline-none p-3"
-                placeholder="Ajouter une description ..."
-              />
+              <label
+                htmlFor="image"
+                className="dv-btn-outline h-[2.5rem] w-full cursor-pointer whitespace-nowrap px-3 text-sm"
+              >
+                <LuImagePlus aria-hidden />
+                Choisir une image
+              </label>
               <HookFormError
-                error={errors.description}
-                message={errors.description?.message}
+                error={errors.image}
+                message={errors.image?.message}
+              />
+              <input
+                type="file"
+                id="image"
+                className="hidden"
+                accept="image/*"
+                {...register('image')}
+                onChange={(e) => handleChangeImage(e)}
               />
             </div>
-            <div className="flex items-center justify-center gap-4">
-              <button
-                type="button"
-                className="p-2 mt-5 bg-red-400  rounded-lg hover:bg-red-500 transition"
-                onClick={() => setModal(false)}
-              >
-                annuler
-              </button>
-              <button
-                type="submit"
-                className="p-2 mt-5 bg-green-400  rounded-lg hover:bg-green-500 transition"
-              >
-                Enregistrer
-              </button>
+            <div className="flex flex-col gap-5">
+              <div>
+                <label className="dv-label" htmlFor="title">
+                  Pseudo
+                </label>
+                <input
+                  {...register('pseudo')}
+                  type="text"
+                  id="title"
+                  className="dv-input"
+                  placeholder="Votre pseudo"
+                />
+                <HookFormError
+                  error={errors.pseudo}
+                  message={errors.pseudo?.message}
+                />
+              </div>
+              <div>
+                <label className="dv-label" htmlFor="type">
+                  Profil
+                </label>
+                <select
+                  id="type"
+                  {...register('type')}
+                  className="dv-input cursor-pointer"
+                >
+                  <option value="Développeur">Développeur</option>
+                  <option value="Développeur junior">Développeur junior</option>
+                  <option value="Développeur Front-end">
+                    Développeur Front-end
+                  </option>
+                  <option value="Développeur Back-end">
+                    Développeur Back-end
+                  </option>
+                  <option value="Développeur Full-stack">
+                    Développeur Full-stack
+                  </option>
+                  <option value="Intégrateur web">Intégrateur web</option>
+                  <option value="Graphiste">Graphiste</option>
+                  <option value="Administrateur système">
+                    Administrateur système
+                  </option>
+                </select>
+                <HookFormError
+                  error={errors.type}
+                  message={errors.type?.message}
+                />
+              </div>
             </div>
-          </LoaderWrapper>
-        </form>
-      </div>
-    </div>
+          </div>
+          <div className="mt-6">
+            <label className="dv-label" htmlFor="modal-techno">
+              Technologies que vous maîtrisez
+            </label>
+            <TechnoPicker
+              inputId="modal-techno"
+              inputValue={inputTechnoValue}
+              onInputChange={(e) => handleChangeInput(e)}
+              suggestions={suggestTechno}
+              onCloseSuggestions={() => setSuggestTechno([])}
+              onAdd={(tech) => handleAddTechno(tech)}
+              selected={technoSelected}
+              onDelete={(tech) => handleDeleteTechno(tech)}
+            />
+          </div>
+          <div className="mt-6">
+            <label className="dv-label" htmlFor="description">
+              Description
+            </label>
+            <textarea
+              {...register('description')}
+              name="description"
+              id="description"
+              rows={6}
+              className="dv-input h-auto resize-y py-3 leading-relaxed"
+              placeholder="Parlez de vous, de votre parcours et de ce que vous aimez construire"
+            />
+            <HookFormError
+              error={errors.description}
+              message={errors.description?.message}
+            />
+          </div>
+          <div className="mt-8 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+            <button
+              type="button"
+              className="dv-btn-ghost"
+              onClick={() => setModal(false)}
+            >
+              Annuler
+            </button>
+            <button type="submit" className="dv-btn-primary">
+              Enregistrer
+            </button>
+          </div>
+        </LoaderWrapper>
+      </form>
+    </ModalShell>
   );
 }
 export default EditProfileModal;

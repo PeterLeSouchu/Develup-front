@@ -6,6 +6,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useState } from 'react';
+import { LuCalendar, LuMessagesSquare } from 'react-icons/lu';
 import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token';
 import { useSettingsStore } from '../../store';
 import { ProjectType } from '../../types';
@@ -63,66 +64,71 @@ function ProjectDetails() {
   }
 
   return (
-    <div className="sm:px-10 px-3">
-      <div className="flex md:flex-row flex-col justify-around md:h-64 mb-14 mdmb-14">
-        <img
-          className=" md:mx-0  dark:bg-slate-200  rounded-lg   mx-auto md:max-w-96 md:mb-0 mb-10 object-cover"
-          src={project.image || defaultImageProject}
-          alt={project.title}
-        />
-        <div className="flex flex-col md:w-1/2 md:items-center justify-center gap-3 md:gap-7   dark:text-white2  rounded-lg md:max-w-xl">
-          <h1 className=" md:text-center w-full md:text-4xl text-4xl font-bol break-words">
-            {project.title}
-          </h1>
-          <p className="  rounded-xl  max-w-64 italic ">
-            Rythme : {project.rhythm}
-          </p>
-          <div className="flex items-center md:justify-center">
-            <h2 className=" underline underline-offset-4 mr-4 transition hover:text-darkgold2 dark:hover:text-gold ">
-              <Link to={`/dashboard/user/${project.user_slug}`}>
-                Par {project.ownProject ? 'vous' : project.pseudo}
-              </Link>
-            </h2>
+    <div>
+      <article className="dv-surface overflow-hidden">
+        <div className="grid md:grid-cols-[1.1fr_1fr]">
+          <img
+            className="aspect-[16/10] h-full w-full object-cover"
+            src={project.image || defaultImageProject}
+            alt={project.title}
+          />
+          <div className="flex flex-col justify-center gap-5 p-6 sm:p-8">
+            <span className="dv-rhythm self-start">{project.rhythm}</span>
+            <h1 className="break-words font-display text-3xl font-extrabold leading-tight tracking-[-0.02em] sm:text-4xl">
+              {project.title}
+            </h1>
+            <Link
+              to={`/dashboard/user/${project.user_slug}`}
+              className="dv-muted self-start text-sm underline-offset-4 transition hover:text-ink hover:underline dark:hover:text-paper"
+            >
+              Par{' '}
+              <span className="font-semibold text-ink dark:text-paper">
+                {project.ownProject ? 'vous' : project.pseudo}
+              </span>
+            </Link>
             {project.ownProject ? (
               ''
             ) : (
               <button
                 type="button"
-                className="rounded-lg p-2 bg-gold dark:bg-darkgold transition hover:bg-darkgold dark:hover:bg-gold dark:hover:text-black "
+                className="dv-btn-primary self-start"
                 onClick={handleDisplayModal}
               >
+                <LuMessagesSquare aria-hidden />
                 Contacter l&apos;auteur
               </button>
             )}
+            <p className="dv-muted flex items-center gap-1.5 text-xs">
+              <LuCalendar aria-hidden />
+              Publié le {formatDate(project.created_at)}
+            </p>
           </div>
         </div>
+      </article>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_20rem]">
+        <section className="dv-surface p-6 sm:p-8">
+          <h2 className="font-display text-lg font-bold">Le projet</h2>
+          <p className="mt-3 whitespace-pre-wrap break-words leading-relaxed">
+            {project.description}
+          </p>
+        </section>
+        <section className="dv-surface self-start p-6">
+          <h2 className="font-display text-lg font-bold">Technologies</h2>
+          {project.techno.length > 0 ? (
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {project.techno.map((techno) => (
+                <li key={techno.id} className="dv-chip">
+                  <img src={techno.image} alt="" className="dv-chip-logo" />
+                  {techno.name}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="dv-muted mt-3 text-sm">Aucune technologie</p>
+          )}
+        </section>
       </div>
-
-      {project.techno.length > 0 ? (
-        project.techno.map((techno) => (
-          <span
-            key={techno.id}
-            className="inline-flex items-center gap-1 px-3 py-2 dark:text-black mb-3 rounded-3xl transition bg-white2 dark:bg-slate-300 hover:op mr-3"
-          >
-            {' '}
-            <img
-              src={techno.image}
-              alt="nextjs"
-              className="w-9 h-9 p-1 bg-white2 rounded-lg "
-            />{' '}
-            <p>{techno.name}</p>
-          </span>
-        ))
-      ) : (
-        <p className="text-sm">Aucune technologie</p>
-      )}
-
-      <p className="mt-10 break-words whitespace-pre-wrap">
-        {project.description}
-      </p>
-      <p className=" text-sm italic text-slate-500 dark:text-white2 pt-10 underline underline-offset-8 ">
-        Le {formatDate(project.created_at)}
-      </p>
       {messageModal && (
         <SendMessageModal
           setModal={setMessageModal}

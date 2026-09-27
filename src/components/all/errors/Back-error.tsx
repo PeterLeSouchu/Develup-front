@@ -4,8 +4,8 @@ import { BackErrorType } from '../../../types';
 function BackError({ message }: BackErrorType) {
   return (
     message && (
-      <div className="flex items-center text-red-700 bg-red-50 border border-red-300 rounded-lg p-4 shadow-sm my-4">
-        <MdErrorOutline className="text-red-600 h-5 w-5 mr-2" />
+      <div className="my-4 flex items-center rounded-xl border border-red-200 bg-red-50 p-3 text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300">
+        <MdErrorOutline className="mr-2 h-5 w-5 shrink-0" />
         <p className="text-sm font-medium">{message}</p>
       </div>
     )

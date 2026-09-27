@@ -6,10 +6,10 @@ import { MdOutlineRemoveRedEye } from 'react-icons/md';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FormSignupType } from '../../types';
-import image from '../../assets/images/logo.png';
 import { useUserStore, useSettingsStore } from '../../store';
 import handleChangeTypePassword from '../../utils/password-visibility';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
+import AuthShell from '../../components/public/Auth-shell';
 import HookFormError from '../../components/all/errors/Hook-form-error';
 import signupSchema from '../../security/form-validation/signup-schema';
 import otpCodeSchema from '../../security/form-validation/otp-code-schema';
@@ -89,166 +89,183 @@ function Signup() {
 
   return (
     <LoaderWrapper>
-      <div className="flex items-center justify-center p-10 min-h-80 ">
-        <div className="border-2 border-lightgold shadow-xl rounded-lg bg-white w-5/12 min-w-80 max-w-lg p-4 flex flex-col items-center ">
-          <img
-            className="w-1/4 min-w-36"
-            src={image}
-            alt="Logo-entier-Develup"
-          />
-          {/* {otpModal ? ( */}
-          {/* <div>
-              <form
-                className="flex flex-col items-center"
-                onSubmit={handleSubmitOtp(onSubmitOTP)}
+      <AuthShell
+        title="Créer un compte"
+        subtitle="Rejoignez des projets ou lancez le vôtre, gratuitement."
+        footer={
+          <>
+            Déjà inscrit ?{' '}
+            <Link to="/login" className="dv-link">
+              Se connecter
+            </Link>
+          </>
+        }
+      >
+        {/* {otpModal ? ( */}
+        {/* <div>
+            <form
+              className="flex flex-col items-center"
+              onSubmit={handleSubmitOtp(onSubmitOTP)}
+            >
+              <BackError message={errorMessage} />
+              <div className="flex flex-col gap-2 my-3 w-18">
+                <label className="text-md" htmlFor="otp">
+                  Entrez le code OTP reçu par mail
+                </label>
+                <input
+                  className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
+                  type="text"
+                  id="otp"
+                  placeholder="Entrez le code OTP"
+                  {...registerOtp('userOTPcode')}
+                />
+                <HookFormError
+                  error={errorOtp.userOTPcode}
+                  message={errorOtp.userOTPcode?.message}
+                />
+              </div>
+              <button
+                className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
+                type="submit"
               >
-                <BackError message={errorMessage} />
-                <div className="flex flex-col gap-2 my-3 w-18">
-                  <label className="text-md" htmlFor="otp">
-                    Entrez le code OTP reçu par mail
-                  </label>
-                  <input
-                    className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
-                    type="text"
-                    id="otp"
-                    placeholder="Entrez le code OTP"
-                    {...registerOtp('userOTPcode')}
-                  />
-                  <HookFormError
-                    error={errorOtp.userOTPcode}
-                    message={errorOtp.userOTPcode?.message}
-                  />
-                </div>
-                <button
-                  className="p-2 rounded-3xl bg-gold hover:bg-darkgold hover:text-white transition"
-                  type="submit"
-                >
-                  Valider
-                </button>
-              </form>
-            </div>
-          ) : ( */}
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col items-center"
-          >
-            <BackError message={errorMessage} />
-            <div className="flex flex-col gap-2 my-3 w-18">
-              <label className="text-md" htmlFor="email">
-                E-mail
-              </label>
+                Valider
+              </button>
+            </form>
+          </div>
+        ) : ( */}
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+          <BackError message={errorMessage} />
+          <div>
+            <label className="dv-label" htmlFor="email">
+              E-mail
+            </label>
+            <input
+              className="dv-input"
+              type="email"
+              id="email"
+              autoComplete="email"
+              placeholder="vous@exemple.com"
+              {...register('email')}
+            />
+            <HookFormError
+              error={errors.email}
+              message={errors.email?.message}
+            />
+          </div>
+          <div>
+            <label className="dv-label" htmlFor="pseudo">
+              Pseudo
+            </label>
+            <input
+              className="dv-input"
+              type="text"
+              id="pseudo"
+              autoComplete="username"
+              placeholder="Le nom visible par les autres membres"
+              {...register('pseudo')}
+            />
+            <HookFormError
+              error={errors.pseudo}
+              message={errors.pseudo?.message}
+            />
+          </div>
+          <div>
+            <label className="dv-label" htmlFor="password">
+              Mot de passe
+            </label>
+            <div className="relative">
               <input
-                className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
-                type="email"
-                id="email"
-                placeholder="Entrez votre adresse mail"
-                {...register('email')}
+                className="dv-input pr-12"
+                type={typePassword}
+                id="password"
+                autoComplete="new-password"
+                placeholder="Choisissez un mot de passe"
+                {...register('password')}
               />
-              <HookFormError
-                error={errors.email}
-                message={errors.email?.message}
-              />
+              <button
+                type="button"
+                aria-label={
+                  typePassword === 'password'
+                    ? 'Afficher le mot de passe'
+                    : 'Masquer le mot de passe'
+                }
+                onClick={() => handleChangeTypePassword(setTypePassword)}
+                className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-muted hover:bg-ink/5 hover:text-ink"
+              >
+                {typePassword === 'password' ? (
+                  <MdOutlineRemoveRedEye className="h-5 w-5" />
+                ) : (
+                  <IoEyeOffOutline className="h-5 w-5" />
+                )}
+              </button>
             </div>
-            <div className="flex flex-col gap-2 mb-3 w-18">
-              <label className="text-md" htmlFor="pseudo">
-                Pseudo
-              </label>
+            <HookFormError
+              error={errors.password}
+              message={errors.password?.message}
+            />
+          </div>
+          <div>
+            <label className="dv-label" htmlFor="confirm-password">
+              Confirmation du mot de passe
+            </label>
+            <div className="relative">
               <input
-                className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10"
-                type="text"
-                id="pseudo"
-                placeholder="Entrez votre pseudo"
-                {...register('pseudo')}
+                className="dv-input pr-12"
+                type={typeConfirmPassword}
+                id="confirm-password"
+                autoComplete="new-password"
+                placeholder="Saisissez-le à nouveau"
+                {...register('passwordConfirm')}
               />
-              <HookFormError
-                error={errors.pseudo}
-                message={errors.pseudo?.message}
-              />
+              <button
+                type="button"
+                aria-label={
+                  typeConfirmPassword === 'password'
+                    ? 'Afficher le mot de passe'
+                    : 'Masquer le mot de passe'
+                }
+                onClick={() => handleChangeTypePassword(setTypeConfirmPassword)}
+                className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-lg text-muted hover:bg-ink/5 hover:text-ink"
+              >
+                {typeConfirmPassword === 'password' ? (
+                  <MdOutlineRemoveRedEye className="h-5 w-5" />
+                ) : (
+                  <IoEyeOffOutline className="h-5 w-5" />
+                )}
+              </button>
             </div>
-            <div className="flex flex-col gap-2 mb-3 w-18 ">
-              <label className="text-md" htmlFor="password">
-                Mot de passe
-              </label>
-              <div className="relative">
-                <input
-                  className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full"
-                  type={typePassword}
-                  id="password"
-                  placeholder="Entrez votre mot de passe"
-                  {...register('password')}
-                />
-                <button
-                  type="button"
-                  onClick={() => handleChangeTypePassword(setTypePassword)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
-                >
-                  {typePassword === 'password' ? (
-                    <MdOutlineRemoveRedEye className="h-5 w-5 text-gray-500" />
-                  ) : (
-                    <IoEyeOffOutline className="h-5 w-5 text-gray-500" />
-                  )}
-                </button>
-              </div>
-              <HookFormError
-                error={errors.password}
-                message={errors.password?.message}
+            <HookFormError
+              error={errors.passwordConfirm}
+              message={errors.passwordConfirm?.message}
+            />
+          </div>
+          <div>
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="cgu"
+                className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer rounded accent-ink"
+                {...register('cgu')}
               />
-            </div>
-            <div className="flex flex-col gap-2 mb-3 w-18 ">
-              <label className="text-md" htmlFor="confirm-password">
-                Confirmation du mot de passe
-              </label>
-              <div className="relative">
-                <input
-                  className="border-2 rounded-md border-none bg-slate-200 outline-none p-2 pr-10 w-full "
-                  type={typeConfirmPassword}
-                  id="confirm-password"
-                  placeholder="Entrez votre mot de passe"
-                  {...register('passwordConfirm')}
-                />
-                <button
-                  type="button"
-                  onClick={() =>
-                    handleChangeTypePassword(setTypeConfirmPassword)
-                  }
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
-                >
-                  {typeConfirmPassword === 'password' ? (
-                    <MdOutlineRemoveRedEye className="h-5 w-5 text-gray-500" />
-                  ) : (
-                    <IoEyeOffOutline className="h-5 w-5 text-gray-500" />
-                  )}
-                </button>
-              </div>
-              <HookFormError
-                error={errors.passwordConfirm}
-                message={errors.passwordConfirm?.message}
-              />
-            </div>
-            <div className="mb-5 flex max-w-80">
-              <input type="checkbox" id="cgu" {...register('cgu')} />
-              <label htmlFor="cgu" className="ml-3 ">
+              <label htmlFor="cgu" className="text-sm leading-snug text-ink">
                 J&apos;accepte les{' '}
                 <Link
                   to="/general-conditions-of-use"
                   target="blank"
-                  className="underline"
+                  className="dv-link"
                 >
                   conditions générales d&apos;utilisation
                 </Link>
               </label>
             </div>
             <HookFormError error={errors.cgu} message={errors.cgu?.message} />
-            <button
-              className="p-2 rounded-3xl bg-gold hover:bg-darkgold  transition"
-              type="submit"
-            >
-              S&apos;inscrire
-            </button>
-          </form>
-          {/* )} */}
-        </div>
-      </div>
+          </div>
+          <button className="dv-btn-primary mt-2 w-full" type="submit">
+            S&apos;inscrire
+          </button>
+        </form>
+        {/* )} */}
+      </AuthShell>
     </LoaderWrapper>
   );
 }

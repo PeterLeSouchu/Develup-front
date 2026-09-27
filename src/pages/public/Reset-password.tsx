@@ -131,10 +131,23 @@
 
 // export default ResetPassword;
 
+import { Link } from 'react-router-dom';
+
 function ResetPassword() {
   return (
-    <div className="flex items-center justify-center p-10 min-h-80">
-      <h1>Indisponible pour le moment</h1>
+    <div className="flex justify-center px-4 py-20 sm:px-6">
+      <div className="w-full max-w-md rounded-[1.75rem] border border-line bg-white2 p-8 text-center sm:p-10">
+        <h1 className="font-display text-3xl font-extrabold tracking-tight text-ink">
+          Indisponible pour le moment
+        </h1>
+        <p className="mt-3 leading-relaxed text-muted">
+          La réinitialisation du mot de passe par e-mail n&apos;est pas active
+          en production.
+        </p>
+        <Link to="/login" className="dv-btn-primary mt-8">
+          Retour à la connexion
+        </Link>
+      </div>
     </div>
   );
 }

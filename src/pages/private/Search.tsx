@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useLoaderData } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
-import { RxCross2 } from 'react-icons/rx';
 import {
   TechnologieType,
   ProjectType,
@@ -12,6 +11,9 @@ import axiosWithoutCSRFtoken from '../../utils/request/axios-without-csrf-token'
 import { useSettingsStore } from '../../store';
 import ProjectCard from '../../components/private/Project-card';
 import LoaderWrapper from '../../components/all/loader/Loader-wrapper';
+import PageHeader from '../../components/private/ui/Page-header';
+import TechnoPicker from '../../components/private/ui/Techno-picker';
+import RhythmOptions from '../../components/private/ui/Rhythm-options';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const loadProjectsAndTechnos = async () => {
@@ -153,131 +155,51 @@ function Search() {
   }
 
   return (
-    <div className="dark:text-black">
+    <div>
+      <PageHeader
+        title="Trouver un projet"
+        subtitle="Filtrez par techno et par temps disponible chaque semaine."
+        action={null}
+      />
       <form
-        className="min-h-12    w-3/4 m-auto  sm:bg-white2 sm:dark:bg-slate-200 sm:border-2 rounded-3xl items-center  max-w-4xl min-w-80   "
+        className="dv-surface grid gap-3 p-3 md:grid-cols-[1fr_16rem_auto] md:items-start"
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className=" block sm:hidden mb-2 mt-4 dark:bg-slate-200 bg-white2 border-2 rounded-3xl p-1 ">
-          <select
-            onChange={(e) => handleChangeRhythm(e)}
-            className="h-full w-full p-2 outline-none bg-transparent rounded-r-3xl"
-            value={inputRhythmValue}
-          >
-            <option value="">Choisir un rythme</option>
-            <option value="1 à 2h/semaine">1 à 2h/semaine</option>
-            <option value="2 à 3h/semaine">2 à 3h/semaine</option>
-            <option value="3 à 5h/semaine">3 à 5h/semaine</option>
-            <option value="5 à 8h/semaine">5 à 8h/semaine</option>
-            <option value="8 à 12h/semaine">8 à 12h/semaine</option>
-            <option value="12 à 15h/semaine">12 à 15h/semaine</option>
-            <option value="15 à 20h/semaine">15 à 20h/semaine</option>
-            <option value="20 à 25h/semaine">20 à 25h/semaine</option>
-            <option value="25 à 30h/semaine">25 à 30h/semaine</option>
-            <option value="30 à 35h/semaine">30 à 35h/semaine</option>
-            <option value="+ 35h/semaine">+ 35h/semaine</option>
-          </select>
-        </div>
-        <div className="flex flex-row h-full sm:m-0 mt-2   items-center bg-white2 sm:bg-transparent dark:bg-slate-200 sm:border-none border-2 rounded-3xl  ">
-          <div className="relative flex-grow rounded-3xl p-1">
-            <input
-              onChange={(e) => handleChangeInput(e)}
-              value={inputTechnoValue}
-              type="text"
-              placeholder="Rechercher une techno"
-              className="h-full w-full p-2  outline-none bg-transparent pl-3 rounded-l-3xl"
-            />
-            {suggestTechno.length > 0 && (
-              <>
-                <div
-                  aria-label="close suggest techno"
-                  onKeyDown={() => setSuggestTechno([])}
-                  role="button"
-                  tabIndex={0}
-                  className="fixed inset-0 z-20   cursor-default"
-                  onClick={() => setSuggestTechno([])}
-                />
-                <div className="absolute top-full left-0 z-30  p-2  w-full mt-1 dark:bg-white2 bg-slate-300  rounded-md shadow-md  max-h-72 overflow-scroll ">
-                  {suggestTechno.map((suggestion: TechnologieType) => (
-                    <button
-                      onClick={() => handleAddTechno(suggestion)}
-                      type="button"
-                      className="dark:hover:bg-slate-200 hover:bg-white2 transition w-full flex items-center justify-start gap-2 p-1"
-                      key={suggestion.id}
-                    >
-                      <img
-                        src={suggestion.image}
-                        alt={suggestion.name}
-                        className="w-12 h-12 p-1 bg-white2 rounded-xl"
-                      />
-                      {suggestion.name}
-                    </button>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-          <span className="w-px h-11 bg-gray-300 hidden sm:block  dark:bg-slate-400 " />
-          <div className="ml-2 flex-grow hidden sm:block">
-            <select
-              onChange={(e) => handleChangeRhythm(e)}
-              className="h-full w-full p-2 outline-none bg-transparent rounded-r-3xl"
-              value={inputRhythmValue}
-            >
-              <option value="">Choisir un rythme</option>
-              <option value="1 à 2h/semaine">1 à 2h/semaine</option>
-              <option value="2 à 3h/semaine">2 à 3h/semaine</option>
-              <option value="3 à 5h/semaine">3 à 5h/semaine</option>
-              <option value="5 à 8h/semaine">5 à 8h/semaine</option>
-              <option value="8 à 12h/semaine">8 à 12h/semaine</option>
-              <option value="12 à 15h/semaine">12 à 15h/semaine</option>
-              <option value="15 à 20h/semaine">15 à 20h/semaine</option>
-              <option value="20 à 25h/semaine">20 à 25h/semaine</option>
-              <option value="25 à 30h/semaine">25 à 30h/semaine</option>
-              <option value="30 à 35h/semaine">30 à 35h/semaine</option>
-              <option value="+ 35h/semaine">+ 35h/semaine</option>
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="ml-2 px-2 h-12 hover:bg-slate-300 rounded-r-full dark:hover:text-white2 dark:hover:bg-slate-400 transition "
-            aria-label="Valider la recherche"
-          >
-            <IoSearch />
-          </button>
-        </div>
+        <TechnoPicker
+          inputId="search-techno"
+          inputValue={inputTechnoValue}
+          onInputChange={(e) => handleChangeInput(e)}
+          suggestions={suggestTechno}
+          onCloseSuggestions={() => setSuggestTechno([])}
+          onAdd={(tech) => handleAddTechno(tech)}
+          selected={technoSelected}
+          onDelete={(tech) => handleDeleteTechno(tech)}
+        />
+        <select
+          onChange={(e) => handleChangeRhythm(e)}
+          className="dv-input cursor-pointer"
+          value={inputRhythmValue}
+          aria-label="Rythme"
+        >
+          <RhythmOptions />
+        </select>
+        <button
+          type="submit"
+          className="dv-btn-primary"
+          aria-label="Valider la recherche"
+        >
+          <IoSearch />
+          <span>Rechercher</span>
+        </button>
       </form>
       {errorMessage && (
-        <p className="text-red-400 mt-1 text-center">{errorMessage}</p>
-      )}
-      {technoSelected.length > 0 && (
-        <div className="mt-4  p-2 w-3/4 dark:border-white2  mx-auto max-w-4xl min-w-80 rounded-3xl border-2 bg-white2 dark:bg-slate-200 overflow-x-auto whitespace-nowrap">
-          {technoSelected.map((tech) => (
-            <span
-              key={tech.id}
-              className="inline-flex items-center gap-1 p-2 rounded-3xl transition bg-slate-200 dark:bg-white2 hover:op mr-2"
-            >
-              {' '}
-              <img
-                src={tech.image}
-                alt={tech.name}
-                className="w-7 h-7 p-1  bg-white2 rounded-lg "
-              />{' '}
-              <p className="hidden sm:block">{tech.name}</p>
-              <button
-                onClick={() => handleDeleteTechno(tech)}
-                type="button"
-                className="hover:bg-slate-300 rounded-3xl p-1"
-              >
-                <RxCross2 />
-              </button>
-            </span>
-          ))}
-        </div>
+        <p className="mt-3 text-sm font-medium text-[#B23A26] dark:text-[#F08E7C]">
+          {errorMessage}
+        </p>
       )}
 
       {isASearch && (
-        <p className="text-center mt-5 dark:text-white">
+        <p className="dv-muted mt-6 text-sm font-medium">
           {results.length > 0
             ? `${results.length} résultat${results.length > 1 ? 's' : ''}`
             : 'Aucun résultat'}
@@ -285,7 +207,7 @@ function Search() {
       )}
 
       <LoaderWrapper>
-        <section className="flex justify-center mt-12 gap-8 flex-wrap ">
+        <section className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {results?.length > 0 &&
             results?.map((result) => (
               <ProjectCard key={result.id} project={result} />

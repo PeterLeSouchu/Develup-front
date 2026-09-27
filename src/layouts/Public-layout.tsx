@@ -7,10 +7,10 @@ function PublicLayout() {
   return (
     <>
       <ScrollToTop />
-      <div className="bg-grid-pattern overflow-hidden">
+      <div className="dv-dots flex min-h-screen flex-col font-body text-ink antialiased">
         <Header />
 
-        <main className="min-h-8">
+        <main className="flex-1">
           <Outlet />
         </main>
 
